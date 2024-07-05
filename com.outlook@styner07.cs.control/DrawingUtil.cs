@@ -85,5 +85,24 @@ namespace com.outlook_styner07.cs.control
             ret.CloseAllFigures();
             return ret;
         }
+
+        public static GraphicsPath GetRoundRectPath(Rectangle rect, SizeF textSize, int radius)
+        {
+            PointF pointLeftTop = new PointF(rect.X, rect.Y);
+
+            PointF pointRightTop = new PointF(rect.X + rect.Width - radius - 1, rect.Y);
+
+            PointF pointRightBottom = new PointF(rect.X + rect.Width - radius - 1, (rect.Y + rect.Height - radius - 1));
+
+            PointF pointLeftBottom = new PointF(rect.X, (rect.Y + rect.Height - radius - 1));
+
+            GraphicsPath ret = new GraphicsPath();
+            ret.AddArc(pointLeftTop.X, pointLeftTop.Y, radius, radius, 180, 90);
+            ret.AddArc(pointRightTop.X, pointRightTop.Y, radius, radius, 270, 90);
+            ret.AddArc(pointRightBottom.X, pointRightBottom.Y, radius, radius, 0, 90);
+            ret.AddArc(pointLeftBottom.X, pointLeftBottom.Y, radius, radius, 90, 90);
+            ret.CloseAllFigures();
+            return ret;
+        }
     }
 }

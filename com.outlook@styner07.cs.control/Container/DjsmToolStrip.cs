@@ -61,7 +61,7 @@ namespace com.outlook_styner07.cs.control.Container
         {
             if (readyToDrag)
             {
-                DraggableWindow.DoDragWindow(Parent.Handle);
+                WindowUtil.DoDragWindow(Parent.Handle);
             }
             base.OnMouseMove(mea);
         }

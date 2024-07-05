@@ -2,7 +2,7 @@
 
 namespace com.outlook_styner07.cs.control
 {
-    public class DraggableWindow
+    public class WindowUtil
     {
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -47,6 +47,18 @@ namespace com.outlook_styner07.cs.control
         public static void MinimizedWindow(IntPtr handle)
         {
             ShowWindowAsync(handle, SW_MINIMIZE);
+        }
+
+        public static void SelectMonitor(Form window, int monitorIndex)
+        {
+            if (Screen.AllScreens.Length > monitorIndex)
+            {
+                Screen targetScreen = Screen.AllScreens[monitorIndex];
+                window.StartPosition = FormStartPosition.Manual;
+                window.Location = targetScreen.Bounds.Location;
+
+                window.Size = targetScreen.Bounds.Size;
+            }
         }
     }
 }
