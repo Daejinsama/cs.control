@@ -78,6 +78,11 @@ namespace com.outlook_styner07.cs.control.Button
             }
 
             TextRenderer.DrawText(g, Text, Font, drawingArea, ForeColor, DrawingUtil.GetTextFormatFlag(TextAlign));
+
+            if (Image != null)
+            {
+                g.DrawImage(Image, (ClientRectangle.Width - Image.Width) / 2, (ClientRectangle.Height - Image.Height) / 2);
+            }
         }
 
         protected override void OnBackColorChanged(EventArgs e)

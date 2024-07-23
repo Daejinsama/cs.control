@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <Compile Update="Button\DjsmCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Button\DjsmButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Button\DjsmRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Button\DjsmToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Common\DjsmCalendar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmBlockTitleGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmCheckGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmCheckGroupBoxNew.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmRadioGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmSeparatorLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmSplitContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmSplitter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\DjsmToolStripControlHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Container\ToolStripSpringTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Data\DataGridViewNumericUpDownEditingControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Data\DjsmDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Data\DjsmListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Data\DjsmPropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="DjsmLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="DjsmTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Gauge\DjsmIndicator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Gauge\DjsmLifeTimeGauge.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Gauge\DjsmProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

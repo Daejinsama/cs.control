@@ -49,7 +49,7 @@ namespace com.outlook_styner07.cs.control
             ShowWindowAsync(handle, SW_MINIMIZE);
         }
 
-        public static void SelectMonitor(Form window, int monitorIndex)
+        public static void SelectMonitor(Form window, int monitorIndex, bool maximize = true)
         {
             if (Screen.AllScreens.Length > monitorIndex)
             {
@@ -57,7 +57,10 @@ namespace com.outlook_styner07.cs.control
                 window.StartPosition = FormStartPosition.Manual;
                 window.Location = targetScreen.Bounds.Location;
 
-                window.Size = targetScreen.Bounds.Size;
+                if (maximize)
+                {
+                    window.Size = targetScreen.Bounds.Size;
+                }
             }
         }
     }
