@@ -75,7 +75,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Gauge\DjsmIndicator.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Update="Gauge\DjsmLifeTimeGauge.cs">
       <SubType>UserControl</SubType>
