@@ -29,6 +29,9 @@
     <Compile Update="Container\DjsmGroupBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Container\DjsmImagePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Container\DjsmPanel.cs">
       <SubType>Component</SubType>
     </Compile>
