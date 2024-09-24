@@ -172,9 +172,9 @@ namespace com.outlook_styner07.cs.control.Container
             {
                 _imagePosition.X = Width < _newWidth ? 0 : (Width - _newWidth) / 2;
                 _imagePosition.Y = Height < _newHeight ? 0 : (Height - _newHeight) / 2;
-
-                Invalidate();
             }
+
+            Invalidate();
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
