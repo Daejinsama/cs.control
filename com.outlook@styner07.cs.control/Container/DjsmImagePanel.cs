@@ -131,6 +131,8 @@ namespace com.outlook_styner07.cs.control.Container
             _drawCrossLine = draw;
             _crossLineColor = lineColor;
             _crossLineWidth = lineWidth;
+
+            Invalidate();
         }
 
         protected override void OnPaint(PaintEventArgs e)
