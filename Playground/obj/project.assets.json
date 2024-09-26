@@ -1,0 +1,102 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0-windows7.0": {
+      "com.outlook@styner07.cs.control/23.9.24.3": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/com.outlook@styner07.cs.control.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/com.outlook@styner07.cs.control.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      }
+    }
+  },
+  "libraries": {
+    "com.outlook@styner07.cs.control/23.9.24.3": {
+      "type": "project",
+      "path": "../com.outlook@styner07.cs.control/com.outlook@styner07.cs.control.csproj",
+      "msbuildProject": "../com.outlook@styner07.cs.control/com.outlook@styner07.cs.control.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0-windows7.0": [
+      "com.outlook@styner07.cs.control >= 23.9.24.3"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\asuspc\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Playground.csproj",
+      "projectName": "Playground",
+      "projectPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Playground.csproj",
+      "packagesPath": "C:\\Users\\asuspc\\.nuget\\packages\\",
+      "outputPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\asuspc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "projectReferences": {
+            "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
+              "projectPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net8.0-windows7.0": {
+        "targetAlias": "net8.0-windows",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

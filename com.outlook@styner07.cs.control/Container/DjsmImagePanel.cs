@@ -1,4 +1,5 @@
-﻿using System.Drawing.Imaging;
+﻿using System.Diagnostics;
+using System.Drawing.Imaging;
 
 namespace com.outlook_styner07.cs.control.Container
 {
@@ -6,8 +7,16 @@ namespace com.outlook_styner07.cs.control.Container
     {
         private const int CROSSLINE_MARGIN = 10;
 
+        private const string CONTEXT_NAME_ZOOM_SCALE_1 = "x 0.1";
+        private const string CONTEXT_NAME_ZOOM_SCALE_05 = "x 0.05";
+        private const string CONTEXT_NAME_ZOOM_SCALE_01 = "x 0.01";
+
+        private const string CONTEXT_NAME_RESET = "Reset";
         private const string CONTEXT_NAME_SAVE_IMAGE = "Save Image";
-        private const string CONTEXT_NAME_RESET_ZOOM = "Reset Zoom";
+
+        private const float ZOOM_SCALE_1 = 0.1f;
+        private const float ZOOM_SCALE_05 = 0.05f;
+        private const float ZOOM_SCALE_01 = 0.01f;
 
         private readonly string IMAGE_FORMAT_BMP = nameof(ImageFormat.Bmp);
         private readonly string IMAGE_FORMAT_JPG = nameof(ImageFormat.Jpeg);
@@ -19,7 +28,9 @@ namespace com.outlook_styner07.cs.control.Container
         private int _newWidth;
         private int _newHeight;
 
+        private float _zoomScale = ZOOM_SCALE_1;
         private float _zoomFactor = 1.0f;
+
         private Point _imagePosition = new Point(0, 0);  // 이미지 초기 위치
         private Point _mouseDownPosition;
         private bool _isPanning = false;
@@ -28,6 +39,11 @@ namespace com.outlook_styner07.cs.control.Container
         private Color _crossLineColor = Color.Red;
         private int _crossLineWidth = 1;
 
+        private ContextMenuStrip _ctxMenu;
+        private ToolStripMenuItem _ctxMenuZoomScale1;
+        private ToolStripMenuItem _ctxMenuZoomScale05;
+        private ToolStripMenuItem _ctxMenuZoomScale01;
+
         private bool _contextMenuEnabled = true;
 
         public Image? Image
@@ -35,24 +51,67 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _image; }
             set
             {
+                if (value == null)
+                {
+                    return;
+                }
+
                 _image = value;
+                _newWidth = _image.Width;
+                _newHeight = _image.Height;
+
                 Invalidate();
             }
         }
 
-        private ContextMenuStrip _ctxMenu;
-
         public DjsmImagePanel()
         {
             DoubleBuffered = true;
+            InitializeContextMenu();
+            LoadProperties();
+        }
 
-            _ctxMenu = new ContextMenuStrip();
+        public void ContextMenuEnabled(bool enable)
+        {
+            _contextMenuEnabled = enable;
+        }
+
+        public void DrawCrossLine(bool draw)
+        {
+            DrawCrossLine(draw, Color.Red);
+        }
+
+        public void DrawCrossLine(bool draw, Color lineColor)
+        {
+            DrawCrossLine(draw, lineColor, 1);
+        }
+
+        public void DrawCrossLine(bool draw, Color lineColor, int lineWidth)
+        {
+            _drawCrossLine = draw;
+            _crossLineColor = lineColor;
+            _crossLineWidth = lineWidth;
+
+            Invalidate();
+        }
+
+        private void InitializeContextMenu()
+        {
+            _ctxMenu = new ContextMenuStrip { AutoClose = true };
+
             _ctxMenu.Items.Clear();
-            _ctxMenu.Items.Add(CONTEXT_NAME_SAVE_IMAGE);
+            _ctxMenu.Items.Add(_ctxMenuZoomScale1 = new ToolStripMenuItem(CONTEXT_NAME_ZOOM_SCALE_1, null));
+            _ctxMenu.Items.Add(_ctxMenuZoomScale05 = new ToolStripMenuItem(CONTEXT_NAME_ZOOM_SCALE_05, null));
+            _ctxMenu.Items.Add(_ctxMenuZoomScale01 = new ToolStripMenuItem(CONTEXT_NAME_ZOOM_SCALE_01, null));
             _ctxMenu.Items.Add(new ToolStripSeparator());
-            _ctxMenu.Items.Add(CONTEXT_NAME_RESET_ZOOM);
+            _ctxMenu.Items.Add(CONTEXT_NAME_RESET);
+            _ctxMenu.Items.Add(new ToolStripSeparator());
+            _ctxMenu.Items.Add(CONTEXT_NAME_SAVE_IMAGE);
+
             _ctxMenu.ItemClicked += (sender, e) =>
             {
+                _ctxMenu.Hide();
+
                 if (e.ClickedItem != null)
                 {
                     if (_image == null)
@@ -62,6 +121,24 @@ namespace com.outlook_styner07.cs.control.Container
 
                     switch (e.ClickedItem.Text)
                     {
+                        case CONTEXT_NAME_ZOOM_SCALE_1:
+                            _zoomScale = ZOOM_SCALE_1;
+                            _ctxMenuZoomScale1.Checked = true;
+                            _ctxMenuZoomScale05.Checked = false;
+                            _ctxMenuZoomScale01.Checked = false;
+                            break;
+                        case CONTEXT_NAME_ZOOM_SCALE_05:
+                            _zoomScale = ZOOM_SCALE_05;
+                            _ctxMenuZoomScale1.Checked = false;
+                            _ctxMenuZoomScale05.Checked = true;
+                            _ctxMenuZoomScale01.Checked = false;
+                            break;
+                        case CONTEXT_NAME_ZOOM_SCALE_01:
+                            _zoomScale = ZOOM_SCALE_01;
+                            _ctxMenuZoomScale1.Checked = false;
+                            _ctxMenuZoomScale05.Checked = false;
+                            _ctxMenuZoomScale01.Checked = true;
+                            break;
                         case CONTEXT_NAME_SAVE_IMAGE:
                             SaveFileDialog dlg = new SaveFileDialog
                             {
@@ -98,11 +175,14 @@ namespace com.outlook_styner07.cs.control.Container
                             }
                             break;
 
-                        case CONTEXT_NAME_RESET_ZOOM:
+                        case CONTEXT_NAME_RESET:
                             _zoomFactor = 1;
 
                             _imagePosition.X = Width < _image.Width ? 0 : (Width - _image.Width) / 2;
                             _imagePosition.Y = Height < _image.Height ? 0 : (Height - _image.Height) / 2;
+
+                            _newWidth = _image.Width;
+                            _newHeight = _image.Height;
 
                             Invalidate();
                             break;
@@ -111,28 +191,39 @@ namespace com.outlook_styner07.cs.control.Container
             };
         }
 
-        public void ContextMenuEnabled(bool enable)
+        private void LoadProperties()
         {
-            _contextMenuEnabled = enable;
+            _zoomScale = Properties.Settings.Default.zoomScale;
+
+            if (_zoomScale == 0)
+            {
+                _zoomScale = ZOOM_SCALE_1;
+            }
+
+            switch (_zoomScale)
+            {
+                case ZOOM_SCALE_1:
+                    _ctxMenuZoomScale1.Checked = true;
+                    break;
+                case ZOOM_SCALE_05:
+                    _ctxMenuZoomScale05.Checked = true;
+                    break;
+                default:
+                    _ctxMenuZoomScale01.Checked = true;
+                    break;
+            }
         }
 
-        public void DrawCrossLine(bool draw)
+        private void SaveProperties()
         {
-            DrawCrossLine(draw, Color.Red);
+            Properties.Settings.Default.zoomScale = _zoomScale;
+            Properties.Settings.Default.Save();
         }
 
-        public void DrawCrossLine(bool draw, Color lineColor)
+        protected override void OnHandleDestroyed(EventArgs e)
         {
-            DrawCrossLine(draw, lineColor, 1);
-        }
-
-        public void DrawCrossLine(bool draw, Color lineColor, int lineWidth)
-        {
-            _drawCrossLine = draw;
-            _crossLineColor = lineColor;
-            _crossLineWidth = lineWidth;
-
-            Invalidate();
+            SaveProperties();
+            base.OnHandleDestroyed(e);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -143,9 +234,6 @@ namespace com.outlook_styner07.cs.control.Container
 
             if (_image != null)
             {
-                _newWidth = (int)(_image.Width * _zoomFactor);
-                _newHeight = (int)(_image.Height * _zoomFactor);
-
                 g.DrawImage(_image, new Rectangle(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight));
             }
 
@@ -167,7 +255,7 @@ namespace com.outlook_styner07.cs.control.Container
         protected override void OnResize(EventArgs eventargs)
         {
             base.OnResize(eventargs);
-            
+
             if (_image != null)
             {
                 _imagePosition.X = Width < _newWidth ? 0 : (Width - _newWidth) / 2;
@@ -181,28 +269,70 @@ namespace com.outlook_styner07.cs.control.Container
         {
             base.OnMouseWheel(e);
 
-            if (e.Delta > 0)
+            if (_image == null)
             {
-                _zoomFactor += 0.1f;
-            }
-            else if (e.Delta < 0)
-            {
-                _zoomFactor = Math.Max(0.1f, _zoomFactor - 0.1f);
+                return;
             }
 
-            Invalidate();
+            Rectangle boundRect = new Rectangle(_imagePosition.X + 1, _imagePosition.Y + 1, _newWidth - 1, _newHeight - 1);
+
+            if (boundRect.Contains(e.X, e.Y))
+            {
+                bool enlarge = false;
+                if (e.Delta > 0)
+                {
+                    _zoomFactor += _zoomScale;
+                    enlarge = true;
+                }
+                else if (e.Delta < 0)
+                {
+                    _zoomFactor = Math.Max(0.1f, _zoomFactor - _zoomScale);
+                    enlarge = false;
+                }
+
+                int oldWidth = _newWidth;
+                int oldHeight = _newHeight;
+
+                _newWidth = (int)(_image.Width * _zoomFactor);
+                _newHeight = (int)(_image.Height * _zoomFactor);
+
+                //double deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / (double)oldWidth);
+                //double deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / (double)oldHeight);
+                double deltaX;
+                double deltaY;
+
+                /// 기어올라가는 현상 수정
+                deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / (double)oldWidth) ;
+                deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / (double)oldHeight) ;
+
+                //if (enlarge)
+                //{
+                //    deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / (double)_newWidth);
+                //    deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / (double)_newWidth);
+
+                //}
+                //else
+                //{
+
+                //}
+
+                Debug.WriteLine($"{deltaX}  {deltaY}");
+
+                _imagePosition.X = (int)(_imagePosition.X + deltaX);
+                _imagePosition.Y = (int)(_imagePosition.Y + deltaY);
+
+                Invalidate();
+            }
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
 
-            _ctxMenu.Hide();
-
             if (e.Button == MouseButtons.Left)
             {
                 _isPanning = true;
-                _mouseDownPosition = e.Location;  // 마우스 클릭 시의 위치 저장
+                _mouseDownPosition = e.Location;
             }
         }
 
@@ -212,11 +342,9 @@ namespace com.outlook_styner07.cs.control.Container
 
             if (_isPanning)
             {
-                // 현재 마우스 위치에서 클릭 시 위치를 빼서 이미지 위치 이동
                 _imagePosition.X += e.X - _mouseDownPosition.X;
                 _imagePosition.Y += e.Y - _mouseDownPosition.Y;
 
-                // 현재 마우스 위치를 다시 저장
                 _mouseDownPosition = e.Location;
 
                 Invalidate();
