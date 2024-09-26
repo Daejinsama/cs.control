@@ -24,5 +24,5 @@ D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\o
 D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\Debug\net8.0-windows\com.outlook_styner07.cs.control.Container.DjsmToolStrip.resources
 D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\Debug\net8.0-windows\com.outlook_styner07.cs.control.Properties.Resources.resources
 D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\Debug\net8.0-windows\com.outlook_styner07.cs.control.Gauge.DjsmLifeTimeGauge.resources
-D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\Debug\net8.0-windows\com.outlook_styner07.cs.control.Gauge.DjsmIndicator.resources
 D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\Debug\net8.0-windows\com.outlook@styner07.cs.control.sourcelink.json
+D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\bin\Debug\net8.0-windows\com.outlook@styner07.cs.control.dll.config

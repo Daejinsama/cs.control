@@ -6,19 +6,6 @@ namespace com.outlook_styner07.cs.control.Gauge
     public class DjsmIndicator : Control
     {
         [Browsable(true)]
-        public string Label
-        {
-            get { return label; }
-            set
-            {
-                label = value;
-                Invalidate();
-            }
-        }
-
-        private string label = string.Empty;
-
-        [Browsable(true)]
         public Color BorderColor
         {
             get
@@ -108,7 +95,7 @@ namespace com.outlook_styner07.cs.control.Gauge
 
         private bool blink = false;
 
-        [Browsable(true), DisplayName("Blink Interval")]
+        [Browsable(true)]
         public long BlinkInterval
         {
             get { return blinkInterval; }
@@ -148,9 +135,14 @@ namespace com.outlook_styner07.cs.control.Gauge
         [Browsable(false)]
         public new Color BackColor { get; } = Color.Transparent;
 
-        private const int PADDING = 3;
+        private const int PADDING = 1;
 
         private System.Threading.Timer? blinkTimer;
+
+        //public DjsmIndicator()
+        //{
+        //    SetStyle(ControlStyles.UserPaint, true);
+        //}
 
         private void SetBlink()
         {
@@ -169,9 +161,11 @@ namespace com.outlook_styner07.cs.control.Gauge
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            //base.OnPaint(e);
+            /// 20240806_
+            /// region 설정 및 출력 시 동작 및 출력 불안정
+            /// 왜 그럴까? 
             Graphics g = e.Graphics;
-
+            g.Clear(Parent.BackColor);
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
             RectangleF rectF;
@@ -192,12 +186,15 @@ namespace com.outlook_styner07.cs.control.Gauge
 
                 path.AddRectangle(rectF);
             }
+            
+            Blend blender = new Blend(2);
+            blender.Factors = new[] { 1.0f, 1.0f };
+            blender.Positions = new[] { 0.0f, 1.0f };
 
             PathGradientBrush pathBrush = new PathGradientBrush(path)
             {
-                //LinearGradientBrush pathBrush = new LinearGradientBrush(Bounds, Color.FromArgb(opacity, Color), color, LinearGradientMode.ForwardDiagonal);
                 CenterColor = Color.FromArgb(opacity, Color),
-                SurroundColors = new[] { Color }
+                SurroundColors = [Color],
             };
 
             if (shape == ShapeType.Ellipse)
@@ -219,10 +216,10 @@ namespace com.outlook_styner07.cs.control.Gauge
                 }
             }
 
-            if (!string.IsNullOrEmpty(label))
+            if (!string.IsNullOrEmpty(Text))
             {
-                Size size = TextRenderer.MeasureText(label, Font);
-                TextRenderer.DrawText(g, label, Font, new Point((Size.Width - size.Width) / 2 + 1, (Size.Height - size.Height) / 2), ForeColor);
+                SizeF size = g.MeasureString(Text, Font);
+                g.DrawString(Text, Font, new SolidBrush(ForeColor), new PointF((Size.Width - size.Width) / 2 + 1, (Size.Height - size.Height) / 2));
             }
         }
     }
