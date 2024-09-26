@@ -25,14 +25,14 @@ namespace com.outlook_styner07.cs.control.Container
 
         private Image? _image;
 
-        private int _newWidth;
-        private int _newHeight;
+        private float _newWidth;
+        private float _newHeight;
 
         private float _zoomScale = ZOOM_SCALE_1;
         private float _zoomFactor = 1.0f;
 
-        private Point _imagePosition = new Point(0, 0);  // 이미지 초기 위치
-        private Point _mouseDownPosition;
+        private PointF _imagePosition = new PointF(0, 0);  // 이미지 초기 위치
+        private PointF _mouseDownPosition;
         private bool _isPanning = false;
 
         private bool _drawCrossLine = false;
@@ -234,7 +234,7 @@ namespace com.outlook_styner07.cs.control.Container
 
             if (_image != null)
             {
-                g.DrawImage(_image, new Rectangle(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight));
+                g.DrawImage(_image, new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight));
             }
 
             if (_drawCrossLine)
@@ -274,52 +274,36 @@ namespace com.outlook_styner07.cs.control.Container
                 return;
             }
 
-            Rectangle boundRect = new Rectangle(_imagePosition.X + 1, _imagePosition.Y + 1, _newWidth - 1, _newHeight - 1);
+            RectangleF boundRect = new RectangleF(_imagePosition.X + 1, _imagePosition.Y + 1, _newWidth - 1, _newHeight - 1);
 
             if (boundRect.Contains(e.X, e.Y))
             {
-                bool enlarge = false;
+                /* ---------------------------------------------------------------------------------------------------
+                 * 줌 인 아웃을 반복할때 이미지가 쏠리는 원인은 데이터 타입 변환 과정에서의 정밀도 차이인 것으로 확인. 
+                 * (float으로 통일 후 현상 개선)              
+                 * ---------------------------------------------------------------------------------------------------*/
                 if (e.Delta > 0)
                 {
                     _zoomFactor += _zoomScale;
-                    enlarge = true;
                 }
                 else if (e.Delta < 0)
                 {
                     _zoomFactor = Math.Max(0.1f, _zoomFactor - _zoomScale);
-                    enlarge = false;
                 }
 
-                int oldWidth = _newWidth;
-                int oldHeight = _newHeight;
+                float oldWidth = _newWidth;
+                float oldHeight = _newHeight;
 
-                _newWidth = (int)(_image.Width * _zoomFactor);
-                _newHeight = (int)(_image.Height * _zoomFactor);
+                _newWidth = _image.Width * _zoomFactor;
+                _newHeight = _image.Height * _zoomFactor;
 
-                //double deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / (double)oldWidth);
-                //double deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / (double)oldHeight);
-                double deltaX;
-                double deltaY;
+                float deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / oldWidth);
+                float deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / oldHeight);
 
-                /// 기어올라가는 현상 수정
-                deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / (double)oldWidth) ;
-                deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / (double)oldHeight) ;
+                //Debug.WriteLine($"{deltaX}  {deltaY}");
 
-                //if (enlarge)
-                //{
-                //    deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / (double)_newWidth);
-                //    deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / (double)_newWidth);
-
-                //}
-                //else
-                //{
-
-                //}
-
-                Debug.WriteLine($"{deltaX}  {deltaY}");
-
-                _imagePosition.X = (int)(_imagePosition.X + deltaX);
-                _imagePosition.Y = (int)(_imagePosition.Y + deltaY);
+                _imagePosition.X = _imagePosition.X + deltaX;
+                _imagePosition.Y = _imagePosition.Y + deltaY;
 
                 Invalidate();
             }

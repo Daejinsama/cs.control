@@ -17,7 +17,7 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 505,
+          "DockedWidth": 200,
           "SelectedChildIndex": 5,
           "Children": [
             {
@@ -55,7 +55,7 @@
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
               "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
-              "ViewState": "AgIAABwBAAAAAAAAAAAswC8BAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAP0AAAAAAAAAAAAQwDQBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-24T06:47:50.933Z",
               "EditorCaption": ""
