@@ -193,7 +193,7 @@ namespace com.outlook_styner07.cs.control.Container
 
         private void LoadProperties()
         {
-            _zoomScale = Properties.Settings.Default.zoomScale;
+            _zoomScale = Properties.Settings.Default.ZoomScale;
 
             if (_zoomScale == 0)
             {
@@ -216,7 +216,7 @@ namespace com.outlook_styner07.cs.control.Container
 
         private void SaveProperties()
         {
-            Properties.Settings.Default.zoomScale = _zoomScale;
+            Properties.Settings.Default.ZoomScale = _zoomScale;
             Properties.Settings.Default.Save();
         }
 

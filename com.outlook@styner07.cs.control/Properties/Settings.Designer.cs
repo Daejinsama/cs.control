@@ -26,12 +26,48 @@ namespace com.outlook_styner07.cs.control.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public float zoomScale {
+        public float ZoomScale {
             get {
-                return ((float)(this["zoomScale"]));
+                return ((float)(this["ZoomScale"]));
             }
             set {
-                this["zoomScale"] = value;
+                this["ZoomScale"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color Background {
+            get {
+                return ((global::System.Drawing.Color)(this["Background"]));
+            }
+            set {
+                this["Background"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LargeFont {
+            get {
+                return ((bool)(this["LargeFont"]));
+            }
+            set {
+                this["LargeFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SavePath {
+            get {
+                return ((string)(this["SavePath"]));
+            }
+            set {
+                this["SavePath"] = value;
             }
         }
     }

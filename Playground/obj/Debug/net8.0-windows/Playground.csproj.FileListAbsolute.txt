@@ -3,6 +3,7 @@ D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windo
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\Playground.runtimeconfig.json
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\Playground.dll
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\Playground.pdb
+D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\System.Windows.Forms.DataVisualization.dll
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\com.outlook@styner07.cs.control.dll
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\com.outlook@styner07.cs.control.pdb
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\com.outlook@styner07.cs.control.dll.config
@@ -21,3 +22,9 @@ D:\cs_projects\com.outlook@styner07.cs.control\Playground\obj\Debug\net8.0-windo
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\obj\Debug\net8.0-windows\Playground.pdb
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\obj\Debug\net8.0-windows\Playground.genruntimeconfig.cache
 D:\cs_projects\com.outlook@styner07.cs.control\Playground\obj\Debug\net8.0-windows\ref\Playground.dll
+D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
+D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
+D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\cs_projects\com.outlook@styner07.cs.control\Playground\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

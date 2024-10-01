@@ -79,5 +79,30 @@ namespace com.outlook_styner07.cs.control.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+
+
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap Compress
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("Compress", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap Enlarge
+        {
+            get
+            {
+                object obj = ResourceManager.GetObject("Enlarge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
