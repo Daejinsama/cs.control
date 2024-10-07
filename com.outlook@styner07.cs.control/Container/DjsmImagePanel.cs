@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System.Drawing.Imaging;
+﻿using System.Drawing.Imaging;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace com.outlook_styner07.cs.control.Container
 {
@@ -39,6 +39,10 @@ namespace com.outlook_styner07.cs.control.Container
         private Color _crossLineColor = Color.Red;
         private int _crossLineWidth = 1;
 
+        private bool _drawImageCenter = false;
+        private Color _imageCenterColor = Color.Lime;
+        private int _imageCenterWidth = 1;
+
         private ContextMenuStrip _ctxMenu;
         private ToolStripMenuItem _ctxMenuZoomScale1;
         private ToolStripMenuItem _ctxMenuZoomScale05;
@@ -56,9 +60,13 @@ namespace com.outlook_styner07.cs.control.Container
                     return;
                 }
 
+                if (_image == null)
+                {
+                    _newWidth = value.Width;
+                    _newHeight = value.Height;
+                }
+
                 _image = value;
-                _newWidth = _image.Width;
-                _newHeight = _image.Height;
 
                 Invalidate();
             }
@@ -76,9 +84,38 @@ namespace com.outlook_styner07.cs.control.Container
             _contextMenuEnabled = enable;
         }
 
+        public void FitToFrame()
+        {
+            if (_image == null)
+            {
+                return;
+            }
+            float imageAspect = (float)_image.Width / _image.Height;
+            float frameAspect = (float)Width / Height;
+
+            if (frameAspect > imageAspect)
+            {
+                _newHeight = Height;
+                _newWidth = (int)(Height * imageAspect);
+
+                _imagePosition.X = (Width - _newWidth) / 2;
+                _imagePosition.Y = 0;
+            }
+            else
+            {
+                _newWidth = Width;
+                _newHeight = (int)(Width / imageAspect);
+
+                _imagePosition.X = 0;
+                _imagePosition.Y = (Height - _newHeight) / 2;
+            }
+
+            Invalidate();
+        }
+
         public void DrawCrossLine(bool draw)
         {
-            DrawCrossLine(draw, Color.Red);
+            DrawCrossLine(draw, Color.Red, 1);
         }
 
         public void DrawCrossLine(bool draw, Color lineColor)
@@ -91,6 +128,25 @@ namespace com.outlook_styner07.cs.control.Container
             _drawCrossLine = draw;
             _crossLineColor = lineColor;
             _crossLineWidth = lineWidth;
+
+            Invalidate();
+        }
+
+        public void DrawImageCenter(bool draw)
+        {
+            DrawImageCenter(draw, Color.Lime, 1);
+        }
+
+        public void DrawImageCenter(bool draw, Color lineColor)
+        {
+            DrawImageCenter(draw, lineColor, 1);
+        }
+
+        public void DrawImageCenter(bool draw, Color lineColor, int lineWidth)
+        {
+            _drawImageCenter = draw;
+            _imageCenterColor = lineColor;
+            _imageCenterWidth = lineWidth;
 
             Invalidate();
         }
@@ -248,6 +304,26 @@ namespace com.outlook_styner07.cs.control.Container
 
                     /// draw horizontal
                     g.DrawLine(pen, CROSSLINE_MARGIN, rect.Height / 2, rect.Width - CROSSLINE_MARGIN, rect.Height / 2);
+                }
+            }
+
+            if (_image != null && _drawImageCenter)
+            {
+                using (Pen pen = new Pen(_imageCenterColor, _imageCenterWidth))
+                {
+                    RectangleF rect = new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight);
+
+                    g.DrawLine(pen,
+                        rect.X + rect.Width / 2,
+                        rect.Y,
+                        rect.X + rect.Width / 2,
+                        rect.Y + rect.Height);
+
+                    g.DrawLine(pen,
+                        rect.X,
+                        rect.Y + rect.Height / 2,
+                        rect.X + rect.Width,
+                        rect.Y + rect.Height / 2);
                 }
             }
         }
