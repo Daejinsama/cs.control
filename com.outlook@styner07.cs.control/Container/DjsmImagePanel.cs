@@ -1,5 +1,4 @@
 ﻿using System.Drawing.Imaging;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace com.outlook_styner07.cs.control.Container
 {
@@ -7,16 +6,13 @@ namespace com.outlook_styner07.cs.control.Container
     {
         private const int CROSSLINE_MARGIN = 10;
 
-        private const string CONTEXT_NAME_ZOOM_SCALE_1 = "x 0.1";
-        private const string CONTEXT_NAME_ZOOM_SCALE_05 = "x 0.05";
-        private const string CONTEXT_NAME_ZOOM_SCALE_01 = "x 0.01";
-
-        private const string CONTEXT_NAME_RESET = "Reset";
+        private const string CONTEXT_NAME_FIT_TO_FRAME = "Fit To Frame";
+        private const string CONTEXT_NAME_RESET_ZOOM = "Reset zoom";
         private const string CONTEXT_NAME_SAVE_IMAGE = "Save Image";
 
         private const float ZOOM_SCALE_1 = 0.1f;
-        private const float ZOOM_SCALE_05 = 0.05f;
-        private const float ZOOM_SCALE_01 = 0.01f;
+        //private const float ZOOM_SCALE_05 = 0.05f;
+        //private const float ZOOM_SCALE_01 = 0.01f;
 
         private readonly string IMAGE_FORMAT_BMP = nameof(ImageFormat.Bmp);
         private readonly string IMAGE_FORMAT_JPG = nameof(ImageFormat.Jpeg);
@@ -44,10 +40,7 @@ namespace com.outlook_styner07.cs.control.Container
         private int _imageCenterWidth = 1;
 
         private ContextMenuStrip _ctxMenu;
-        private ToolStripMenuItem _ctxMenuZoomScale1;
-        private ToolStripMenuItem _ctxMenuZoomScale05;
-        private ToolStripMenuItem _ctxMenuZoomScale01;
-
+        
         private bool _contextMenuEnabled = true;
 
         public Image? Image
@@ -76,7 +69,6 @@ namespace com.outlook_styner07.cs.control.Container
         {
             DoubleBuffered = true;
             InitializeContextMenu();
-            LoadProperties();
         }
 
         public void ContextMenuEnabled(bool enable)
@@ -156,11 +148,9 @@ namespace com.outlook_styner07.cs.control.Container
             _ctxMenu = new ContextMenuStrip { AutoClose = true };
 
             _ctxMenu.Items.Clear();
-            _ctxMenu.Items.Add(_ctxMenuZoomScale1 = new ToolStripMenuItem(CONTEXT_NAME_ZOOM_SCALE_1, null));
-            _ctxMenu.Items.Add(_ctxMenuZoomScale05 = new ToolStripMenuItem(CONTEXT_NAME_ZOOM_SCALE_05, null));
-            _ctxMenu.Items.Add(_ctxMenuZoomScale01 = new ToolStripMenuItem(CONTEXT_NAME_ZOOM_SCALE_01, null));
+            _ctxMenu.Items.Add(CONTEXT_NAME_FIT_TO_FRAME);
             _ctxMenu.Items.Add(new ToolStripSeparator());
-            _ctxMenu.Items.Add(CONTEXT_NAME_RESET);
+            _ctxMenu.Items.Add(CONTEXT_NAME_RESET_ZOOM);
             _ctxMenu.Items.Add(new ToolStripSeparator());
             _ctxMenu.Items.Add(CONTEXT_NAME_SAVE_IMAGE);
 
@@ -177,23 +167,26 @@ namespace com.outlook_styner07.cs.control.Container
 
                     switch (e.ClickedItem.Text)
                     {
-                        case CONTEXT_NAME_ZOOM_SCALE_1:
-                            _zoomScale = ZOOM_SCALE_1;
-                            _ctxMenuZoomScale1.Checked = true;
-                            _ctxMenuZoomScale05.Checked = false;
-                            _ctxMenuZoomScale01.Checked = false;
-                            break;
-                        case CONTEXT_NAME_ZOOM_SCALE_05:
-                            _zoomScale = ZOOM_SCALE_05;
-                            _ctxMenuZoomScale1.Checked = false;
-                            _ctxMenuZoomScale05.Checked = true;
-                            _ctxMenuZoomScale01.Checked = false;
-                            break;
-                        case CONTEXT_NAME_ZOOM_SCALE_01:
-                            _zoomScale = ZOOM_SCALE_01;
-                            _ctxMenuZoomScale1.Checked = false;
-                            _ctxMenuZoomScale05.Checked = false;
-                            _ctxMenuZoomScale01.Checked = true;
+                        //case CONTEXT_NAME_ZOOM_SCALE_1:
+                        //    _zoomScale = ZOOM_SCALE_1;
+                        //    _ctxMenuZoomScale1.Checked = true;
+                        //    _ctxMenuZoomScale05.Checked = false;
+                        //    _ctxMenuZoomScale01.Checked = false;
+                        //    break;
+                        //case CONTEXT_NAME_ZOOM_SCALE_05:
+                        //    _zoomScale = ZOOM_SCALE_05;
+                        //    _ctxMenuZoomScale1.Checked = false;
+                        //    _ctxMenuZoomScale05.Checked = true;
+                        //    _ctxMenuZoomScale01.Checked = false;
+                        //    break;
+                        //case CONTEXT_NAME_ZOOM_SCALE_01:
+                        //    _zoomScale = ZOOM_SCALE_01;
+                        //    _ctxMenuZoomScale1.Checked = false;
+                        //    _ctxMenuZoomScale05.Checked = false;
+                        //    _ctxMenuZoomScale01.Checked = true;
+                        //    break;
+                        case CONTEXT_NAME_FIT_TO_FRAME:
+                            FitToFrame();
                             break;
                         case CONTEXT_NAME_SAVE_IMAGE:
                             SaveFileDialog dlg = new SaveFileDialog
@@ -231,7 +224,7 @@ namespace com.outlook_styner07.cs.control.Container
                             }
                             break;
 
-                        case CONTEXT_NAME_RESET:
+                        case CONTEXT_NAME_RESET_ZOOM:
                             _zoomFactor = 1;
 
                             _imagePosition.X = Width < _image.Width ? 0 : (Width - _image.Width) / 2;
@@ -245,41 +238,6 @@ namespace com.outlook_styner07.cs.control.Container
                     }
                 }
             };
-        }
-
-        private void LoadProperties()
-        {
-            _zoomScale = Properties.Settings.Default.ZoomScale;
-
-            if (_zoomScale == 0)
-            {
-                _zoomScale = ZOOM_SCALE_1;
-            }
-
-            switch (_zoomScale)
-            {
-                case ZOOM_SCALE_1:
-                    _ctxMenuZoomScale1.Checked = true;
-                    break;
-                case ZOOM_SCALE_05:
-                    _ctxMenuZoomScale05.Checked = true;
-                    break;
-                default:
-                    _ctxMenuZoomScale01.Checked = true;
-                    break;
-            }
-        }
-
-        private void SaveProperties()
-        {
-            Properties.Settings.Default.ZoomScale = _zoomScale;
-            Properties.Settings.Default.Save();
-        }
-
-        protected override void OnHandleDestroyed(EventArgs e)
-        {
-            SaveProperties();
-            base.OnHandleDestroyed(e);
         }
 
         protected override void OnPaint(PaintEventArgs e)

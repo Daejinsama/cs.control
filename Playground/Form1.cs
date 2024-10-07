@@ -7,10 +7,10 @@ namespace Playground
         public Form1()
         {
             InitializeComponent();
-            Controls.Clear();
-            DjsmFullSpectrumChart chart = new DjsmFullSpectrumChart();
-            DjsmChartPanel pnlChart = new DjsmChartPanel(chart);
-            Controls.Add(pnlChart);
+            //Controls.Clear();
+            //DjsmFullSpectrumChart chart = new DjsmFullSpectrumChart();
+            //DjsmChartPanel pnlChart = new DjsmChartPanel(chart);
+            //Controls.Add(pnlChart);
 
         }
     }

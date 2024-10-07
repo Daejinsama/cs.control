@@ -161,7 +161,7 @@
           "Microsoft.NETCore.App"
         ]
       },
-      "com.outlook@styner07.cs.control/23.9.24.3": {
+      "com.outlook@styner07.cs.control/24.10.8.1": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -510,7 +510,7 @@
         "system.windows.forms.datavisualization.nuspec"
       ]
     },
-    "com.outlook@styner07.cs.control/23.9.24.3": {
+    "com.outlook@styner07.cs.control/24.10.8.1": {
       "type": "project",
       "path": "../com.outlook@styner07.cs.control/com.outlook@styner07.cs.control.csproj",
       "msbuildProject": "../com.outlook@styner07.cs.control/com.outlook@styner07.cs.control.csproj"
@@ -518,7 +518,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
-      "com.outlook@styner07.cs.control >= 23.9.24.3"
+      "com.outlook@styner07.cs.control >= 24.10.8.1"
     ]
   },
   "packageFolders": {
