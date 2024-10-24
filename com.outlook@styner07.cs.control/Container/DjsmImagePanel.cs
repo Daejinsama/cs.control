@@ -27,6 +27,8 @@ namespace com.outlook_styner07.cs.control.Container
         private float _zoomScale = ZOOM_SCALE_1;
         private float _zoomFactor = 1.0f;
 
+        public float ZoomFactor => _zoomFactor;
+
         private PointF _imagePosition = new PointF(0, 0);  // 이미지 초기 위치
         private PointF _mouseDownPosition;
         private bool _isPanning = false;
@@ -40,7 +42,7 @@ namespace com.outlook_styner07.cs.control.Container
         private int _imageCenterWidth = 1;
 
         private ContextMenuStrip _ctxMenu;
-        
+
         private bool _contextMenuEnabled = true;
 
         public Image? Image
@@ -64,6 +66,10 @@ namespace com.outlook_styner07.cs.control.Container
                 Invalidate();
             }
         }
+
+        private bool _panEnabled = true;
+
+        public bool PanEnabled { get => _panEnabled; set => _panEnabled = value; }
 
         public DjsmImagePanel()
         {
@@ -92,6 +98,8 @@ namespace com.outlook_styner07.cs.control.Container
 
                 _imagePosition.X = (Width - _newWidth) / 2;
                 _imagePosition.Y = 0;
+
+                _zoomFactor = _newWidth / _image.Width;
             }
             else
             {
@@ -100,6 +108,8 @@ namespace com.outlook_styner07.cs.control.Container
 
                 _imagePosition.X = 0;
                 _imagePosition.Y = (Height - _newHeight) / 2;
+
+                _zoomFactor = _newHeight / _image.Height;
             }
 
             Invalidate();
@@ -242,7 +252,6 @@ namespace com.outlook_styner07.cs.control.Container
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
 
             Graphics g = e.Graphics;
 
@@ -284,6 +293,7 @@ namespace com.outlook_styner07.cs.control.Container
                         rect.Y + rect.Height / 2);
                 }
             }
+            base.OnPaint(e);
         }
 
         protected override void OnResize(EventArgs eventargs)
@@ -347,7 +357,7 @@ namespace com.outlook_styner07.cs.control.Container
         {
             base.OnMouseDown(e);
 
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && _panEnabled)
             {
                 _isPanning = true;
                 _mouseDownPosition = e.Location;
@@ -358,22 +368,22 @@ namespace com.outlook_styner07.cs.control.Container
         {
             base.OnMouseMove(e);
 
-            if (_isPanning)
+            if (_isPanning && _panEnabled)
             {
                 _imagePosition.X += e.X - _mouseDownPosition.X;
                 _imagePosition.Y += e.Y - _mouseDownPosition.Y;
 
                 _mouseDownPosition = e.Location;
-
-                Invalidate();
             }
+
+            Invalidate();
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
 
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && _panEnabled)
             {
                 _isPanning = false;
             }

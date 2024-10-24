@@ -13,11 +13,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("daejinsama")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("23.9.24.3")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("23.9.24.3+bca3cc152664d7327646270864bad3cbd8a0ee9e")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("24.10.8.1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("24.10.8.1+ed3f685975696b65193a06ba908259fb43ada299")]
 [assembly: System.Reflection.AssemblyProductAttribute("com.outlook@styner07.cs.control")]
 [assembly: System.Reflection.AssemblyTitleAttribute("com.outlook@styner07.cs.control")]
-[assembly: System.Reflection.AssemblyVersionAttribute("23.9.24.3")]
+[assembly: System.Reflection.AssemblyVersionAttribute("24.10.8.1")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 
