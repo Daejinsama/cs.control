@@ -22,7 +22,10 @@ namespace com.outlook_styner07.cs.control.Container
         private Image? _image;
 
         private float _newWidth;
+        public float NewWidth => _newWidth;
+
         private float _newHeight;
+        public float NewHeight => _newHeight;
 
         private float _zoomScale = ZOOM_SCALE_1;
         private float _zoomFactor = 1.0f;
@@ -30,6 +33,9 @@ namespace com.outlook_styner07.cs.control.Container
         public float ZoomFactor => _zoomFactor;
 
         private PointF _imagePosition = new PointF(0, 0);  // 이미지 초기 위치
+
+        public PointF ImagePosition => _imagePosition;
+
         private PointF _mouseDownPosition;
         private bool _isPanning = false;
 

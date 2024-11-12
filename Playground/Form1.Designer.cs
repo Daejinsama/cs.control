@@ -30,16 +30,33 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             djsmImagePanel1 = new com.outlook_styner07.cs.control.Container.DjsmImagePanel();
+            djsmCheckBox1 = new com.outlook_styner07.cs.control.Button.DjsmCheckBox();
+            djsmImagePanel1.SuspendLayout();
             SuspendLayout();
             // 
             // djsmImagePanel1
             // 
+            djsmImagePanel1.Controls.Add(djsmCheckBox1);
             djsmImagePanel1.Dock = DockStyle.Fill;
             djsmImagePanel1.Image = (Image)resources.GetObject("djsmImagePanel1.Image");
             djsmImagePanel1.Location = new Point(0, 0);
             djsmImagePanel1.Name = "djsmImagePanel1";
+            djsmImagePanel1.PanEnabled = true;
             djsmImagePanel1.Size = new Size(800, 450);
             djsmImagePanel1.TabIndex = 0;
+            // 
+            // djsmCheckBox1
+            // 
+            djsmCheckBox1.AutoSize = true;
+            djsmCheckBox1.CheckedForeColor = Color.Black;
+            djsmCheckBox1.Font = new Font("Arial", 9F);
+            djsmCheckBox1.Location = new Point(89, 398);
+            djsmCheckBox1.Name = "djsmCheckBox1";
+            djsmCheckBox1.Size = new Size(116, 19);
+            djsmCheckBox1.TabIndex = 0;
+            djsmCheckBox1.Text = "djsmCheckBox1";
+            djsmCheckBox1.UncheckedForeColor = Color.Black;
+            djsmCheckBox1.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
@@ -49,11 +66,14 @@
             Controls.Add(djsmImagePanel1);
             Name = "Form1";
             Text = "Form1";
+            djsmImagePanel1.ResumeLayout(false);
+            djsmImagePanel1.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private com.outlook_styner07.cs.control.Container.DjsmImagePanel djsmImagePanel1;
+        private com.outlook_styner07.cs.control.Button.DjsmCheckBox djsmCheckBox1;
     }
 }
