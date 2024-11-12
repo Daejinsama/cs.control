@@ -56,15 +56,15 @@ namespace com.outlook_styner07.cs.control
                 for (int c = 0; c < COLUMN_COUNT; c++)
                 {
                     string padValue = CHAR_SET[r, c];
-                    Size charSize = TextRenderer.MeasureText(padValue, f);
+                    SizeF charSize = g.MeasureString(padValue, f);
 
                     cells[r, c] = new Rectangle(
                         c * cellWidth + GAP * c,
                         r * cellHeight + GAP * r,
                         cellWidth, cellHeight);
 
-                    int charPosX = cells[r, c].X + (cells[r, c].Width - charSize.Width) / 2;
-                    int charPosY = cells[r, c].Y + (cells[r, c].Height - charSize.Height) / 2;
+                    float charPosX = cells[r, c].X + (cells[r, c].Width - charSize.Width) / 2;
+                    float charPosY = cells[r, c].Y + (cells[r, c].Height - charSize.Height) / 2;
 
                     Color tempBackColor = BackColor;
                     Color tempForeColor = ForeColor;
@@ -89,7 +89,7 @@ namespace com.outlook_styner07.cs.control
                     }
                     else
                     {
-                        TextRenderer.DrawText(g, padValue, f, new Point(charPosX, charPosY), tempForeColor);
+                        g.DrawString(padValue, f, new SolidBrush(tempForeColor), new PointF(charPosX, charPosY));
                     }
                 }
             }
