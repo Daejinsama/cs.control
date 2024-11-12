@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             djsmImagePanel1 = new com.outlook_styner07.cs.control.Container.DjsmImagePanel();
+            djsmProgressBar1 = new com.outlook_styner07.cs.control.Gauge.DjsmProgressBar();
             djsmRadioButton1 = new com.outlook_styner07.cs.control.Button.DjsmRadioButton();
             djsmCheckBox1 = new com.outlook_styner07.cs.control.Button.DjsmCheckBox();
             djsmImagePanel1.SuspendLayout();
@@ -37,6 +38,7 @@
             // 
             // djsmImagePanel1
             // 
+            djsmImagePanel1.Controls.Add(djsmProgressBar1);
             djsmImagePanel1.Controls.Add(djsmRadioButton1);
             djsmImagePanel1.Controls.Add(djsmCheckBox1);
             djsmImagePanel1.Dock = DockStyle.Fill;
@@ -46,6 +48,20 @@
             djsmImagePanel1.PanEnabled = true;
             djsmImagePanel1.Size = new Size(800, 450);
             djsmImagePanel1.TabIndex = 0;
+            // 
+            // djsmProgressBar1
+            // 
+            djsmProgressBar1.IsFixedLabel = true;
+            djsmProgressBar1.LabelDrawing = true;
+            djsmProgressBar1.LabelText = "test";
+            djsmProgressBar1.Location = new Point(227, 32);
+            djsmProgressBar1.Name = "djsmProgressBar1";
+            djsmProgressBar1.ProgressBarColor = Color.Orange;
+            djsmProgressBar1.ProgressFont = new Font("Arial", 9F, FontStyle.Bold);
+            djsmProgressBar1.ProgressFontColor = Color.Black;
+            djsmProgressBar1.Size = new Size(351, 23);
+            djsmProgressBar1.TabIndex = 2;
+            djsmProgressBar1.Value = 30;
             // 
             // djsmRadioButton1
             // 
@@ -93,5 +109,6 @@
         private com.outlook_styner07.cs.control.Container.DjsmImagePanel djsmImagePanel1;
         private com.outlook_styner07.cs.control.Button.DjsmCheckBox djsmCheckBox1;
         private com.outlook_styner07.cs.control.Button.DjsmRadioButton djsmRadioButton1;
+        private com.outlook_styner07.cs.control.Gauge.DjsmProgressBar djsmProgressBar1;
     }
 }

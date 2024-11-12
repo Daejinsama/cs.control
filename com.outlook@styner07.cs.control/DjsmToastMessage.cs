@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace com.outlook_styner07.cs.control
+﻿namespace com.outlook_styner07.cs.control
 {
     public class DjsmToastMessage
     {
@@ -14,8 +11,8 @@ namespace com.outlook_styner07.cs.control
 
         private static Theme theme;
         private static Font font = new Font("Arial", 9f, FontStyle.Regular);
-        private static MessageControl control;
-        private static System.Threading.Timer timer;
+        private static MessageControl? control;
+        private static System.Threading.Timer? timer;
 
         public static void Show(string message, int period, Theme theme, Form owner)
         {
@@ -36,7 +33,7 @@ namespace com.outlook_styner07.cs.control
                 DjsmToastMessage.theme = theme;
 
                 Rectangle parentRect = owner.ClientRectangle;
-                Size messageSize = TextRenderer.MeasureText(message, font);
+                Size messageSize =  TextRenderer.MeasureText(message, font);
                 Rectangle border = new Rectangle(
                     (parentRect.Width - messageSize.Width) / 2 - H_MARGIN,
                     parentRect.Height - B_MARGIN - messageSize.Height,
@@ -50,7 +47,7 @@ namespace com.outlook_styner07.cs.control
                 control.BringToFront();
 
                 int tickCount = 0;
-                timer = new System.Threading.Timer((object state) =>
+                timer = new System.Threading.Timer((state) =>
                 {
                     tickCount++;
                     if (tickCount * 1000 >= period)
@@ -63,7 +60,7 @@ namespace com.outlook_styner07.cs.control
                             });
                         }
                         control = null;
-                        timer.Dispose();
+                        timer?.Dispose();
                     }
                 }, null, 0, 1000);
             }
