@@ -11,8 +11,6 @@ namespace com.outlook_styner07.cs.control.Container
         private const string CONTEXT_NAME_SAVE_IMAGE = "Save Image";
 
         private const float ZOOM_SCALE_1 = 0.1f;
-        //private const float ZOOM_SCALE_05 = 0.05f;
-        //private const float ZOOM_SCALE_01 = 0.01f;
 
         private readonly string IMAGE_FORMAT_BMP = nameof(ImageFormat.Bmp);
         private readonly string IMAGE_FORMAT_JPG = nameof(ImageFormat.Jpeg);
@@ -47,7 +45,7 @@ namespace com.outlook_styner07.cs.control.Container
         private Color _imageCenterColor = Color.Lime;
         private int _imageCenterWidth = 1;
 
-        private ContextMenuStrip _ctxMenu;
+        private ContextMenuStrip? _ctxMenu;
 
         private bool _contextMenuEnabled = true;
 
@@ -56,12 +54,7 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _image; }
             set
             {
-                if (value == null)
-                {
-                    return;
-                }
-
-                if (_image == null)
+                if (_image == null && value != null)
                 {
                     _newWidth = value.Width;
                     _newHeight = value.Height;
@@ -183,24 +176,6 @@ namespace com.outlook_styner07.cs.control.Container
 
                     switch (e.ClickedItem.Text)
                     {
-                        //case CONTEXT_NAME_ZOOM_SCALE_1:
-                        //    _zoomScale = ZOOM_SCALE_1;
-                        //    _ctxMenuZoomScale1.Checked = true;
-                        //    _ctxMenuZoomScale05.Checked = false;
-                        //    _ctxMenuZoomScale01.Checked = false;
-                        //    break;
-                        //case CONTEXT_NAME_ZOOM_SCALE_05:
-                        //    _zoomScale = ZOOM_SCALE_05;
-                        //    _ctxMenuZoomScale1.Checked = false;
-                        //    _ctxMenuZoomScale05.Checked = true;
-                        //    _ctxMenuZoomScale01.Checked = false;
-                        //    break;
-                        //case CONTEXT_NAME_ZOOM_SCALE_01:
-                        //    _zoomScale = ZOOM_SCALE_01;
-                        //    _ctxMenuZoomScale1.Checked = false;
-                        //    _ctxMenuZoomScale05.Checked = false;
-                        //    _ctxMenuZoomScale01.Checked = true;
-                        //    break;
                         case CONTEXT_NAME_FIT_TO_FRAME:
                             FitToFrame();
                             break;
@@ -258,12 +233,35 @@ namespace com.outlook_styner07.cs.control.Container
 
         protected override void OnPaint(PaintEventArgs e)
         {
-
             Graphics g = e.Graphics;
 
             if (_image != null)
             {
                 g.DrawImage(_image, new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight));
+
+                if (_drawImageCenter)
+                {
+                    using (Pen pen = new Pen(_imageCenterColor, _imageCenterWidth))
+                    {
+                        RectangleF rect = new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight);
+
+                        g.DrawLine(pen,
+                            rect.X + rect.Width / 2,
+                            rect.Y,
+                            rect.X + rect.Width / 2,
+                            rect.Y + rect.Height);
+
+                        g.DrawLine(pen,
+                            rect.X,
+                            rect.Y + rect.Height / 2,
+                            rect.X + rect.Width,
+                            rect.Y + rect.Height / 2);
+                    }
+                }
+            }
+            else
+            {
+                g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             }
 
             if (_drawCrossLine)
@@ -280,25 +278,6 @@ namespace com.outlook_styner07.cs.control.Container
                 }
             }
 
-            if (_image != null && _drawImageCenter)
-            {
-                using (Pen pen = new Pen(_imageCenterColor, _imageCenterWidth))
-                {
-                    RectangleF rect = new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight);
-
-                    g.DrawLine(pen,
-                        rect.X + rect.Width / 2,
-                        rect.Y,
-                        rect.X + rect.Width / 2,
-                        rect.Y + rect.Height);
-
-                    g.DrawLine(pen,
-                        rect.X,
-                        rect.Y + rect.Height / 2,
-                        rect.X + rect.Width,
-                        rect.Y + rect.Height / 2);
-                }
-            }
             base.OnPaint(e);
         }
 
