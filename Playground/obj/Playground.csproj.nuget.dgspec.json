@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
-      "version": "23.9.24.3",
+      "version": "24.11.12.3",
       "restore": {
         "projectUniqueName": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
         "projectName": "com.outlook@styner07.cs.control",
@@ -44,6 +44,16 @@
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.6, )"
+            },
+            "System.Windows.Forms.DataVisualization": {
+              "target": "Package",
+              "version": "[1.0.0-prerelease.20110.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -312,7 +312,7 @@ namespace com.outlook_styner07.cs.control.Data
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            
+
             if (Rows.Count == 0)
             {
                 const string NO_DATA = "no data to display";
@@ -320,7 +320,7 @@ namespace com.outlook_styner07.cs.control.Data
                 Graphics g = e.Graphics;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                
+
                 SizeF textSize = g.MeasureString(NO_DATA, Font);
 
                 g.DrawString(NO_DATA, Font, new SolidBrush(ForeColor), new Point(
@@ -397,7 +397,7 @@ namespace com.outlook_styner07.cs.control.Data
 
                         string title = colMergeObjects[i].ColTitle;
 
-                        Size stringSize = TextRenderer.MeasureText(title, DEFAULT_HEADER_FONT);
+                        SizeF stringSize = g.MeasureString(title, DEFAULT_HEADER_FONT);
 
 
                         int textRenderOffsetX = 0;
@@ -405,14 +405,13 @@ namespace com.outlook_styner07.cs.control.Data
                         if (mergedCellWidth > 0 && rect.Width < mergedCellWidth)
                         {
                             textRenderOffsetX = mergedCellWidth - rect.Width;
-                            //Debug.WriteLine($"text render offset x: {textRenderOffsetX}");
                         }
 
-                        Point textRenderPosition = new Point(
+                        PointF textRenderPosition = new PointF(
                                 rect.X + (rect.Width - textRenderOffsetX - stringSize.Width) / 2,
                                 rect.Y + (rect.Height - stringSize.Height) / 2);
 
-                        TextRenderer.DrawText(g, title, DEFAULT_HEADER_FONT, textRenderPosition, MergeCellTextColor);
+                        g.DrawString(title, DEFAULT_HEADER_FONT, new SolidBrush(MergeCellTextColor), textRenderPosition);
 
                         g.ResetClip();
 

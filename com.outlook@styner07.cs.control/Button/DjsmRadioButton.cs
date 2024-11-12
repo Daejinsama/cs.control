@@ -55,9 +55,6 @@ namespace com.outlook_styner07.cs.control.Button
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
 
-        [Browsable(false)]
-        public new bool AutoSize { get; set; } = false;
-
         public DjsmRadioButton()
         {
             //SetStyle(ControlStyles.UserPaint, true);
@@ -80,7 +77,6 @@ namespace com.outlook_styner07.cs.control.Button
                     FlatAppearance.CheckedBackColor = Color.Transparent;
                     FlatAppearance.MouseDownBackColor = Color.Transparent;
                     FlatAppearance.MouseOverBackColor = Color.Transparent;
-
                 }
                 else
                 {
@@ -114,7 +110,7 @@ namespace com.outlook_styner07.cs.control.Button
             }
             else
             {
-                const int HORIZONTAL_MARGIN = 6;
+                const int HORIZONTAL_MARGIN = 3;
 
                 int buttonSize = 11;
                 float buttonMargin = ClientRectangle.Height / 2 - buttonSize / 2;
@@ -134,8 +130,7 @@ namespace com.outlook_styner07.cs.control.Button
                 textDrawingRectangle.X += textMargin;
                 textDrawingRectangle.Width -= textMargin;
             }
-
-            TextRenderer.DrawText(g, Text, Font, textDrawingRectangle, ForeColor, DrawingUtil.GetTextFormatFlag(TextAlign));
+            g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
         }
     }
 }

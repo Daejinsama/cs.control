@@ -14,6 +14,21 @@
     <Compile Update="Button\DjsmToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Charting\DjsmChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Charting\DjsmChartPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Charting\DjsmFullSpectrumChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Charting\DjsmTimeTrendChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Charting\SeriesCustomizingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Common\DjsmCalendar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -86,5 +101,13 @@
     <Compile Update="Gauge\DjsmProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="DjsmCalculatorPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

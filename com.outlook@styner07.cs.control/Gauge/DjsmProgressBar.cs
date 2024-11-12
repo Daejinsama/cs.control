@@ -63,7 +63,7 @@ namespace com.outlook_styner07.cs.control.Gauge
         public string LabelText { get; set; } = string.Empty;
 
         [Browsable(false)]
-        public new Color ForeColor { get; set; } 
+        public new Color ForeColor { get; set; }
 
         /// <summary>
         /// not support marquee style.
@@ -75,7 +75,7 @@ namespace com.outlook_styner07.cs.control.Gauge
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
 
-        private System.Timers.Timer marqueeTimer;
+        private System.Timers.Timer? marqueeTimer;
 
         private bool updateMarquee = false;
         public void StartMarquee()
@@ -83,7 +83,7 @@ namespace com.outlook_styner07.cs.control.Gauge
             if (marqueeTimer == null)
             {
                 marqueeTimer = new System.Timers.Timer(MarqueeAnimationSpeed);
-                marqueeTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
+                marqueeTimer.Elapsed += (sender, e) =>
                 {
                     Invoke((MethodInvoker)delegate
                     {
@@ -108,7 +108,7 @@ namespace com.outlook_styner07.cs.control.Gauge
             Invalidate();
         }
 
-        private int marqueePos = int.MinValue;
+        private float marqueePos = float.MinValue;
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -121,8 +121,7 @@ namespace com.outlook_styner07.cs.control.Gauge
 
                 if (Style == ProgressBarStyle.Marquee && updateMarquee)
                 {
-                    Rectangle rect = e.ClipRectangle;
-                    Rectangle newRect = e.ClipRectangle;
+                    RectangleF newRect = e.ClipRectangle;
                     newRect.Width = (int)(newRect.Width * 0.35);
 
                     if (marqueePos < -newRect.Width)
@@ -130,7 +129,7 @@ namespace com.outlook_styner07.cs.control.Gauge
                         marqueePos = -newRect.Width;
                     }
 
-                    if (marqueePos >= rect.Width)
+                    if (marqueePos >= newRect.Width)
                     {
                         marqueePos = -newRect.Width;
                     }
@@ -139,8 +138,9 @@ namespace com.outlook_styner07.cs.control.Gauge
 
                     if (LabelDrawing)
                     {
-                        SizeF stringSize = TextRenderer.MeasureText(g, LabelText, ProgressFont);
-                        TextRenderer.DrawText(g, LabelText, ProgressFont, newRect, ProgressFontColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+                        SizeF stringSize = g.MeasureString(LabelText, ProgressFont);
+
+                        g.DrawString(LabelText, ProgressFont, new SolidBrush(ProgressFontColor), newRect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
                     }
                     updateMarquee = false;
                 }
@@ -157,17 +157,18 @@ namespace com.outlook_styner07.cs.control.Gauge
 
                     if (LabelDrawing)
                     {
-                        SizeF stringSize = TextRenderer.MeasureText(g, LabelText, ProgressFont);
+                        SizeF stringSize = g.MeasureString(LabelText, ProgressFont);
                         e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
                         if (IsFixedLabel)
                         {
-                            TextRenderer.DrawText(g, LabelText, ProgressFont, e.ClipRectangle, ProgressFontColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+                            g.DrawString(LabelText, ProgressFont, new SolidBrush(ProgressFontColor), e.ClipRectangle, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
                         }
                         else
                         {
                             string percentage = string.Format("{0:0.0}%", ((double)Value / Maximum) * 100);
-                            TextRenderer.DrawText(g, percentage, ProgressFont, rect, ProgressFontColor, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
+
+                            g.DrawString(percentage, ProgressFont, new SolidBrush(ProgressFontColor), rect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
                         }
                     }
                 }

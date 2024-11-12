@@ -45,8 +45,8 @@ namespace com.outlook_styner07.cs.control.Button
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
 
-        [Browsable(false)]
-        public new bool AutoSize { get; set; } = false;
+        //[Browsable(false)]
+        //public new bool AutoSize { get; set; } = true;
 
         public DjsmCheckBox()
         {
@@ -67,7 +67,7 @@ namespace com.outlook_styner07.cs.control.Button
 
             g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
-            const int HORIZONTAL_MARGIN = 6;
+            const int HORIZONTAL_MARGIN = 3;
             int buttonSize = 11;
             float buttonMargin = ClientRectangle.Height / 2 - buttonSize / 2;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -91,7 +91,7 @@ namespace com.outlook_styner07.cs.control.Button
             textDrawingRectangle.X += textMargin;
             textDrawingRectangle.Width -= textMargin;
 
-            TextRenderer.DrawText(g, Text, Font, textDrawingRectangle, ForeColor, DrawingUtil.GetTextFormatFlag(TextAlign));
+            g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
         }
     }
 }

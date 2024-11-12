@@ -29,9 +29,56 @@ namespace com.outlook_styner07.cs.control
                     return TextFormatFlags.Bottom & TextFormatFlags.Right;
                 default:
                     return TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter;
-
             }
         }
+
+        public static StringFormat ConvertStringAlign(ContentAlignment textAlign)
+        {
+            StringFormat ret = new StringFormat();
+
+            switch (textAlign)
+            {
+                case ContentAlignment.TopLeft:
+                    ret.Alignment = StringAlignment.Near;
+                    ret.LineAlignment = StringAlignment.Near;
+                    break;
+                case ContentAlignment.TopCenter:
+                    ret.Alignment = StringAlignment.Center;
+                    ret.LineAlignment = StringAlignment.Near;
+                    break;
+                case ContentAlignment.TopRight:
+                    ret.Alignment = StringAlignment.Far;
+                    ret.LineAlignment = StringAlignment.Near;
+                    break;
+                case ContentAlignment.MiddleLeft:
+                    ret.Alignment = StringAlignment.Near;
+                    ret.LineAlignment = StringAlignment.Center;
+                    break;
+                case ContentAlignment.MiddleCenter:
+                    ret.Alignment = StringAlignment.Center;
+                    ret.LineAlignment = StringAlignment.Center;
+                    break;
+                case ContentAlignment.MiddleRight:
+                    ret.Alignment = StringAlignment.Far;
+                    ret.LineAlignment = StringAlignment.Center;
+                    break;
+                case ContentAlignment.BottomLeft:
+                    ret.Alignment = StringAlignment.Near;
+                    ret.LineAlignment = StringAlignment.Far;
+                    break;
+                case ContentAlignment.BottomCenter:
+                    ret.Alignment = StringAlignment.Center;
+                    ret.LineAlignment = StringAlignment.Far;
+                    break;
+                case ContentAlignment.BottomRight:
+                    ret.Alignment = StringAlignment.Far;
+                    ret.LineAlignment = StringAlignment.Far;
+                    break;
+            }
+
+            return ret;
+        }
+
         public static GraphicsPath GetNormalRectPath(Rectangle rect, SizeF textSize, bool textAlignTop)
         {
             PointF pointLeftTop = textAlignTop
