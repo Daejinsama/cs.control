@@ -16,13 +16,10 @@ namespace com.outlook_styner07.cs.control.Container
         private static string IMAGE_FORMAT_JPG = nameof(ImageFormat.Jpeg);
         private static string IMAGE_FORMAT_PNG = nameof(ImageFormat.Png);
         private static string IMAGE_FORMAT_TIFF = nameof(ImageFormat.Tiff);
-        private static string IMAGE_FORMAT_TIF = "tif";
+        private static string IMAGE_FORMAT_TIF = "Tif";
 
         public static string SUPPORT_FILE_FILTER
-            = $"Bitmap Image (.{IMAGE_FORMAT_BMP})|*.{IMAGE_FORMAT_BMP}"
-            + $"|JPEG Image (.{IMAGE_FORMAT_JPG})|*.{IMAGE_FORMAT_JPG}"
-            + $"|Portable Network Graphics (.{IMAGE_FORMAT_PNG})|*.{IMAGE_FORMAT_PNG}"
-            + $"|Tagged Image File Format (.{IMAGE_FORMAT_TIF};.{IMAGE_FORMAT_TIFF})|*.{IMAGE_FORMAT_TIF};*.{IMAGE_FORMAT_TIFF}";
+            = $"Supported Image File|*.{IMAGE_FORMAT_BMP};*.{IMAGE_FORMAT_JPG};*.{IMAGE_FORMAT_PNG};*.{IMAGE_FORMAT_TIF};*.{IMAGE_FORMAT_TIFF}";
 
         private Image? _image;
 
@@ -89,21 +86,13 @@ namespace com.outlook_styner07.cs.control.Container
                 if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 {
                     string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
-                    if (files?.Length > 0
-                        && (files[0].EndsWith(IMAGE_FORMAT_BMP)
-                        || files[0].EndsWith(IMAGE_FORMAT_JPG)
-                        || files[0].EndsWith(IMAGE_FORMAT_PNG)
-                        || files[0].EndsWith(IMAGE_FORMAT_TIFF)
-                        || files[0].EndsWith(IMAGE_FORMAT_TIF)))
+                    if (files?.Length > 0 && IsSupportedFile(files[0]))
                     {
                         e.Effect = DragDropEffects.Copy;
                         e.DropImageType = DropImageType.Copy;
                     }
 
                     return;
-
-                    //e.Effect = DragDropEffects.Copy;
-                    //e.DropImageType = DropImageType.Copy;
                 }
 
                 e.Effect = DragDropEffects.None;
@@ -113,12 +102,7 @@ namespace com.outlook_styner07.cs.control.Container
             {
                 string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
 
-                if (files?.Length > 0
-                    && (files[0].EndsWith(IMAGE_FORMAT_BMP)
-                    || files[0].EndsWith(IMAGE_FORMAT_JPG)
-                    || files[0].EndsWith(IMAGE_FORMAT_PNG)
-                    || files[0].EndsWith(IMAGE_FORMAT_TIFF)
-                    || files[0].EndsWith(IMAGE_FORMAT_TIF)))
+                if (files?.Length > 0 && IsSupportedFile(files[0]))
                 {
                     Image = Image.FromFile(files[0]);
                 }
@@ -274,6 +258,15 @@ namespace com.outlook_styner07.cs.control.Container
                     }
                 }
             };
+        }
+
+        private bool IsSupportedFile(string path)
+        {
+            return path.EndsWith(IMAGE_FORMAT_BMP, true, null)
+                        || path.EndsWith(IMAGE_FORMAT_JPG, true, null)
+                        || path.EndsWith(IMAGE_FORMAT_PNG, true, null)
+                        || path.EndsWith(IMAGE_FORMAT_TIFF, true, null)
+                        || path.EndsWith(IMAGE_FORMAT_TIF, true, null);
         }
 
         protected override void OnPaint(PaintEventArgs e)
