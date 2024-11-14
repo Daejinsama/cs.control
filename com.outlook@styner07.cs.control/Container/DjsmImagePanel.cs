@@ -12,10 +12,17 @@ namespace com.outlook_styner07.cs.control.Container
 
         private const float ZOOM_SCALE_1 = 0.1f;
 
-        private readonly string IMAGE_FORMAT_BMP = nameof(ImageFormat.Bmp);
-        private readonly string IMAGE_FORMAT_JPG = nameof(ImageFormat.Jpeg);
-        private readonly string IMAGE_FORMAT_PNG = nameof(ImageFormat.Png);
-        private readonly string IMAGE_FORMAT_TIF = nameof(ImageFormat.Tiff);
+        private static string IMAGE_FORMAT_BMP = nameof(ImageFormat.Bmp);
+        private static string IMAGE_FORMAT_JPG = nameof(ImageFormat.Jpeg);
+        private static string IMAGE_FORMAT_PNG = nameof(ImageFormat.Png);
+        private static string IMAGE_FORMAT_TIFF = nameof(ImageFormat.Tiff);
+        private static string IMAGE_FORMAT_TIF = "tif";
+
+        public static string SUPPORT_FILE_FILTER
+            = $"Bitmap Image (.{IMAGE_FORMAT_BMP})|*.{IMAGE_FORMAT_BMP}"
+            + $"|JPEG Image (.{IMAGE_FORMAT_JPG})|*.{IMAGE_FORMAT_JPG}"
+            + $"|Portable Network Graphics (.{IMAGE_FORMAT_PNG})|*.{IMAGE_FORMAT_PNG}"
+            + $"|Tagged Image File Format (.{IMAGE_FORMAT_TIF};.{IMAGE_FORMAT_TIFF})|*.{IMAGE_FORMAT_TIF};*.{IMAGE_FORMAT_TIFF}";
 
         private Image? _image;
 
@@ -73,7 +80,50 @@ namespace com.outlook_styner07.cs.control.Container
         public DjsmImagePanel()
         {
             DoubleBuffered = true;
+            AllowDrop = true;
+
             InitializeContextMenu();
+
+            DragEnter += (sender, e) =>
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
+                    if (files?.Length > 0
+                        && (files[0].EndsWith(IMAGE_FORMAT_BMP)
+                        || files[0].EndsWith(IMAGE_FORMAT_JPG)
+                        || files[0].EndsWith(IMAGE_FORMAT_PNG)
+                        || files[0].EndsWith(IMAGE_FORMAT_TIFF)
+                        || files[0].EndsWith(IMAGE_FORMAT_TIF)))
+                    {
+                        e.Effect = DragDropEffects.Copy;
+                        e.DropImageType = DropImageType.Copy;
+                    }
+
+                    return;
+
+                    //e.Effect = DragDropEffects.Copy;
+                    //e.DropImageType = DropImageType.Copy;
+                }
+
+                e.Effect = DragDropEffects.None;
+            };
+
+            DragDrop += (sender, e) =>
+            {
+                string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
+
+                if (files?.Length > 0
+                    && (files[0].EndsWith(IMAGE_FORMAT_BMP)
+                    || files[0].EndsWith(IMAGE_FORMAT_JPG)
+                    || files[0].EndsWith(IMAGE_FORMAT_PNG)
+                    || files[0].EndsWith(IMAGE_FORMAT_TIFF)
+                    || files[0].EndsWith(IMAGE_FORMAT_TIF)))
+                {
+                    Image = Image.FromFile(files[0]);
+                    FitToFrame();
+                }
+            };
         }
 
         public void ContextMenuEnabled(bool enable)
@@ -182,11 +232,7 @@ namespace com.outlook_styner07.cs.control.Container
                         case CONTEXT_NAME_SAVE_IMAGE:
                             SaveFileDialog dlg = new SaveFileDialog
                             {
-                                Filter =
-                                $"Bitmap Image (.{IMAGE_FORMAT_BMP})|*.{IMAGE_FORMAT_BMP}" +
-                                $"|JPEG Image (.{IMAGE_FORMAT_JPG})|*.{IMAGE_FORMAT_JPG}" +
-                                $"|Portable Network Graphics (.{IMAGE_FORMAT_PNG})|*.{IMAGE_FORMAT_PNG}" +
-                                $"|Tagged Image File Format (.{IMAGE_FORMAT_TIF})|*.{IMAGE_FORMAT_TIF}",
+                                Filter = SUPPORT_FILE_FILTER,
                                 AddExtension = true,
                             };
 
