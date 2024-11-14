@@ -121,7 +121,6 @@ namespace com.outlook_styner07.cs.control.Container
                     || files[0].EndsWith(IMAGE_FORMAT_TIF)))
                 {
                     Image = Image.FromFile(files[0]);
-                    FitToFrame();
                 }
             };
         }
