@@ -1,7 +1,28 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:1:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\container\\djsmimagepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\container\\djsmimagepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\container\\djsmimagepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\container\\djsmimagepanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 175,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,6 +59,76 @@
             {
               "$type": "Bookmark",
               "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DjsmBaseForm.cs",
+              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
+              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
+              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T06:00:05.447Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DjsmBaseForm.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
+              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
+              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\DjsmBaseForm.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmBaseForm.cs [\uB514\uC790\uC778]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T06:00:00.435Z",
+              "EditorCaption": " [\uB514\uC790\uC778]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "com.outlook@styner07.cs.control.csproj",
+              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-14T02:21:22.166Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DjsmImagePanel.cs",
+              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
+              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
+              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAowF4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T01:57:48.183Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 226,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DjsmImagePanel.cs",
+              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
+              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
+              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
+              "ViewState": "AgIAAPgAAAAAAAAAAADwv/0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T02:28:52.491Z",
+              "EditorCaption": ""
             }
           ]
         }
