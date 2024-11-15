@@ -86,6 +86,9 @@
     <Compile Update="Data\DjsmPropertyGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="DjsmBaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DjsmLabel.cs">
       <SubType>Component</SubType>
     </Compile>
