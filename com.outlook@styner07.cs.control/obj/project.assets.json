@@ -504,7 +504,7 @@
     "C:\\Users\\asuspc\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "24.11.15.1",
+    "version": "24.11.19.1",
     "restore": {
       "projectUniqueName": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
       "projectName": "com.outlook@styner07.cs.control",
@@ -572,7 +572,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

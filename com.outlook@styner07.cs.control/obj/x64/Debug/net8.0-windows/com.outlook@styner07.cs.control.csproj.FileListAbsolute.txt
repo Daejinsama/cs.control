@@ -32,3 +32,5 @@ D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\o
 D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\x64\Debug\net8.0-windows\refint\com.outlook@styner07.cs.control.dll
 D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\x64\Debug\net8.0-windows\com.outlook@styner07.cs.control.pdb
 D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\x64\Debug\net8.0-windows\ref\com.outlook@styner07.cs.control.dll
+D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\x64\Debug\net8.0-windows\com.outlook_styner07.cs.control.Common.DjsmCalendar.resources
+D:\cs_projects\com.outlook@styner07.cs.control\com.outlook@styner07.cs.control\obj\x64\Debug\net8.0-windows\com.outlook_styner07.cs.control.DjsmBaseForm.resources

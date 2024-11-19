@@ -33,7 +33,7 @@ namespace com.outlook_styner07.cs.control.Gauge
 
         private int borderWidth = 1;
 
-        public event EventHandler ColorChanged;
+        public event EventHandler? ColorChanged;
 
         [Browsable(true)]
         public Color Color
@@ -139,11 +139,6 @@ namespace com.outlook_styner07.cs.control.Gauge
 
         private System.Threading.Timer? blinkTimer;
 
-        //public DjsmIndicator()
-        //{
-        //    SetStyle(ControlStyles.UserPaint, true);
-        //}
-
         private void SetBlink()
         {
             blinkTimer?.Dispose();
@@ -165,10 +160,11 @@ namespace com.outlook_styner07.cs.control.Gauge
             /// region 설정 및 출력 시 동작 및 출력 불안정
             /// 왜 그럴까? 
             Graphics g = e.Graphics;
+
             g.Clear(Parent.BackColor);
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            RectangleF rectF;
+            Rectangle rectF;
 
             GraphicsPath path = new GraphicsPath();
 
@@ -179,40 +175,35 @@ namespace com.outlook_styner07.cs.control.Gauge
                 rectF = new Rectangle((Width - diameter) / 2 + PADDING, (Height - diameter) / 2 + PADDING, diameter - PADDING * 2, diameter - PADDING * 2);
 
                 path.AddEllipse(rectF);
+
+                using (PathGradientBrush pathBrush = new PathGradientBrush(path)
+                {
+                    CenterColor = Color.FromArgb(opacity, Color),
+                    SurroundColors = [Color],
+                })
+                {
+                    g.FillEllipse(pathBrush, rectF);
+
+                    if (borderWidth > 0)
+                    {
+                        g.DrawEllipse(new Pen(borderColor, borderWidth), rectF);
+                    }
+                }
             }
             else
             {
                 rectF = new Rectangle(PADDING, PADDING, Size.Width - PADDING * 2, Size.Height - PADDING * 2);
 
                 path.AddRectangle(rectF);
-            }
-            
-            Blend blender = new Blend(2);
-            blender.Factors = new[] { 1.0f, 1.0f };
-            blender.Positions = new[] { 0.0f, 1.0f };
 
-            PathGradientBrush pathBrush = new PathGradientBrush(path)
-            {
-                CenterColor = Color.FromArgb(opacity, Color),
-                SurroundColors = [Color],
-            };
-
-            if (shape == ShapeType.Ellipse)
-            {
-                g.FillEllipse(pathBrush, rectF);
-
-                if (borderWidth > 0)
+                using (LinearGradientBrush pathBrush = new LinearGradientBrush(new Point(rectF.X, rectF.Y), new Point(rectF.Width, rectF.Height), Color.FromArgb(opacity, Color), Color))
                 {
-                    g.DrawEllipse(new Pen(borderColor, borderWidth), rectF);
-                }
-            }
-            else
-            {
-                g.FillRectangle(pathBrush, rectF);
+                    g.FillRectangle(pathBrush, rectF);
 
-                if (borderWidth > 0)
-                {
-                    g.DrawRectangle(new Pen(borderColor, borderWidth), rectF);
+                    if (borderWidth > 0)
+                    {
+                        g.DrawRectangle(new Pen(borderColor, borderWidth), rectF);
+                    }
                 }
             }
 
