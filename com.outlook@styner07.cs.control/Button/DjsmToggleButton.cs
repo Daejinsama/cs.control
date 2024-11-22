@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
 {
@@ -68,6 +69,18 @@ namespace com.outlook_styner07.cs.control.Button
 
         private Color _baseColor = Color.DimGray;
 
+        [Browsable(true)]
+        public TextRenderingHint RenderingHint
+        {
+            get { return _textRenderingHint; }
+            set
+            {
+                _textRenderingHint = value; Invalidate();
+            }
+        }
+
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+
         [Browsable(false)]
         public new Color BackColor { get; set; } = Color.Transparent;
 
@@ -82,6 +95,7 @@ namespace com.outlook_styner07.cs.control.Button
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.HighQuality;
+            g.TextRenderingHint = _textRenderingHint;
 
             Rectangle controlBoundary = ClientRectangle;
             Rectangle drawingRect = new Rectangle();

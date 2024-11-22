@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
 {
@@ -21,6 +22,18 @@ namespace com.outlook_styner07.cs.control.Button
 
         private int _radius;
 
+        [Browsable(true)]
+        public TextRenderingHint RenderingHint
+        {
+            get { return _textRenderingHint; }
+            set
+            {
+                _textRenderingHint = value; Invalidate();
+            }
+        }
+
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+
         private enum ButtonState { Normal, Pressed, MouseOver }
 
         private ButtonState _state;
@@ -36,6 +49,7 @@ namespace com.outlook_styner07.cs.control.Button
             Graphics g = pevent.Graphics;
             g.Clear(Parent.BackColor);
             g.SmoothingMode = SmoothingMode.HighQuality;
+            g.TextRenderingHint = _textRenderingHint;
 
             Rectangle drawingArea = new Rectangle(ClientRectangle.X + Padding.Left,
                 ClientRectangle.Y + Padding.Top,

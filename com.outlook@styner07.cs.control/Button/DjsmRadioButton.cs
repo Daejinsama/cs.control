@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
 {
@@ -52,6 +53,19 @@ namespace com.outlook_styner07.cs.control.Button
 
         private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
 
+
+        [Browsable(true)]
+        public TextRenderingHint RenderingHint
+        {
+            get { return _textRenderingHint; }
+            set
+            {
+                _textRenderingHint = value; Invalidate();
+            }
+        }
+
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
 
@@ -89,6 +103,7 @@ namespace com.outlook_styner07.cs.control.Button
         {
             base.OnPaint(pevent);
             Graphics g = pevent.Graphics;
+            g.TextRenderingHint = _textRenderingHint;
 
             g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             
