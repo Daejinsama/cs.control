@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("daejinsama")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("24.11.19.1")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("24.11.19.1+5c8e3bc940404dd6c633881cf4e9189887afbed2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("24.11.19.1+fbbfc5465ad1021a81c9cb5f9287018072969154")]
 [assembly: System.Reflection.AssemblyProductAttribute("com.outlook@styner07.cs.control")]
 [assembly: System.Reflection.AssemblyTitleAttribute("com.outlook@styner07.cs.control")]
 [assembly: System.Reflection.AssemblyVersionAttribute("24.11.19.1")]

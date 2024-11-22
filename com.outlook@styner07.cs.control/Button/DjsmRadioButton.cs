@@ -128,7 +128,7 @@ namespace com.outlook_styner07.cs.control.Button
                 int textMargin = buttonSize + HORIZONTAL_MARGIN * 2;
 
                 textDrawingRectangle.X += textMargin;
-                textDrawingRectangle.Width -= textMargin;
+                //textDrawingRectangle.Width -= textMargin;
             }
             g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
         }

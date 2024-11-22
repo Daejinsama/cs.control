@@ -56,7 +56,6 @@ namespace com.outlook_styner07.cs.control.Button
             _checkedForeColor
                 = _uncheckedForeColor
                 = ForeColor;
-
         }
 
         protected override void OnPaint(PaintEventArgs pevent)
@@ -83,14 +82,16 @@ namespace com.outlook_styner07.cs.control.Button
 
             Font = new Font(Font.FontFamily, Font.Size, Checked ? FontStyle.Bold : FontStyle.Regular);
             ForeColor = Checked ? _checkedForeColor : _uncheckedForeColor;
-
+            
             int textMargin = buttonSize + HORIZONTAL_MARGIN * 2;
 
             Rectangle textDrawingRectangle = ClientRectangle;
 
             textDrawingRectangle.X += textMargin;
-            textDrawingRectangle.Width -= textMargin;
+            //textDrawingRectangle.Width -= textMargin;
 
+            //Width = textDrawingRectangle.X + textDrawingRectangle.Width;
+            
             g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
         }
     }
