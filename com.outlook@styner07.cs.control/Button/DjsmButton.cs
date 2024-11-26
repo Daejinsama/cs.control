@@ -44,7 +44,7 @@ namespace com.outlook_styner07.cs.control.Button
             }
         }
 
-        private SmoothingMode _smoothMode = SmoothingMode.Default;
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
 
         private enum ButtonState { Normal, Pressed, MouseOver }
 

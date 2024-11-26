@@ -66,7 +66,7 @@ namespace com.outlook_styner07.cs.control.Button
             }
         }
 
-        private SmoothingMode _smoothMode = SmoothingMode.Default;
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
 
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
@@ -98,28 +98,22 @@ namespace com.outlook_styner07.cs.control.Button
             const int HORIZONTAL_MARGIN = 3;
             int buttonSize = 11;
             float buttonMargin = ClientRectangle.Height / 2 - buttonSize / 2;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             if (Checked)
             {
-                g.FillRectangle(new SolidBrush(_checkedForeColor), new RectangleF(HORIZONTAL_MARGIN, buttonMargin, buttonSize, buttonSize));
+                g.FillRectangle(new SolidBrush(_checkedForeColor), new RectangleF(0, buttonMargin, buttonSize, buttonSize));
             }
-            else
-            {
-                g.DrawRectangle(new Pen(_uncheckedForeColor), new RectangleF(HORIZONTAL_MARGIN, buttonMargin, buttonSize, buttonSize));
-            }
+
+            g.DrawRectangle(new Pen(_uncheckedForeColor), new RectangleF(0, buttonMargin, buttonSize, buttonSize));
 
             Font = new Font(Font.FontFamily, Font.Size, Checked ? FontStyle.Bold : FontStyle.Regular);
             ForeColor = Checked ? _checkedForeColor : _uncheckedForeColor;
 
-            int textMargin = buttonSize + HORIZONTAL_MARGIN * 2;
+            int textMargin = buttonSize + HORIZONTAL_MARGIN;
 
             Rectangle textDrawingRectangle = ClientRectangle;
 
             textDrawingRectangle.X += textMargin;
-            //textDrawingRectangle.Width -= textMargin;
-
-            //Width = textDrawingRectangle.X + textDrawingRectangle.Width;
 
             g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
         }

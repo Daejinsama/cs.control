@@ -91,7 +91,7 @@ namespace com.outlook_styner07.cs.control.Button
             }
         }
 
-        private SmoothingMode _smoothMode = SmoothingMode.Default;
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
 
         [Browsable(false)]
         public new Color BackColor { get; set; } = Color.Transparent;
