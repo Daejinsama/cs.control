@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
@@ -66,6 +67,18 @@ namespace com.outlook_styner07.cs.control.Button
 
         private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
 
+        [Browsable(true)]
+        public SmoothingMode SmoothMode
+        {
+            get { return _smoothMode; }
+            set
+            {
+                _smoothMode = value; Invalidate();
+            }
+        }
+
+        private SmoothingMode _smoothMode = SmoothingMode.Default;
+
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
 
@@ -103,6 +116,7 @@ namespace com.outlook_styner07.cs.control.Button
         {
             base.OnPaint(pevent);
             Graphics g = pevent.Graphics;
+            g.SmoothingMode = _smoothMode;
             g.TextRenderingHint = _textRenderingHint;
 
             g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);

@@ -81,6 +81,18 @@ namespace com.outlook_styner07.cs.control.Button
 
         private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
 
+        [Browsable(true)]
+        public SmoothingMode SmoothMode
+        {
+            get { return _smoothMode; }
+            set
+            {
+                _smoothMode = value; Invalidate();
+            }
+        }
+
+        private SmoothingMode _smoothMode = SmoothingMode.Default;
+
         [Browsable(false)]
         public new Color BackColor { get; set; } = Color.Transparent;
 
@@ -94,7 +106,7 @@ namespace com.outlook_styner07.cs.control.Button
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.SmoothingMode = _smoothMode;
             g.TextRenderingHint = _textRenderingHint;
 
             Rectangle controlBoundary = ClientRectangle;

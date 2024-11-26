@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
@@ -42,7 +43,7 @@ namespace com.outlook_styner07.cs.control.Button
         }
 
         private Color _uncheckedForeColor;
-        
+
         [Browsable(true)]
         public TextRenderingHint RenderingHint
         {
@@ -54,6 +55,18 @@ namespace com.outlook_styner07.cs.control.Button
         }
 
         private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+
+        [Browsable(true)]
+        public SmoothingMode SmoothMode
+        {
+            get { return _smoothMode; }
+            set
+            {
+                _smoothMode = value; Invalidate();
+            }
+        }
+
+        private SmoothingMode _smoothMode = SmoothingMode.Default;
 
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
@@ -77,6 +90,7 @@ namespace com.outlook_styner07.cs.control.Button
 
             Graphics g = pevent.Graphics;
 
+            g.SmoothingMode = _smoothMode;
             g.TextRenderingHint = _textRenderingHint;
 
             g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
@@ -97,7 +111,7 @@ namespace com.outlook_styner07.cs.control.Button
 
             Font = new Font(Font.FontFamily, Font.Size, Checked ? FontStyle.Bold : FontStyle.Regular);
             ForeColor = Checked ? _checkedForeColor : _uncheckedForeColor;
-            
+
             int textMargin = buttonSize + HORIZONTAL_MARGIN * 2;
 
             Rectangle textDrawingRectangle = ClientRectangle;
@@ -106,7 +120,7 @@ namespace com.outlook_styner07.cs.control.Button
             //textDrawingRectangle.Width -= textMargin;
 
             //Width = textDrawingRectangle.X + textDrawingRectangle.Width;
-            
+
             g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
         }
     }

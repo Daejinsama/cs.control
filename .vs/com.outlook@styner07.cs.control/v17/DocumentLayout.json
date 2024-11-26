@@ -3,32 +3,28 @@
   "WorkspaceRootPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\button\\djsmbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\button\\djsmbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\button\\djsmcheckbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\button\\djsmcheckbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\button\\djsmradiobutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\button\\djsmradiobutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\button\\djsmcheckbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\button\\djsmcheckbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\button\\djsmtogglebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\button\\djsmtogglebutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5E0CD1AA-EFE4-4258-9E0D-367CF8245DBE}|Playground\\Playground.csproj|D:\\cs_projects\\com.outlook@styner07.cs.control\\playground\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5E0CD1AA-EFE4-4258-9E0D-367CF8245DBE}|Playground\\Playground.csproj|solutionrelative:playground\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\button\\djsmbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\button\\djsmbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5E0CD1AA-EFE4-4258-9E0D-367CF8245DBE}|Playground\\Playground.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\playground\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5E0CD1AA-EFE4-4258-9E0D-367CF8245DBE}|Playground\\Playground.csproj|solutionrelative:playground\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E0CD1AA-EFE4-4258-9E0D-367CF8245DBE}|Playground\\Playground.csproj|D:\\cs_projects\\com.outlook@styner07.cs.control\\playground\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5E0CD1AA-EFE4-4258-9E0D-367CF8245DBE}|Playground\\Playground.csproj|solutionrelative:playground\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|d:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\gauge\\djsmindicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,8 +37,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 314,
-          "SelectedChildIndex": 9,
+          "DockedWidth": 316,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,7 +70,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
+              "Title": "DjsmButton.cs",
+              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
+              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
+              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAwCQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T04:48:35.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Form1.cs",
               "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Form1.cs",
               "RelativeDocumentMoniker": "Playground\\Form1.cs",
@@ -88,31 +97,17 @@
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Form1.cs [Design]",
+              "Title": "Form1.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Form1.cs",
               "RelativeDocumentMoniker": "Playground\\Form1.cs",
-              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Form1.cs [Design]",
-              "RelativeToolTip": "Playground\\Form1.cs [Design]",
+              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Form1.cs [\uB514\uC790\uC778]",
+              "RelativeToolTip": "Playground\\Form1.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-22T00:49:39.892Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-11-22T00:49:39.892Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "com.outlook@styner07.cs.control.csproj",
-              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-              "RelativeToolTip": "com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-11-22T00:48:08.779Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "DjsmIndicator.cs",
               "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Gauge\\DjsmIndicator.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Gauge\\DjsmIndicator.cs",
@@ -123,26 +118,24 @@
               "WhenOpened": "2024-11-19T06:00:23.944Z"
             }
           ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "6b043822-9e9b-45fe-8018-77f730511777",
-        "Display": 1,
-        "X": 454,
-        "Y": 171,
-        "Width": 619,
-        "Height": 883,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
+        },
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 316,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DjsmToggleButton.cs",
+              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
+              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
+              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAUwGwAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T04:50:21.631Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -151,54 +144,22 @@
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmRadioButton.cs",
               "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmRadioButton.cs",
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Button\\DjsmRadioButton.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAcwGkAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAgwHYAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-22T00:52:25.612Z",
+              "WhenOpened": "2024-11-26T04:50:19.448Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DjsmButton.cs",
-              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
-              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
-              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
-              "RelativeToolTip": "com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAwDMAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-22T00:56:57.638Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "DjsmCheckBox.cs",
               "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmCheckBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmCheckBox.cs",
               "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmCheckBox.cs",
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Button\\DjsmCheckBox.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAiwE8AAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAcwFwAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-22T00:41:32.047Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DjsmToggleButton.cs",
-              "DocumentMoniker": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
-              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
-              "ToolTip": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
-              "RelativeToolTip": "com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAUwEgAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-22T00:57:55.269Z",
+              "WhenOpened": "2024-11-26T04:50:10.357Z",
               "EditorCaption": ""
             }
           ]
