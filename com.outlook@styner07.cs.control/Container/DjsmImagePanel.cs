@@ -7,7 +7,7 @@ namespace com.outlook_styner07.cs.control.Container
         private const int CROSSLINE_MARGIN = 10;
 
         private const string CONTEXT_NAME_FIT_TO_FRAME = "Fit To Frame";
-        private const string CONTEXT_NAME_RESET_ZOOM = "Reset zoom";
+        //private const string CONTEXT_NAME_RESET_ZOOM = "Reset zoom";
         private const string CONTEXT_NAME_SAVE_IMAGE = "Save Image";
 
         private const float ZOOM_SCALE_1 = 0.1f;
@@ -191,8 +191,8 @@ namespace com.outlook_styner07.cs.control.Container
 
             _ctxMenu.Items.Clear();
             _ctxMenu.Items.Add(CONTEXT_NAME_FIT_TO_FRAME);
-            _ctxMenu.Items.Add(new ToolStripSeparator());
-            _ctxMenu.Items.Add(CONTEXT_NAME_RESET_ZOOM);
+            //_ctxMenu.Items.Add(new ToolStripSeparator());
+            //_ctxMenu.Items.Add(CONTEXT_NAME_RESET_ZOOM);
             _ctxMenu.Items.Add(new ToolStripSeparator());
             _ctxMenu.Items.Add(CONTEXT_NAME_SAVE_IMAGE);
 
@@ -244,17 +244,17 @@ namespace com.outlook_styner07.cs.control.Container
                             }
                             break;
 
-                        case CONTEXT_NAME_RESET_ZOOM:
-                            _zoomFactor = 1;
+                        //case CONTEXT_NAME_RESET_ZOOM:
+                        //    _zoomFactor = 1;
 
-                            _imagePosition.X = Width < _image.Width ? 0 : (Width - _image.Width) / 2;
-                            _imagePosition.Y = Height < _image.Height ? 0 : (Height - _image.Height) / 2;
+                        //    _imagePosition.X = Width < _image.Width ? 0 : (Width - _image.Width) / 2;
+                        //    _imagePosition.Y = Height < _image.Height ? 0 : (Height - _image.Height) / 2;
 
-                            _newWidth = _image.Width;
-                            _newHeight = _image.Height;
+                        //    _newWidth = _image.Width;
+                        //    _newHeight = _image.Height;
 
-                            Invalidate();
-                            break;
+                        //    Invalidate();
+                        //    break;
                     }
                 }
             };
