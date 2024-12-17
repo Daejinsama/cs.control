@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
 {
@@ -21,6 +22,30 @@ namespace com.outlook_styner07.cs.control.Button
 
         private int _radius;
 
+        [Browsable(true)]
+        public TextRenderingHint RenderingHint
+        {
+            get { return _textRenderingHint; }
+            set
+            {
+                _textRenderingHint = value; Invalidate();
+            }
+        }
+
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+
+        [Browsable(true)]
+        public SmoothingMode SmoothMode
+        {
+            get { return _smoothMode; }
+            set
+            {
+                _smoothMode = value; Invalidate();
+            }
+        }
+
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
+
         private enum ButtonState { Normal, Pressed, MouseOver }
 
         private ButtonState _state;
@@ -35,7 +60,9 @@ namespace com.outlook_styner07.cs.control.Button
         {
             Graphics g = pevent.Graphics;
             g.Clear(Parent.BackColor);
-            g.SmoothingMode = SmoothingMode.HighQuality;
+
+            g.SmoothingMode = _smoothMode;
+            g.TextRenderingHint = _textRenderingHint;
 
             Rectangle drawingArea = new Rectangle(ClientRectangle.X + Padding.Left,
                 ClientRectangle.Y + Padding.Top,
@@ -43,7 +70,7 @@ namespace com.outlook_styner07.cs.control.Button
                 ClientRectangle.Height - (Padding.Bottom * 2));
 
             GraphicsPath path = DrawingUtil.GetRoundRectPath(drawingArea, g.MeasureString(Text, Font), _radius);
-            
+
             using (SolidBrush b = new SolidBrush(_state == ButtonState.Normal
                 ? BackColor : _state == ButtonState.MouseOver
                 ? _mouseOverBackColor : _pressedBackColor))
@@ -52,7 +79,7 @@ namespace com.outlook_styner07.cs.control.Button
             }
 
             g.DrawString(Text, Font, new SolidBrush(ForeColor), drawingArea, DrawingUtil.ConvertStringAlign(TextAlign));
-            
+
             if (Image != null)
             {
                 g.DrawImage(Image, (ClientRectangle.Width - Image.Width) / 2, (ClientRectangle.Height - Image.Height) / 2);

@@ -153,7 +153,6 @@ namespace com.outlook_styner07.cs.control
             // 
             // NntTextBox
             // 
-            this.Name = "NntTextBox";
             this.Size = new System.Drawing.Size(390, 150);
             this.ResumeLayout(false);
 

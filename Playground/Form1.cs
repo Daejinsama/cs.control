@@ -13,5 +13,10 @@ namespace Playground
             //Controls.Add(pnlChart);
 
         }
+
+        private void djsmImagePanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

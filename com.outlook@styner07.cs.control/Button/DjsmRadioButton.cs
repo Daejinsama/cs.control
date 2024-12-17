@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
 {
@@ -52,6 +54,31 @@ namespace com.outlook_styner07.cs.control.Button
 
         private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
 
+
+        [Browsable(true)]
+        public TextRenderingHint RenderingHint
+        {
+            get { return _textRenderingHint; }
+            set
+            {
+                _textRenderingHint = value; Invalidate();
+            }
+        }
+
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+
+        [Browsable(true)]
+        public SmoothingMode SmoothMode
+        {
+            get { return _smoothMode; }
+            set
+            {
+                _smoothMode = value; Invalidate();
+            }
+        }
+
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
+
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
 
@@ -89,6 +116,8 @@ namespace com.outlook_styner07.cs.control.Button
         {
             base.OnPaint(pevent);
             Graphics g = pevent.Graphics;
+            g.SmoothingMode = _smoothMode;
+            g.TextRenderingHint = _textRenderingHint;
 
             g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
             
@@ -114,21 +143,17 @@ namespace com.outlook_styner07.cs.control.Button
 
                 int buttonSize = 11;
                 float buttonMargin = ClientRectangle.Height / 2 - buttonSize / 2;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
                 if (Checked)
                 {
-                    g.FillEllipse(new SolidBrush(_selectedForeColor), new RectangleF(HORIZONTAL_MARGIN, buttonMargin, buttonSize, buttonSize));
-                }
-                else
-                {
-                    g.DrawEllipse(new Pen(_deselectedForeColor), new RectangleF(HORIZONTAL_MARGIN, buttonMargin, buttonSize, buttonSize));
+                    g.FillEllipse(new SolidBrush(_selectedForeColor), new RectangleF(0, buttonMargin, buttonSize, buttonSize));
                 }
 
-                int textMargin = buttonSize + HORIZONTAL_MARGIN * 2;
+                g.DrawEllipse(new Pen(_deselectedForeColor), new RectangleF(0, buttonMargin, buttonSize, buttonSize));
+
+                int textMargin = buttonSize + HORIZONTAL_MARGIN;
 
                 textDrawingRectangle.X += textMargin;
-                textDrawingRectangle.Width -= textMargin;
             }
             g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
         }

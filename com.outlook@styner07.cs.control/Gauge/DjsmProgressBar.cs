@@ -113,63 +113,63 @@ namespace com.outlook_styner07.cs.control.Gauge
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+            if (ProgressBarRenderer.IsSupported)
             {
-                if (ProgressBarRenderer.IsSupported)
+                ProgressBarRenderer.DrawHorizontalBar(g, e.ClipRectangle);
+            }
+
+            if (Style == ProgressBarStyle.Marquee && updateMarquee)
+            {
+                RectangleF newRect = e.ClipRectangle;
+                newRect.Width = (int)(newRect.Width * 0.35);
+
+                if (marqueePos < -newRect.Width)
                 {
-                    ProgressBarRenderer.DrawHorizontalBar(g, e.ClipRectangle);
+                    marqueePos = -newRect.Width;
                 }
 
-                if (Style == ProgressBarStyle.Marquee && updateMarquee)
+                if (marqueePos >= newRect.Width)
                 {
-                    RectangleF newRect = e.ClipRectangle;
-                    newRect.Width = (int)(newRect.Width * 0.35);
-
-                    if (marqueePos < -newRect.Width)
-                    {
-                        marqueePos = -newRect.Width;
-                    }
-
-                    if (marqueePos >= newRect.Width)
-                    {
-                        marqueePos = -newRect.Width;
-                    }
-
-                    g.FillRectangle(new SolidBrush(ProgressBarColor), marqueePos, 0, newRect.Width, newRect.Height);
-
-                    if (LabelDrawing)
-                    {
-                        SizeF stringSize = g.MeasureString(LabelText, ProgressFont);
-
-                        g.DrawString(LabelText, ProgressFont, new SolidBrush(ProgressFontColor), newRect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
-                    }
-                    updateMarquee = false;
+                    marqueePos = -newRect.Width;
                 }
-                else
+
+                g.FillRectangle(new SolidBrush(ProgressBarColor), marqueePos, 0, newRect.Width, newRect.Height);
+
+                if (LabelDrawing)
                 {
-                    Rectangle rect = e.ClipRectangle;
+                    SizeF stringSize = g.MeasureString(LabelText, ProgressFont);
 
-                    g.FillRectangle(new SolidBrush(BackColor), rect);
+                    g.DrawString(LabelText, ProgressFont, new SolidBrush(ProgressFontColor), newRect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                }
+                updateMarquee = false;
+            }
+            else
+            {
+                Rectangle rect = e.ClipRectangle;
 
-                    rect.Width = (int)(rect.Width * ((double)Value / Maximum)) - 4;
-                    rect.Height = rect.Height - 4;
+                g.FillRectangle(new SolidBrush(BackColor), rect);
 
-                    g.FillRectangle(new SolidBrush(ProgressBarColor), 2, 2, rect.Width, rect.Height);
+                rect.Width = (int)(rect.Width * ((double)Value / Maximum)) - 4;
+                rect.Height = rect.Height - 4;
 
-                    if (LabelDrawing)
+                g.FillRectangle(new SolidBrush(ProgressBarColor), 2, 2, rect.Width, rect.Height);
+
+                if (LabelDrawing)
+                {
+                    SizeF stringSize = g.MeasureString(LabelText, ProgressFont);
+
+                    if (IsFixedLabel)
                     {
-                        SizeF stringSize = g.MeasureString(LabelText, ProgressFont);
-                        e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                        g.DrawString(LabelText, ProgressFont, new SolidBrush(ProgressFontColor), e.ClipRectangle, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                    }
+                    else
+                    {
+                        string percentage = string.Format("{0:0.0}%", ((double)Value / Maximum) * 100);
 
-                        if (IsFixedLabel)
-                        {
-                            g.DrawString(LabelText, ProgressFont, new SolidBrush(ProgressFontColor), e.ClipRectangle, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
-                        }
-                        else
-                        {
-                            string percentage = string.Format("{0:0.0}%", ((double)Value / Maximum) * 100);
-
-                            g.DrawString(percentage, ProgressFont, new SolidBrush(ProgressFontColor), rect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
-                        }
+                        g.DrawString(percentage, ProgressFont, new SolidBrush(ProgressFontColor), rect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
                     }
                 }
             }
