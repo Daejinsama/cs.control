@@ -133,7 +133,7 @@ namespace com.outlook_styner07.cs.control
             return ret;
         }
 
-        public static GraphicsPath GetRoundRectPath(Rectangle rect, SizeF textSize, int radius)
+        public static GraphicsPath GetRoundRectPath(Rectangle rect, int radius)
         {
             PointF pointLeftTop = new PointF(rect.X, rect.Y);
 
@@ -144,11 +144,22 @@ namespace com.outlook_styner07.cs.control
             PointF pointLeftBottom = new PointF(rect.X, (rect.Y + rect.Height - radius - 1));
 
             GraphicsPath ret = new GraphicsPath();
-            ret.AddArc(pointLeftTop.X, pointLeftTop.Y, radius, radius, 180, 90);
-            ret.AddArc(pointRightTop.X, pointRightTop.Y, radius, radius, 270, 90);
-            ret.AddArc(pointRightBottom.X, pointRightBottom.Y, radius, radius, 0, 90);
-            ret.AddArc(pointLeftBottom.X, pointLeftBottom.Y, radius, radius, 90, 90);
-            ret.CloseAllFigures();
+            if (radius > 0)
+            {
+                ret.AddArc(pointLeftTop.X, pointLeftTop.Y, radius, radius, 180, 90);
+                ret.AddArc(pointRightTop.X, pointRightTop.Y, radius, radius, 270, 90);
+                ret.AddArc(pointRightBottom.X, pointRightBottom.Y, radius, radius, 0, 90);
+                ret.AddArc(pointLeftBottom.X, pointLeftBottom.Y, radius, radius, 90, 90);
+                ret.CloseAllFigures();
+            }
+            else
+            {
+                ret.AddLines([new PointF(pointLeftTop.X, pointLeftTop.Y), 
+                    new PointF(pointRightTop.X, pointRightTop.Y), 
+                    new PointF(pointRightBottom.X, pointRightBottom.Y), 
+                    new PointF(pointLeftBottom.X, pointLeftBottom.Y)]);
+                ret.CloseAllFigures();
+            }
             return ret;
         }
     }

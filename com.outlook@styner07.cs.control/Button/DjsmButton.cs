@@ -69,7 +69,7 @@ namespace com.outlook_styner07.cs.control.Button
                 ClientRectangle.Width - (Padding.Right * 2),
                 ClientRectangle.Height - (Padding.Bottom * 2));
 
-            GraphicsPath path = DrawingUtil.GetRoundRectPath(drawingArea, g.MeasureString(Text, Font), _radius);
+            GraphicsPath path = DrawingUtil.GetRoundRectPath(drawingArea, _radius);
 
             using (SolidBrush b = new SolidBrush(_state == ButtonState.Normal
                 ? BackColor : _state == ButtonState.MouseOver
