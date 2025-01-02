@@ -397,9 +397,9 @@ namespace com.outlook_styner07.cs.control.Container
                 _imagePosition.Y += e.Y - _mouseDownPosition.Y;
 
                 _mouseDownPosition = e.Location;
-            }
 
-            Invalidate();
+                Invalidate();
+            }
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
