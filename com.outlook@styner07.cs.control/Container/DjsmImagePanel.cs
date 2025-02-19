@@ -62,7 +62,7 @@ namespace com.outlook_styner07.cs.control.Container
                 {
                     if (_image != null)
                     {
-                        _image.Dispose();   
+                        _image.Dispose();
                         _image = null;
                     }
 
@@ -76,6 +76,7 @@ namespace com.outlook_styner07.cs.control.Container
 
                     Invalidate();
                 }
+                catch (Exception) { }
                 finally
                 {
                     //GC.Collect();
