@@ -11,13 +11,13 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("daejinsama")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Playground")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("25.2.20.2")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("25.2.20.2+fc3cbecf0e4951aef3a602a5c829c1f3ef4de963")]
-[assembly: System.Reflection.AssemblyProductAttribute("com.outlook@styner07.cs.control")]
-[assembly: System.Reflection.AssemblyTitleAttribute("com.outlook@styner07.cs.control")]
-[assembly: System.Reflection.AssemblyVersionAttribute("25.2.20.2")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc3cbecf0e4951aef3a602a5c829c1f3ef4de963")]
+[assembly: System.Reflection.AssemblyProductAttribute("Playground")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Playground")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

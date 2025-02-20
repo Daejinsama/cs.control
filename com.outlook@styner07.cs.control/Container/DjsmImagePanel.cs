@@ -77,11 +77,6 @@ namespace com.outlook_styner07.cs.control.Container
                     Invalidate();
                 }
                 catch (Exception) { }
-                finally
-                {
-                    //GC.Collect();
-                    //GC.SuppressFinalize(this);
-                }
             }
         }
 
@@ -135,31 +130,35 @@ namespace com.outlook_styner07.cs.control.Container
             {
                 return;
             }
-            float imageAspect = (float)_image.Width / _image.Height;
-            float frameAspect = (float)Width / Height;
-
-            if (frameAspect > imageAspect)
+            try
             {
-                _newHeight = Height;
-                _newWidth = (int)(Height * imageAspect);
+                float imageAspect = (float)_image.Width / _image.Height;
+                float frameAspect = (float)Width / Height;
 
-                _imagePosition.X = (Width - _newWidth) / 2;
-                _imagePosition.Y = 0;
+                if (frameAspect > imageAspect)
+                {
+                    _newHeight = Height;
+                    _newWidth = (int)(Height * imageAspect);
 
-                _zoomFactor = _newWidth / _image.Width;
+                    _imagePosition.X = (Width - _newWidth) / 2;
+                    _imagePosition.Y = 0;
+
+                    _zoomFactor = _newWidth / _image.Width;
+                }
+                else
+                {
+                    _newWidth = Width;
+                    _newHeight = (int)(Width / imageAspect);
+
+                    _imagePosition.X = 0;
+                    _imagePosition.Y = (Height - _newHeight) / 2;
+
+                    _zoomFactor = _newHeight / _image.Height;
+                }
+
+                Invalidate();
             }
-            else
-            {
-                _newWidth = Width;
-                _newHeight = (int)(Width / imageAspect);
-
-                _imagePosition.X = 0;
-                _imagePosition.Y = (Height - _newHeight) / 2;
-
-                _zoomFactor = _newHeight / _image.Height;
-            }
-
-            Invalidate();
+            catch (Exception) { }
         }
 
         public void DrawCrossLine(bool draw)
@@ -259,17 +258,17 @@ namespace com.outlook_styner07.cs.control.Container
                             }
                             break;
 
-                        //case CONTEXT_NAME_RESET_ZOOM:
-                        //    _zoomFactor = 1;
+                            //case CONTEXT_NAME_RESET_ZOOM:
+                            //    _zoomFactor = 1;
 
-                        //    _imagePosition.X = Width < _image.Width ? 0 : (Width - _image.Width) / 2;
-                        //    _imagePosition.Y = Height < _image.Height ? 0 : (Height - _image.Height) / 2;
+                            //    _imagePosition.X = Width < _image.Width ? 0 : (Width - _image.Width) / 2;
+                            //    _imagePosition.Y = Height < _image.Height ? 0 : (Height - _image.Height) / 2;
 
-                        //    _newWidth = _image.Width;
-                        //    _newHeight = _image.Height;
+                            //    _newWidth = _image.Width;
+                            //    _newHeight = _image.Height;
 
-                        //    Invalidate();
-                        //    break;
+                            //    Invalidate();
+                            //    break;
                     }
                 }
             };
@@ -290,27 +289,31 @@ namespace com.outlook_styner07.cs.control.Container
 
             if (_image != null)
             {
-                g.DrawImage(_image, new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight));
-
-                if (_drawImageCenter)
+                try
                 {
-                    using (Pen pen = new Pen(_imageCenterColor, _imageCenterWidth))
+                    g.DrawImage(_image, new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight));
+
+                    if (_drawImageCenter)
                     {
-                        RectangleF rect = new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight);
+                        using (Pen pen = new Pen(_imageCenterColor, _imageCenterWidth))
+                        {
+                            RectangleF rect = new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight);
 
-                        g.DrawLine(pen,
-                            rect.X + rect.Width / 2,
-                            rect.Y,
-                            rect.X + rect.Width / 2,
-                            rect.Y + rect.Height);
+                            g.DrawLine(pen,
+                                rect.X + rect.Width / 2,
+                                rect.Y,
+                                rect.X + rect.Width / 2,
+                                rect.Y + rect.Height);
 
-                        g.DrawLine(pen,
-                            rect.X,
-                            rect.Y + rect.Height / 2,
-                            rect.X + rect.Width,
-                            rect.Y + rect.Height / 2);
+                            g.DrawLine(pen,
+                                rect.X,
+                                rect.Y + rect.Height / 2,
+                                rect.X + rect.Width,
+                                rect.Y + rect.Height / 2);
+                        }
                     }
                 }
+                catch (Exception) { }
             }
             else
             {
@@ -364,30 +367,34 @@ namespace com.outlook_styner07.cs.control.Container
                  * 줌 인 아웃을 반복할때 이미지가 쏠리는 원인은 데이터 타입 변환 과정에서의 정밀도 차이인 것으로 확인. 
                  * (float으로 통일 후 현상 개선)              
                  * ---------------------------------------------------------------------------------------------------*/
-                if (e.Delta > 0)
+                try
                 {
-                    _zoomFactor += _zoomScale;
+                    if (e.Delta > 0)
+                    {
+                        _zoomFactor += _zoomScale;
+                    }
+                    else if (e.Delta < 0)
+                    {
+                        _zoomFactor = Math.Max(0.1f, _zoomFactor - _zoomScale);
+                    }
+
+                    float oldWidth = _newWidth;
+                    float oldHeight = _newHeight;
+
+                    _newWidth = _image.Width * _zoomFactor;
+                    _newHeight = _image.Height * _zoomFactor;
+
+                    float deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / oldWidth);
+                    float deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / oldHeight);
+
+                    //Debug.WriteLine($"{deltaX}  {deltaY}");
+
+                    _imagePosition.X = _imagePosition.X + deltaX;
+                    _imagePosition.Y = _imagePosition.Y + deltaY;
+                    
+                    Invalidate();
                 }
-                else if (e.Delta < 0)
-                {
-                    _zoomFactor = Math.Max(0.1f, _zoomFactor - _zoomScale);
-                }
-
-                float oldWidth = _newWidth;
-                float oldHeight = _newHeight;
-
-                _newWidth = _image.Width * _zoomFactor;
-                _newHeight = _image.Height * _zoomFactor;
-
-                float deltaX = (oldWidth - _newWidth) * ((e.X - _imagePosition.X) / oldWidth);
-                float deltaY = (oldHeight - _newHeight) * ((e.Y - _imagePosition.Y) / oldHeight);
-
-                //Debug.WriteLine($"{deltaX}  {deltaY}");
-
-                _imagePosition.X = _imagePosition.X + deltaX;
-                _imagePosition.Y = _imagePosition.Y + deltaY;
-
-                Invalidate();
+                catch (Exception) { }
             }
         }
 
