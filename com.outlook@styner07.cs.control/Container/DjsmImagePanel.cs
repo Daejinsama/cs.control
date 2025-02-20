@@ -1,4 +1,5 @@
 ﻿using System.Drawing.Imaging;
+using System.Reflection.Metadata.Ecma335;
 
 namespace com.outlook_styner07.cs.control.Container
 {
@@ -52,6 +53,8 @@ namespace com.outlook_styner07.cs.control.Container
         private ContextMenuStrip? _ctxMenu;
 
         private bool _contextMenuEnabled = true;
+
+        public bool ContextMenuEnabled { get => _contextMenuEnabled; set => _contextMenuEnabled = value; }
 
         public Image? Image
         {
@@ -117,11 +120,6 @@ namespace com.outlook_styner07.cs.control.Container
                     Image = Image.FromFile(files[0]);
                 }
             };
-        }
-
-        public void ContextMenuEnabled(bool enable)
-        {
-            _contextMenuEnabled = enable;
         }
 
         public void FitToFrame()
@@ -391,7 +389,7 @@ namespace com.outlook_styner07.cs.control.Container
 
                     _imagePosition.X = _imagePosition.X + deltaX;
                     _imagePosition.Y = _imagePosition.Y + deltaY;
-                    
+
                     Invalidate();
                 }
                 catch (Exception) { }
@@ -434,7 +432,10 @@ namespace com.outlook_styner07.cs.control.Container
             }
             else if (e.Button == MouseButtons.Right)
             {
-                _ctxMenu.Show(this, e.X, e.Y);
+                if (_contextMenuEnabled)
+                {
+                    _ctxMenu.Show(this, e.X, e.Y);
+                }
             }
         }
     }
