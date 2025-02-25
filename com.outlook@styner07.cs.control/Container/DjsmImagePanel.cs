@@ -1,5 +1,4 @@
 ﻿using System.Drawing.Imaging;
-using System.Reflection.Metadata.Ecma335;
 
 namespace com.outlook_styner07.cs.control.Container
 {
@@ -56,6 +55,10 @@ namespace com.outlook_styner07.cs.control.Container
 
         public bool ContextMenuEnabled { get => _contextMenuEnabled; set => _contextMenuEnabled = value; }
 
+        private bool _fitToFrame = false;
+
+        public bool FitToFrame { get => _fitToFrame; set => _fitToFrame = value; }
+
         public Image? Image
         {
             get { return _image; }
@@ -63,6 +66,7 @@ namespace com.outlook_styner07.cs.control.Container
             {
                 try
                 {
+                    //var oldImage = _image;
                     if (_image != null)
                     {
                         _image.Dispose();
@@ -76,6 +80,8 @@ namespace com.outlook_styner07.cs.control.Container
                     }
 
                     _image = value;
+
+                    //oldImage?.Dispose();
 
                     Invalidate();
                 }
@@ -122,43 +128,6 @@ namespace com.outlook_styner07.cs.control.Container
             };
         }
 
-        public void FitToFrame()
-        {
-            if (_image == null)
-            {
-                return;
-            }
-            try
-            {
-                float imageAspect = (float)_image.Width / _image.Height;
-                float frameAspect = (float)Width / Height;
-
-                if (frameAspect > imageAspect)
-                {
-                    _newHeight = Height;
-                    _newWidth = (int)(Height * imageAspect);
-
-                    _imagePosition.X = (Width - _newWidth) / 2;
-                    _imagePosition.Y = 0;
-
-                    _zoomFactor = _newWidth / _image.Width;
-                }
-                else
-                {
-                    _newWidth = Width;
-                    _newHeight = (int)(Width / imageAspect);
-
-                    _imagePosition.X = 0;
-                    _imagePosition.Y = (Height - _newHeight) / 2;
-
-                    _zoomFactor = _newHeight / _image.Height;
-                }
-
-                Invalidate();
-            }
-            catch (Exception) { }
-        }
-
         public void DrawCrossLine(bool draw)
         {
             DrawCrossLine(draw, Color.Red, 1);
@@ -175,7 +144,7 @@ namespace com.outlook_styner07.cs.control.Container
             _crossLineColor = lineColor;
             _crossLineWidth = lineWidth;
 
-            Invalidate();
+            //Invalidate();
         }
 
         public void DrawImageCenter(bool draw)
@@ -194,7 +163,7 @@ namespace com.outlook_styner07.cs.control.Container
             _imageCenterColor = lineColor;
             _imageCenterWidth = lineWidth;
 
-            Invalidate();
+            //Invalidate();
         }
 
         private void InitializeContextMenu()
@@ -222,7 +191,7 @@ namespace com.outlook_styner07.cs.control.Container
                     switch (e.ClickedItem.Text)
                     {
                         case CONTEXT_NAME_FIT_TO_FRAME:
-                            FitToFrame();
+                            _fitToFrame = !_fitToFrame;
                             break;
                         case CONTEXT_NAME_SAVE_IMAGE:
                             SaveFileDialog dlg = new SaveFileDialog
@@ -289,6 +258,33 @@ namespace com.outlook_styner07.cs.control.Container
             {
                 try
                 {
+                    if (_fitToFrame)
+                    {
+                        float imageAspect = (float)_image.Width / _image.Height;
+                        float frameAspect = (float)Width / Height;
+
+                        if (frameAspect > imageAspect)
+                        {
+                            _newHeight = Height;
+                            _newWidth = (int)(Height * imageAspect);
+
+                            _imagePosition.X = (Width - _newWidth) / 2;
+                            _imagePosition.Y = 0;
+
+                            _zoomFactor = _newWidth / _image.Width;
+                        }
+                        else
+                        {
+                            _newWidth = Width;
+                            _newHeight = (int)(Width / imageAspect);
+
+                            _imagePosition.X = 0;
+                            _imagePosition.Y = (Height - _newHeight) / 2;
+
+                            _zoomFactor = _newHeight / _image.Height;
+                        }
+                    }
+
                     g.DrawImage(_image, new RectangleF(_imagePosition.X, _imagePosition.Y, _newWidth, _newHeight));
 
                     if (_drawImageCenter)
