@@ -13,13 +13,14 @@ namespace com.outlook_styner07.cs.control.Container
         private const float ZOOM_SCALE_1 = 0.1f;
 
         private static string IMAGE_FORMAT_BMP = nameof(ImageFormat.Bmp);
-        private static string IMAGE_FORMAT_JPG = nameof(ImageFormat.Jpeg);
+        private static string IMAGE_FORMAT_JPG = "Jpg";
+        private static string IMAGE_FORMAT_JPEG = nameof(ImageFormat.Jpeg);
         private static string IMAGE_FORMAT_PNG = nameof(ImageFormat.Png);
         private static string IMAGE_FORMAT_TIFF = nameof(ImageFormat.Tiff);
         private static string IMAGE_FORMAT_TIF = "Tif";
 
         public static string SUPPORT_FILE_FILTER
-            = $"Supported Image File|*.{IMAGE_FORMAT_BMP};*.{IMAGE_FORMAT_JPG};*.{IMAGE_FORMAT_PNG};*.{IMAGE_FORMAT_TIF};*.{IMAGE_FORMAT_TIFF}";
+            = $"Supported Image File|*.{IMAGE_FORMAT_BMP};*.{IMAGE_FORMAT_JPG};*.{IMAGE_FORMAT_JPEG};*.{IMAGE_FORMAT_PNG};*.{IMAGE_FORMAT_TIF};*.{IMAGE_FORMAT_TIFF}";
 
         private Image? _image;
 
@@ -264,6 +265,7 @@ namespace com.outlook_styner07.cs.control.Container
         {
             return path.EndsWith(IMAGE_FORMAT_BMP, true, null)
                         || path.EndsWith(IMAGE_FORMAT_JPG, true, null)
+                        || path.EndsWith(IMAGE_FORMAT_JPEG, true, null)
                         || path.EndsWith(IMAGE_FORMAT_PNG, true, null)
                         || path.EndsWith(IMAGE_FORMAT_TIFF, true, null)
                         || path.EndsWith(IMAGE_FORMAT_TIF, true, null);

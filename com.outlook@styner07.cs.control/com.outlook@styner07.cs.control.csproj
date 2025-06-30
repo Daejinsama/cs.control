@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
 	  <UseWindowsForms>true</UseWindowsForms>
 	  <Platforms>AnyCPU;x64</Platforms>
-	  <Version>24.12.17.1</Version>
+	  <Version>25.6.30.1</Version>
 	  <Company>daejinsama</Company>
 	  <Authors>daejinsama</Authors>
   </PropertyGroup>

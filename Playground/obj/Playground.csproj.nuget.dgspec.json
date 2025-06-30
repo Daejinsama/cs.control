@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Playground.csproj": {}
+    "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\Playground.csproj": {}
   },
   "projects": {
-    "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
-      "version": "24.12.17.1",
+    "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
+      "version": "25.6.30.1",
       "restore": {
-        "projectUniqueName": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+        "projectUniqueName": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
         "projectName": "com.outlook@styner07.cs.control",
-        "projectPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-        "packagesPath": "C:\\Users\\asuspc\\.nuget\\packages\\",
-        "outputPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\obj\\",
+        "projectPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+        "packagesPath": "C:\\Users\\ninebell\\.nuget\\packages\\",
+        "outputPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\asuspc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ninebell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -78,24 +78,24 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Playground.csproj": {
+    "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\Playground.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Playground.csproj",
+        "projectUniqueName": "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\Playground.csproj",
         "projectName": "Playground",
-        "projectPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\Playground.csproj",
-        "packagesPath": "C:\\Users\\asuspc\\.nuget\\packages\\",
-        "outputPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\Playground\\obj\\",
+        "projectPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\Playground.csproj",
+        "packagesPath": "C:\\Users\\ninebell\\.nuget\\packages\\",
+        "outputPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\asuspc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ninebell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -110,8 +110,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
-                "projectPath": "D:\\cs_projects\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj"
+              "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
+                "projectPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj"
               }
             }
           }
@@ -126,7 +126,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -150,7 +150,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
