@@ -2,6 +2,7 @@
 
 namespace com.outlook_styner07.cs.control.Data
 {
+    [ToolboxItem(true)]
     public class DjsmPropertyGrid : PropertyGrid
     {
         private bool _readOnly;

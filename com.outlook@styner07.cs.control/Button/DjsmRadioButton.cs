@@ -4,6 +4,7 @@ using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
 {
+    [ToolboxItem(true)]
     public class DjsmRadioButton : RadioButton
     {
         [Browsable(true)]

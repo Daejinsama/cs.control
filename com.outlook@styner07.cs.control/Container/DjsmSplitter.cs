@@ -1,10 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
 namespace com.outlook_styner07.cs.control.Container
 {
+    [ToolboxItem(true)]
     public class DjsmSplitter : Splitter
     {
         private Color _splitterColor = DjsmColorTable.Secondary;

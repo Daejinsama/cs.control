@@ -1,8 +1,8 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
 namespace com.outlook_styner07.cs.control.Container
 {
+    [ToolboxItem(true)]
     public partial class DjsmSeparatorLabel : Label
     {
         protected override void OnPaint(PaintEventArgs e)

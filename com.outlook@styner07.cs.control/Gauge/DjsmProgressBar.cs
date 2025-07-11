@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
-using System.Timers;
 
 namespace com.outlook_styner07.cs.control.Gauge
 {
+    [ToolboxItem(true)]
     public class DjsmProgressBar : ProgressBar
     {
         [Browsable(true)]

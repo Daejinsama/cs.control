@@ -2,6 +2,7 @@
 
 namespace com.outlook_styner07.cs.control.Container
 {
+    [ToolboxItem(true)]
     public class DjsmPanel : System.Windows.Forms.Panel
     {
         [Browsable(true)]

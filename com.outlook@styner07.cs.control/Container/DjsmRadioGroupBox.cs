@@ -1,41 +1,39 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
 namespace com.outlook_styner07.cs.control.Container
 {
+    [ToolboxItem(true)]
     public class DjsmRadioGroupBox : GroupBox
     {
         private const int RADIO_LEFT_MARGIN = 5;
-        private RadioButton radiobutton;
+        private readonly RadioButton _radiobutton;
 
         [Browsable(true)]
         public bool Checked
         {
             get
             {
-                return radiobutton.Checked;
+                return _radiobutton.Checked;
             }
 
             set
             {
-                radiobutton.Checked = value;
+                _radiobutton.Checked = value;
             }
         }
 
         public DjsmRadioGroupBox()
         {
-            radiobutton = new RadioButton { Location = new Point(RADIO_LEFT_MARGIN, 0), AutoSize = true, };
-            radiobutton.CheckedChanged += Radiobutton_CheckedChanged;
-            Controls.Add(radiobutton);
+            _radiobutton = new RadioButton { Location = new Point(RADIO_LEFT_MARGIN, 0), AutoSize = true, };
+            _radiobutton.CheckedChanged += Radiobutton_CheckedChanged;
+            Controls.Add(_radiobutton);
 
             base.Text = "";
         }
 
         private void Radiobutton_CheckedChanged(object sender, EventArgs e)
         {
-            if (radiobutton.Checked)
+            if (_radiobutton.Checked)
             {
                 for (int len = Parent.Controls.Count, i = 0; i < len; i++)
                 {
@@ -58,18 +56,18 @@ namespace com.outlook_styner07.cs.control.Container
             for (int len = Controls.Count, i = 0; i < len; i++)
             {
                 System.Windows.Forms.Control c = Controls[i];
-                if (c.Equals(radiobutton))
+                if (c.Equals(_radiobutton))
                 {
                     continue;
                 }
-                c.Enabled = radiobutton.Checked;
+                c.Enabled = _radiobutton.Checked;
             }
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            radiobutton.Text = base.Text;
+            _radiobutton.Text = base.Text;
         }
 
         //[Browsable(false)]

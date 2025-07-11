@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace com.outlook_styner07.cs.control.Gauge
 {
+    [ToolboxItem(true)]
     public class DjsmLifeTimeGauge : UserControl
     {
         private int _value = 0;

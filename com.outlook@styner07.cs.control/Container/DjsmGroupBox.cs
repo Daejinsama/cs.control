@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Windows.Forms;
 
 namespace com.outlook_styner07.cs.control.Container
 {
+    [ToolboxItem(true)]
     public class DjsmGroupBox : GroupBox
     {
         private const string CATEGORY_APPEARANCE = "Appearance";

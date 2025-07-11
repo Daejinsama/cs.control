@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 namespace com.outlook_styner07.cs.control
 {
+    [ToolboxItem(true)]
     public class DjsmTextBox : UserControl
     {
         private TextBox txtbox;
