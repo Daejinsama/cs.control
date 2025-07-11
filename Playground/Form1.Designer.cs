@@ -30,16 +30,20 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             djsmImagePanel1 = new com.outlook_styner07.cs.control.Container.DjsmImagePanel();
+            djsmRadioButton2 = new com.outlook_styner07.cs.control.Button.DjsmRadioButton();
             djsmProgressBar1 = new com.outlook_styner07.cs.control.Gauge.DjsmProgressBar();
             djsmRadioButton1 = new com.outlook_styner07.cs.control.Button.DjsmRadioButton();
             djsmCheckBox1 = new com.outlook_styner07.cs.control.Button.DjsmCheckBox();
-            djsmRadioButton2 = new com.outlook_styner07.cs.control.Button.DjsmRadioButton();
+            djsmButton1 = new com.outlook_styner07.cs.control.Button.DjsmButton();
+            djsmButton2 = new com.outlook_styner07.cs.control.Button.DjsmButton();
             djsmImagePanel1.SuspendLayout();
             SuspendLayout();
             // 
             // djsmImagePanel1
             // 
             djsmImagePanel1.AllowDrop = true;
+            djsmImagePanel1.Controls.Add(djsmButton2);
+            djsmImagePanel1.Controls.Add(djsmButton1);
             djsmImagePanel1.Controls.Add(djsmRadioButton2);
             djsmImagePanel1.Controls.Add(djsmProgressBar1);
             djsmImagePanel1.Controls.Add(djsmRadioButton1);
@@ -49,9 +53,26 @@
             djsmImagePanel1.Location = new Point(0, 0);
             djsmImagePanel1.Name = "djsmImagePanel1";
             djsmImagePanel1.PanEnabled = true;
-            djsmImagePanel1.Size = new Size(800, 450);
+            djsmImagePanel1.Size = new Size(1221, 599);
             djsmImagePanel1.TabIndex = 0;
             djsmImagePanel1.Paint += djsmImagePanel1_Paint;
+            // 
+            // djsmRadioButton2
+            // 
+            djsmRadioButton2.AutoSize = true;
+            djsmRadioButton2.BorderSides = ToolStripStatusLabelBorderSides.Bottom;
+            djsmRadioButton2.DeselectedForeColor = Color.Black;
+            djsmRadioButton2.Font = new Font("맑은 고딕", 9F);
+            djsmRadioButton2.Location = new Point(407, 423);
+            djsmRadioButton2.Name = "djsmRadioButton2";
+            djsmRadioButton2.RenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            djsmRadioButton2.SelectedForeColor = Color.Black;
+            djsmRadioButton2.Size = new Size(200, 19);
+            djsmRadioButton2.SmoothMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            djsmRadioButton2.TabIndex = 3;
+            djsmRadioButton2.TabStop = true;
+            djsmRadioButton2.Text = "Save the recently used sequence";
+            djsmRadioButton2.UseVisualStyleBackColor = false;
             // 
             // djsmProgressBar1
             // 
@@ -75,8 +96,10 @@
             djsmRadioButton1.Font = new Font("맑은 고딕", 9F);
             djsmRadioButton1.Location = new Point(407, 398);
             djsmRadioButton1.Name = "djsmRadioButton1";
+            djsmRadioButton1.RenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             djsmRadioButton1.SelectedForeColor = Color.Black;
             djsmRadioButton1.Size = new Size(200, 19);
+            djsmRadioButton1.SmoothMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             djsmRadioButton1.TabIndex = 1;
             djsmRadioButton1.TabStop = true;
             djsmRadioButton1.Text = "Save the recently used sequence";
@@ -89,32 +112,45 @@
             djsmCheckBox1.Font = new Font("Arial", 9F);
             djsmCheckBox1.Location = new Point(89, 398);
             djsmCheckBox1.Name = "djsmCheckBox1";
+            djsmCheckBox1.RenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             djsmCheckBox1.Size = new Size(207, 19);
+            djsmCheckBox1.SmoothMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             djsmCheckBox1.TabIndex = 0;
             djsmCheckBox1.Text = "Save the recently used sequence";
             djsmCheckBox1.UncheckedForeColor = Color.Black;
             djsmCheckBox1.UseVisualStyleBackColor = false;
             // 
-            // djsmRadioButton2
+            // djsmButton1
             // 
-            djsmRadioButton2.AutoSize = true;
-            djsmRadioButton2.BorderSides = ToolStripStatusLabelBorderSides.Bottom;
-            djsmRadioButton2.DeselectedForeColor = Color.Black;
-            djsmRadioButton2.Font = new Font("맑은 고딕", 9F);
-            djsmRadioButton2.Location = new Point(407, 423);
-            djsmRadioButton2.Name = "djsmRadioButton2";
-            djsmRadioButton2.SelectedForeColor = Color.Black;
-            djsmRadioButton2.Size = new Size(200, 19);
-            djsmRadioButton2.TabIndex = 3;
-            djsmRadioButton2.TabStop = true;
-            djsmRadioButton2.Text = "Save the recently used sequence";
-            djsmRadioButton2.UseVisualStyleBackColor = false;
+            djsmButton1.BackColor = Color.FromArgb(128, 255, 255);
+            djsmButton1.Location = new Point(943, 42);
+            djsmButton1.Name = "djsmButton1";
+            djsmButton1.Radius = 11;
+            djsmButton1.RenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            djsmButton1.Size = new Size(117, 57);
+            djsmButton1.SmoothMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            djsmButton1.TabIndex = 4;
+            djsmButton1.Text = "djsmButton1";
+            djsmButton1.UseVisualStyleBackColor = false;
+            // 
+            // djsmButton2
+            // 
+            djsmButton2.BackColor = Color.Navy;
+            djsmButton2.Location = new Point(820, 42);
+            djsmButton2.Name = "djsmButton2";
+            djsmButton2.Radius = 11;
+            djsmButton2.RenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            djsmButton2.Size = new Size(117, 57);
+            djsmButton2.SmoothMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            djsmButton2.TabIndex = 5;
+            djsmButton2.Text = "djsmButton2";
+            djsmButton2.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1221, 599);
             Controls.Add(djsmImagePanel1);
             Name = "Form1";
             Text = "Form1";
@@ -130,5 +166,7 @@
         private com.outlook_styner07.cs.control.Button.DjsmRadioButton djsmRadioButton1;
         private com.outlook_styner07.cs.control.Gauge.DjsmProgressBar djsmProgressBar1;
         private com.outlook_styner07.cs.control.Button.DjsmRadioButton djsmRadioButton2;
+        private com.outlook_styner07.cs.control.Button.DjsmButton djsmButton2;
+        private com.outlook_styner07.cs.control.Button.DjsmButton djsmButton1;
     }
 }

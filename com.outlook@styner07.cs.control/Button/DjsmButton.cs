@@ -89,8 +89,29 @@ namespace com.outlook_styner07.cs.control.Button
         protected override void OnBackColorChanged(EventArgs e)
         {
             base.OnBackColorChanged(e);
-            _mouseOverBackColor = Color.FromArgb(192, BackColor);
-            _pressedBackColor = Color.FromArgb(128, BackColor);
+
+            if (BackColor.GetBrightness() < 0.5f)
+            {
+                _mouseOverBackColor = AdjustBrightness(BackColor, 1.6f);
+                _pressedBackColor = AdjustBrightness(BackColor, 1.8f);
+            }
+            else
+            {
+                _mouseOverBackColor = AdjustBrightness(BackColor, 0.8f);
+                _pressedBackColor = AdjustBrightness(BackColor, 0.6f);
+            }
+        }
+        
+        private static int Clamp(float value) => Math.Min(255, Math.Max(0, (int)value));
+        
+        private static Color AdjustBrightness(Color color, float factor)
+        {
+            return Color.FromArgb(
+                color.A,
+                Clamp(color.R * factor),
+                Clamp(color.G * factor),
+                Clamp(color.B * factor)
+            );
         }
 
         protected override void OnMouseDown(MouseEventArgs mevent)

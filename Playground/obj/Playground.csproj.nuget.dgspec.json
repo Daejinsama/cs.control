@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
-      "version": "25.6.30.1",
+      "version": "25.7.11.1",
       "restore": {
         "projectUniqueName": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
         "projectName": "com.outlook@styner07.cs.control",
@@ -78,7 +78,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -150,7 +150,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
