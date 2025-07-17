@@ -1,6 +1,6 @@
 ﻿namespace com.outlook_styner07.cs.control
 {
-    partial class DjsmTitleAndResizableForm
+    partial class DjsmForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,19 +30,17 @@
         {
             SuspendLayout();
             // 
-            // DjsmTitleAndResizableForm
+            // DjsmForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Name = "DjsmTitleAndResizableForm";
-            ShowCloseWindowButton = true;
-            ShowMaximizeWindowButton = true;
-            ShowMinimizeWindowButton = true;
-            ShowWindowTitle = true;
+            Font = new Font("Arial", 9F);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "DjsmForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "DjsmTitleAndResizableForm";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

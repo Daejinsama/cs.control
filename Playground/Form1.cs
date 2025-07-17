@@ -3,7 +3,7 @@ using com.outlook_styner07.cs.control.Charting;
 
 namespace Playground
 {
-    public partial class Form1 : DjsmTitleAndResizableForm
+    public partial class Form1 : DjsmForm
     {
         public Form1()
         {
