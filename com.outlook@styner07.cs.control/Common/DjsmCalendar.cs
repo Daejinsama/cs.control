@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-
-namespace com.outlook_styner07.cs.control.Common
+﻿namespace com.outlook_styner07.cs.control.Common
 {
-    [ToolboxItem(true)]
     public class DjsmCalendar : UserControl
     {
         private DateTime currentMonth;

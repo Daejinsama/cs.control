@@ -4,7 +4,6 @@ using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Container
 {
-    [ToolboxItem(true)]
     public partial class DjsmSeparatorLabel : Label
     {
         [Browsable(true)]

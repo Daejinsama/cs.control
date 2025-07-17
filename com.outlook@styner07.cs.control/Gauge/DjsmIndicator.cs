@@ -3,7 +3,6 @@ using System.Drawing.Drawing2D;
 
 namespace com.outlook_styner07.cs.control.Gauge
 {
-    [ToolboxItem(true)]
     public class DjsmIndicator : Control
     {
         [Browsable(true)]

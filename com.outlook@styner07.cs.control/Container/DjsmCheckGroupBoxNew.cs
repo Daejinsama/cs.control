@@ -3,7 +3,6 @@ using System.Drawing.Drawing2D;
 
 namespace com.outlook_styner07.cs.control.Container
 {
-    [ToolboxItem(true)]
     public class DjsmCheckGroupBoxNew : GroupBox
     {
         public bool Checked { get; set; } = false;

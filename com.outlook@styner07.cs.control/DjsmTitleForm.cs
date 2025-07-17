@@ -47,7 +47,7 @@ namespace com.outlook_styner07.cs.control
         {
             WindowState = FormWindowState.Minimized;
         }
-        
+
         private void btnMaximizeWindow_Click(object? sender, EventArgs e)
         {
             WindowState = FormWindowState.Maximized;
@@ -56,6 +56,12 @@ namespace com.outlook_styner07.cs.control
         private void btnCloseWindow_Click(object? sender, EventArgs e)
         {
             Close();
+        }
+
+        protected override void OnControlAdded(ControlEventArgs e)
+        {
+            base.OnControlAdded(e);
+            tlbTitle.SendToBack();
         }
     }
 }

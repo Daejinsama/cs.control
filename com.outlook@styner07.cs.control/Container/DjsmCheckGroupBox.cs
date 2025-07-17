@@ -2,7 +2,6 @@
 
 namespace com.outlook_styner07.cs.control.Container
 {
-    [ToolboxItem(true)]
     public class DjsmCheckGroupBox : GroupBox
     {
         private const int RADIO_LEFT_MARGIN = 5;

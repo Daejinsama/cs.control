@@ -4,7 +4,6 @@ using System.Drawing.Text;
 
 namespace com.outlook_styner07.cs.control.Button
 {
-    [ToolboxItem(true)]
     public class DjsmToggleButton : System.Windows.Forms.Control
     {
         private ToggleState _state = ToggleState.Left;

@@ -1,11 +1,7 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
 namespace com.outlook_styner07.cs.control
 {
-    [ToolboxItem(true)]
     public class DjsmTextBox : UserControl
     {
         private TextBox txtbox;

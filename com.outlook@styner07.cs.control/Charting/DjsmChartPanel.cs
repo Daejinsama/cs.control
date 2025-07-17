@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-
-namespace com.outlook_styner07.cs.control.Charting
+﻿namespace com.outlook_styner07.cs.control.Charting
 {
-    [ToolboxItem(true)]
     public class DjsmChartPanel : UserControl
     {
         public DjsmChart chart;

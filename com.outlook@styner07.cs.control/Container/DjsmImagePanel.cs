@@ -1,9 +1,7 @@
-﻿using System.ComponentModel;
-using System.Drawing.Imaging;
+﻿using System.Drawing.Imaging;
 
 namespace com.outlook_styner07.cs.control.Container
 {
-    [ToolboxItem(true)]
     public class DjsmImagePanel : Panel
     {
         private const int CROSSLINE_MARGIN = 10;

@@ -7,24 +7,6 @@ namespace com.outlook_styner07.cs.control
         [Browsable(false)]
         private new FormBorderStyle FormBorderStyle;
 
-        public DjsmBaseForm()
-        {
-            InitializeComponent();
-            Padding = new Padding(1);
-            FormBorderStyle = FormBorderStyle.None;
-        }
-
-        public const int WS_CAPTION = 0x00c00000;
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams param = base.CreateParams;
-                param.Style = param.Style & ~WS_CAPTION;
-                return param;
-            }
-        }
-
         [Browsable(true)]
         public Color BorderColor
         {
@@ -54,6 +36,23 @@ namespace com.outlook_styner07.cs.control
             }
         }
         private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
+        public DjsmBaseForm()
+        {
+            InitializeComponent();
+            Padding = new Padding(1);
+            FormBorderStyle = FormBorderStyle.None;
+        }
+
+        public const int WS_CAPTION = 0x00c00000;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams param = base.CreateParams;
+                param.Style = param.Style & ~WS_CAPTION;
+                return param;
+            }
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {

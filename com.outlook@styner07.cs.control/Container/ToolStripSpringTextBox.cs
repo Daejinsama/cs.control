@@ -1,10 +1,6 @@
-﻿
-/// https://learn.microsoft.com/ko-kr/dotnet/desktop/winforms/controls/stretch-a-toolstriptextbox-to-fill-the-remaining-width-of-a-toolstrip-wf?view=netframeworkdesktop-4.8
-using System.ComponentModel;
-
+﻿/// https://learn.microsoft.com/ko-kr/dotnet/desktop/winforms/controls/stretch-a-toolstriptextbox-to-fill-the-remaining-width-of-a-toolstrip-wf?view=netframeworkdesktop-4.8
 namespace com.outlook_styner07.cs.control.Container
 {
-    [ToolboxItem(true)]
     public class ToolStripSpringTextBox : ToolStripTextBox
     {
         public ToolStripSpringTextBox()

@@ -1,9 +1,7 @@
 ﻿using com.outlook_styner07.cs.control.Data.CellTemplates;
-using System.ComponentModel;
 
 namespace com.outlook_styner07.cs.control.Data
 {
-    [ToolboxItem(true)]
     public class DjsmDataGridView : DataGridView
     {
         public readonly Color SELECTION_BACK_COLOR = Color.FromArgb(0xA7, 0xA9, 0xAC);

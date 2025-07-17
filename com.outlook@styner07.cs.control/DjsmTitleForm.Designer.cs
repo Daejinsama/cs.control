@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            djsmToolStrip1 = new com.outlook_styner07.cs.control.Container.DjsmToolStrip();
+            tlbTitle = new com.outlook_styner07.cs.control.Container.DjsmToolStrip();
             lblWindowTitle = new ToolStripLabel();
             btnCloseWindow = new ToolStripButton();
             btnMaximizeWindow = new ToolStripButton();
             btnMinimizeWindow = new ToolStripButton();
-            djsmToolStrip1.SuspendLayout();
+            tlbTitle.SuspendLayout();
             SuspendLayout();
             // 
             // djsmToolStrip1
             // 
-            djsmToolStrip1.BorderColor = Color.FromArgb(80, 119, 120, 123);
-            djsmToolStrip1.BorderSides = ToolStripStatusLabelBorderSides.Bottom;
-            djsmToolStrip1.Font = new Font("Arial", 9F);
-            djsmToolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            djsmToolStrip1.Items.AddRange(new ToolStripItem[] { lblWindowTitle, btnCloseWindow, btnMaximizeWindow, btnMinimizeWindow });
-            djsmToolStrip1.Location = new Point(1, 1);
-            djsmToolStrip1.Name = "djsmToolStrip1";
-            djsmToolStrip1.Padding = new Padding(3);
-            djsmToolStrip1.Size = new Size(798, 34);
-            djsmToolStrip1.TabIndex = 0;
-            djsmToolStrip1.Text = "djsmToolStrip1";
-            djsmToolStrip1.WindowDragEnabled = true;
+            tlbTitle.BorderColor = Color.FromArgb(80, 119, 120, 123);
+            tlbTitle.BorderSides = ToolStripStatusLabelBorderSides.Bottom;
+            tlbTitle.Font = new Font("Arial", 9F);
+            tlbTitle.GripStyle = ToolStripGripStyle.Hidden;
+            tlbTitle.Items.AddRange(new ToolStripItem[] { lblWindowTitle, btnCloseWindow, btnMaximizeWindow, btnMinimizeWindow });
+            tlbTitle.Location = new Point(1, 1);
+            tlbTitle.Name = "djsmToolStrip1";
+            tlbTitle.Padding = new Padding(3);
+            tlbTitle.Size = new Size(798, 34);
+            tlbTitle.TabIndex = 0;
+            tlbTitle.Text = "djsmToolStrip1";
+            tlbTitle.WindowDragEnabled = true;
             // 
             // lblWindowTitle
             // 
@@ -97,20 +97,20 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(djsmToolStrip1);
+            Controls.Add(tlbTitle);
             FormBorderStyle = FormBorderStyle.None;
             Name = "DjsmTitleForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DjsmTitleForm";
-            djsmToolStrip1.ResumeLayout(false);
-            djsmToolStrip1.PerformLayout();
+            tlbTitle.ResumeLayout(false);
+            tlbTitle.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Container.DjsmToolStrip djsmToolStrip1;
+        private Container.DjsmToolStrip tlbTitle;
         private ToolStripLabel lblWindowTitle;
         private ToolStripButton btnCloseWindow;
         private ToolStripButton btnMaximizeWindow;

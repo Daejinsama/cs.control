@@ -2,7 +2,6 @@
 
 namespace com.outlook_styner07.cs.control
 {
-    [ToolboxItem(true)]
     public class DjsmLabel : Label
     {
         public enum TextAngles { Rotate_0 = 0, Rotate_90 = 90, Rotate_180 = 180, Rotate_270 = 270 }

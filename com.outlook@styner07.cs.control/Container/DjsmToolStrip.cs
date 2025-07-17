@@ -7,7 +7,6 @@ namespace com.outlook_styner07.cs.control.Container
     /// 원 클릭으로 툴스트립 아이템의 클릭 이벤트 호출.
     /// https://stackoverflow.com/questions/6947163/activate-a-form-and-process-button-click-at-the-same-time
     /// </summary>
-    [ToolboxItem(true)]
     public class DjsmToolStrip : ToolStrip
     {
         public bool WindowDragEnabled { get; set; } = true;

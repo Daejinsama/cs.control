@@ -1,8 +1,5 @@
-﻿using System.ComponentModel;
-
-namespace com.outlook_styner07.cs.control.Data
+﻿namespace com.outlook_styner07.cs.control.Data
 {
-    [ToolboxItem(true)]
     public class DjsmListView : ListView
     {
         public DjsmListView()

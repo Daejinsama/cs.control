@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 
 namespace com.outlook_styner07.cs.control.Container
 {
-    [ToolboxItem(true)]
     public class DjsmTabControl : TabControl
     {
         private const string CATEGORY_DESIGN = "Design";
