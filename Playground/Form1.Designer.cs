@@ -55,7 +55,6 @@
             djsmImagePanel1.PanEnabled = true;
             djsmImagePanel1.Size = new Size(1221, 599);
             djsmImagePanel1.TabIndex = 0;
-            djsmImagePanel1.Paint += djsmImagePanel1_Paint;
             // 
             // djsmRadioButton2
             // 

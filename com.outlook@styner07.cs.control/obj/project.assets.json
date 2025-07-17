@@ -505,13 +505,13 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "25.7.11.2",
+    "version": "25.7.17.1",
     "restore": {
-      "projectUniqueName": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+      "projectUniqueName": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
       "projectName": "com.outlook@styner07.cs.control",
-      "projectPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+      "projectPath": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
       "packagesPath": "C:\\Users\\ninebell\\.nuget\\packages\\",
-      "outputPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\obj\\",
+      "outputPath": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

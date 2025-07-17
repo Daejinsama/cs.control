@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\Playground.csproj": {}
+    "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\Playground\\Playground.csproj": {}
   },
   "projects": {
-    "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
-      "version": "25.7.11.2",
+    "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
+      "version": "25.7.17.1",
       "restore": {
-        "projectUniqueName": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+        "projectUniqueName": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
         "projectName": "com.outlook@styner07.cs.control",
-        "projectPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
+        "projectPath": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
         "packagesPath": "C:\\Users\\ninebell\\.nuget\\packages\\",
-        "outputPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\obj\\",
+        "outputPath": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -82,14 +82,14 @@
         }
       }
     },
-    "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\Playground.csproj": {
+    "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\Playground\\Playground.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\Playground.csproj",
+        "projectUniqueName": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\Playground\\Playground.csproj",
         "projectName": "Playground",
-        "projectPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\Playground.csproj",
+        "projectPath": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\Playground\\Playground.csproj",
         "packagesPath": "C:\\Users\\ninebell\\.nuget\\packages\\",
-        "outputPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\Playground\\obj\\",
+        "outputPath": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\Playground\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -110,8 +110,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
-                "projectPath": "D:\\Source\\Components\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj"
+              "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj": {
+                "projectPath": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj"
               }
             }
           }

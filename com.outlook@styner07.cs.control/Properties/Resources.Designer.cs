@@ -73,34 +73,59 @@ namespace com.outlook_styner07.cs.control.Properties {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        internal static System.Drawing.Bitmap Close_Window {
+            get {
+                object obj = ResourceManager.GetObject("Close_Window", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap Compress {
+            get {
+                object obj = ResourceManager.GetObject("Compress", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static System.Drawing.Bitmap Enlarge {
+            get {
+                object obj = ResourceManager.GetObject("Enlarge", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         internal static System.Drawing.Bitmap FullScreen {
             get {
                 object obj = ResourceManager.GetObject("FullScreen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
-
+        
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Compress
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("Compress", resourceCulture);
+        internal static System.Drawing.Bitmap Maximize_Window {
+            get {
+                object obj = ResourceManager.GetObject("Maximize_Window", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-
+        
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static System.Drawing.Bitmap Enlarge
-        {
-            get
-            {
-                object obj = ResourceManager.GetObject("Enlarge", resourceCulture);
+        internal static System.Drawing.Bitmap Minimize_Window {
+            get {
+                object obj = ResourceManager.GetObject("Minimize_Window", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

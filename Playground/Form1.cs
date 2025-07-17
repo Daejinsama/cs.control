@@ -1,8 +1,9 @@
+using com.outlook_styner07.cs.control;
 using com.outlook_styner07.cs.control.Charting;
 
 namespace Playground
 {
-    public partial class Form1 : Form
+    public partial class Form1 : DjsmTitleAndResizableForm
     {
         public Form1()
         {
@@ -14,9 +15,5 @@ namespace Playground
 
         }
 
-        private void djsmImagePanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

@@ -60,8 +60,11 @@ namespace com.outlook_styner07.cs.control.Button
         protected override void OnPaint(PaintEventArgs pevent)
         {
             Graphics g = pevent.Graphics;
-            g.Clear(Parent.BackColor);
-
+            
+            if(Parent != null && Parent.BackColor != Color.Transparent){
+                g.Clear(Parent.BackColor);
+            }
+                
             g.SmoothingMode = _smoothMode;
             g.TextRenderingHint = _textRenderingHint;
 

@@ -4,11 +4,14 @@ namespace com.outlook_styner07.cs.control
 {
     public partial class DjsmBaseForm : Form
     {
+        [Browsable(false)]
+        private new FormBorderStyle FormBorderStyle;
+
         public DjsmBaseForm()
         {
             InitializeComponent();
-
             Padding = new Padding(1);
+            FormBorderStyle = FormBorderStyle.None;
         }
 
         public const int WS_CAPTION = 0x00c00000;

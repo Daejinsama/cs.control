@@ -95,6 +95,12 @@
     <Compile Update="DjsmTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="DjsmTitleAndResizableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="DjsmTitleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Gauge\DjsmIndicator.cs">
       <SubType>Component</SubType>
     </Compile>
