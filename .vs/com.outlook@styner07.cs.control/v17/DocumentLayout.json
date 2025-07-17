@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|c:\\users\\ninebell\\source\\repos\\daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|c:\\users\\ninebell\\source\\repos\\daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|c:\\users\\ninebell\\source\\repos\\daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmtitleandresizableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmtitleandresizableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|c:\\users\\ninebell\\source\\repos\\daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmtitleandresizableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmtitleandresizableform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|c:\\users\\ninebell\\source\\repos\\daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmtitleandresizableform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,11 +27,7 @@
       "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmtitleform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|c:\\users\\ninebell\\source\\repos\\daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|c:\\users\\ninebell\\source\\repos\\daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmbaseform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -47,7 +43,7 @@
       "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\charting\\djsmchartpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|c:\\users\\ninebell\\source\\repos\\daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmtitleform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\djsmtitleform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{952BD473-4242-4A50-8FFA-61CA8BE27D10}|com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj|solutionrelative:com.outlook@styner07.cs.control\\djsmtitleform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -215,41 +211,33 @@
           "SelectedChildIndex": 1,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "com.outlook@styner07.cs.control",
-              "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-              "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-              "RelativeToolTip": "com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-17T04:38:45.255Z",
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAUwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-07-17T04:50:31.78Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DjsmTitleAndResizableForm.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.Designer.cs",
-              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.Designer.cs",
-              "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.Designer.cs",
-              "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.Designer.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAADgvyoAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T04:14:22.069Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "DjsmBaseForm.cs [\uB514\uC790\uC778]",
+              "DocumentIndex": 6,
+              "Title": "DjsmBaseForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
-              "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmBaseForm.cs [\uB514\uC790\uC778]",
-              "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmBaseForm.cs [\uB514\uC790\uC778]",
+              "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmBaseForm.cs [Design]",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmBaseForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-17T04:07:51.267Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -267,31 +255,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "DjsmTitleAndResizableForm.cs [\uB514\uC790\uC778]",
-              "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.cs",
-              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.cs",
-              "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.cs [\uB514\uC790\uC778]",
-              "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.cs [\uB514\uC790\uC778]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T04:00:28.703Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "DjsmTitleAndResizableForm.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.cs",
               "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.cs",
               "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA7AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T04:00:33.527Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-17T04:00:33.527Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "DjsmBaseForm.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmBaseForm.cs",
@@ -300,6 +275,19 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-17T03:25:30.049Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DjsmTitleAndResizableForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.Designer.cs",
+              "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.Designer.cs",
+              "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.Designer.cs",
+              "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmTitleAndResizableForm.Designer.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAADgvyoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-17T04:14:22.069Z",
               "EditorCaption": ""
             },
             {
@@ -317,7 +305,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "DjsmTabControl.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmTabControl.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmTabControl.cs",
@@ -325,24 +313,22 @@
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Container\\DjsmTabControl.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAYwEcAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T02:00:41.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-11T02:00:41.774Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 8,
               "Title": "Resources.resx",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Properties\\Resources.resx",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Properties\\Resources.resx",
               "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Properties\\Resources.resx",
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Properties\\Resources.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2025-07-17T03:42:04.496Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-17T03:42:04.496Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 9,
               "Title": "DjsmChartPanel.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Charting\\DjsmChartPanel.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Charting\\DjsmChartPanel.cs",
@@ -350,36 +336,33 @@
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Charting\\DjsmChartPanel.cs",
               "ViewState": "AgIAACMAAAAAAAAAAAAcwDsAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T01:58:32.902Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-11T01:58:32.902Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "DjsmTitleForm.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleForm.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmTitleForm.cs",
               "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTitleForm.cs [\uB514\uC790\uC778]",
               "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmTitleForm.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T03:32:22.457Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2025-07-17T03:32:22.457Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 12,
               "Title": "DjsmLifeTimeGauge.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Gauge\\DjsmLifeTimeGauge.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Gauge\\DjsmLifeTimeGauge.cs",
               "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Gauge\\DjsmLifeTimeGauge.cs [\uB514\uC790\uC778]",
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Gauge\\DjsmLifeTimeGauge.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T02:02:13.983Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2025-07-11T02:02:13.983Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 11,
               "Title": "com.outlook@styner07.cs.control.csproj",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
@@ -387,12 +370,11 @@
               "RelativeToolTip": "com.outlook@styner07.cs.control\\com.outlook@styner07.cs.control.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-11-26T05:08:53.331Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-26T05:08:53.331Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 15,
               "Title": "DjsmCheckBox.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmCheckBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmCheckBox.cs",
@@ -404,7 +386,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 14,
               "Title": "DjsmSeparatorLabel.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmSeparatorLabel.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmSeparatorLabel.cs",
@@ -412,12 +394,11 @@
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Container\\DjsmSeparatorLabel.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAxwCcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T02:00:25.367Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-11T02:00:25.367Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 21,
               "Title": "DjsmLifeTimeGauge.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Gauge\\DjsmLifeTimeGauge.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Gauge\\DjsmLifeTimeGauge.cs",
@@ -425,12 +406,11 @@
               "RelativeToolTip": "com.outlook@styner07.cs.control\\Gauge\\DjsmLifeTimeGauge.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T02:02:22.886Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-11T02:02:22.886Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 19,
               "Title": "DjsmCalculatorPanel.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmCalculatorPanel.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmCalculatorPanel.cs",
@@ -442,7 +422,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 18,
               "Title": "DjsmLabel.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmLabel.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmLabel.cs",
@@ -454,7 +434,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 17,
               "Title": "DjsmTextBox.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTextBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmTextBox.cs",
@@ -464,7 +444,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 16,
               "Title": "DjsmTextBox.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\DjsmTextBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\DjsmTextBox.cs",
@@ -472,12 +452,11 @@
               "RelativeToolTip": "com.outlook@styner07.cs.control\\DjsmTextBox.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T02:03:46.721Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-11T02:03:46.721Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 22,
               "Title": "DjsmIndicator.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Gauge\\DjsmIndicator.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Gauge\\DjsmIndicator.cs",
@@ -489,7 +468,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 23,
               "Title": "DjsmPropertyGrid.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Data\\DjsmPropertyGrid.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Data\\DjsmPropertyGrid.cs",
@@ -501,7 +480,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 24,
               "Title": "DjsmListView.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Data\\DjsmListView.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Data\\DjsmListView.cs",
@@ -513,7 +492,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 25,
               "Title": "DjsmDataGridView.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Data\\DjsmDataGridView.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Data\\DjsmDataGridView.cs",
@@ -525,7 +504,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 26,
               "Title": "ToolStripSpringTextBox.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\ToolStripSpringTextBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\ToolStripSpringTextBox.cs",
@@ -537,7 +516,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 20,
               "Title": "DjsmProgressBar.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Gauge\\DjsmProgressBar.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Gauge\\DjsmProgressBar.cs",
@@ -549,7 +528,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 27,
               "Title": "DjsmToolStrip.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmToolStrip.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmToolStrip.cs",
@@ -561,7 +540,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 28,
               "Title": "DjsmSplitter.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmSplitter.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmSplitter.cs",
@@ -573,7 +552,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 29,
               "Title": "DjsmSplitContainer.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmSplitContainer.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmSplitContainer.cs",
@@ -585,7 +564,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 30,
               "Title": "DjsmRadioGroupBox.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmRadioGroupBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmRadioGroupBox.cs",
@@ -597,7 +576,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 31,
               "Title": "DjsmPanel.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmPanel.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmPanel.cs",
@@ -609,7 +588,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 33,
               "Title": "DjsmGroupBox.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmGroupBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmGroupBox.cs",
@@ -621,7 +600,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 34,
               "Title": "DjsmCheckGroupBoxNew.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmCheckGroupBoxNew.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmCheckGroupBoxNew.cs",
@@ -633,7 +612,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 35,
               "Title": "DjsmCheckGroupBox.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmCheckGroupBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmCheckGroupBox.cs",
@@ -645,7 +624,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 36,
               "Title": "DjsmBlockTitleGroupBox.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmBlockTitleGroupBox.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmBlockTitleGroupBox.cs",
@@ -657,7 +636,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 37,
               "Title": "DjsmTimeTrendChart.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Charting\\DjsmTimeTrendChart.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Charting\\DjsmTimeTrendChart.cs",
@@ -669,7 +648,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 38,
               "Title": "DjsmCalendar.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Common\\DjsmCalendar.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Common\\DjsmCalendar.cs",
@@ -681,7 +660,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 32,
               "Title": "DjsmImagePanel.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Container\\DjsmImagePanel.cs",
@@ -693,19 +672,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 41,
               "Title": "Form1.cs [\uB514\uC790\uC778]",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\Playground\\Form1.cs",
               "RelativeDocumentMoniker": "Playground\\Form1.cs",
               "ToolTip": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\Playground\\Form1.cs [\uB514\uC790\uC778]",
               "RelativeToolTip": "Playground\\Form1.cs [\uB514\uC790\uC778]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-26T05:09:08.697Z",
-              "EditorCaption": " [\uB514\uC790\uC778]"
+              "WhenOpened": "2024-11-26T05:09:08.697Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 39,
               "Title": "DjsmToggleButton.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmToggleButton.cs",
@@ -717,7 +695,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 40,
               "Title": "DjsmRadioButton.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmRadioButton.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmRadioButton.cs",
@@ -750,7 +728,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 13,
               "Title": "DjsmButton.cs",
               "DocumentMoniker": "C:\\Users\\ninebell\\source\\repos\\Daejinsama\\cs.control\\com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
               "RelativeDocumentMoniker": "com.outlook@styner07.cs.control\\Button\\DjsmButton.cs",
