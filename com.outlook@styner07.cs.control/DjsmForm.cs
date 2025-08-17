@@ -25,6 +25,8 @@ namespace com.outlook_styner07.cs.control
         public bool Resizable { get; set; } = true;
 
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DefaultValue(true)]
         public bool ShowTitleBar
         {
             get => tlsTitle.Visible;
@@ -32,6 +34,8 @@ namespace com.outlook_styner07.cs.control
         }
 
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DefaultValue(true)]
         public bool ShowTitleLabel
         {
             get => tslTitle.Visible;
@@ -39,6 +43,8 @@ namespace com.outlook_styner07.cs.control
         }
 
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DefaultValue(true)]
         public bool ShowMinimizeButton
         {
             get => tsbMinimize.Visible;
@@ -46,6 +52,8 @@ namespace com.outlook_styner07.cs.control
         }
 
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DefaultValue(true)]
         public bool ShowMaximizeButton
         {
             get => tsbMaximize.Visible;
@@ -53,6 +61,8 @@ namespace com.outlook_styner07.cs.control
         }
 
         [Browsable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DefaultValue(true)]
         public bool showCloseButton
         {
             get => tsbClose.Visible;
