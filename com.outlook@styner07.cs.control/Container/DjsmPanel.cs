@@ -40,6 +40,7 @@ namespace com.outlook_styner07.cs.control.Container
 
         public DjsmPanel()
         {
+            SetStyle(ControlStyles.ResizeRedraw, true);
             BorderStyle = BorderStyle.None;
             Padding = new Padding(1);
         }

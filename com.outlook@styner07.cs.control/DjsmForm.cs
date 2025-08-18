@@ -129,10 +129,12 @@ namespace com.outlook_styner07.cs.control
 
         public DjsmForm()
         {
+            SetStyle(ControlStyles.ResizeRedraw, true);
             InitializeComponent();
             InitializeDefaultTitleBar();
 
             DoubleBuffered = true;
+
             Font = new Font("Arial", 9f);
             FormBorderStyle = FormBorderStyle.None;
             StartPosition = FormStartPosition.CenterScreen;
