@@ -18,56 +18,104 @@ namespace com.outlook_styner07.cs.control
         private ToolStripButton tsbMaximize;
         private ToolStripButton tsbClose;
 
-        [Browsable(false)]
-        private new FormBorderStyle FormBorderStyle;
+        [Browsable(true)]
+        public ToolStripStatusLabelBorderSides BorderSides
+        {
+            get { return _borderSides; }
+            set
+            {
+                if (_borderSides != value)
+                {
+                    _borderSides = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
+
+        [Browsable(true)]
+        public Color BorderColor
+        {
+            get { return _borderColor; }
+            set
+            {
+                if (_borderColor != value)
+                {
+                    _borderColor = value;
+                    Invalidate();
+                }
+            }
+        }
+        private Color _borderColor = DjsmColorTable.SecondaryLight;
 
         [Browsable(true)]
         public bool Resizable { get; set; } = true;
 
         [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [DefaultValue(true)]
         public bool ShowTitleBar
         {
-            get => tlsTitle.Visible;
-            set => tlsTitle.Visible = value;
+            get => _showTitleBar;
+            set
+            {
+                _showTitleBar = value;
+                tlsTitle.Visible = _showTitleBar;
+            }
         }
 
+        private bool _showTitleBar = true;
+
         [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [DefaultValue(true)]
         public bool ShowTitleLabel
         {
-            get => tslTitle.Visible;
-            set => tslTitle.Visible = value;
+            get => _showTitleLabel;
+            set
+            {
+                _showTitleLabel = value;
+                tslTitle.Visible = _showTitleLabel;
+            }
         }
 
+        private bool _showTitleLabel = true;
+
         [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [DefaultValue(true)]
         public bool ShowMinimizeButton
         {
-            get => tsbMinimize.Visible;
-            set => tsbMinimize.Visible = value;
+            get => _showMinimizeButton;
+            set
+            {
+                _showMinimizeButton = value;
+                tsbMinimize.Visible = _showMinimizeButton;
+            }
         }
 
+        private bool _showMinimizeButton = true;
+
         [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [DefaultValue(true)]
         public bool ShowMaximizeButton
         {
-            get => tsbMaximize.Visible;
-            set => tsbMaximize.Visible = value;
+            get => _showMaximizeButton;
+            set
+            {
+                _showMaximizeButton = value;
+                tsbMaximize.Visible = _showMaximizeButton;
+            }
         }
 
+        private bool _showMaximizeButton = true;
+
         [Browsable(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [DefaultValue(true)]
         public bool showCloseButton
         {
-            get => tsbClose.Visible;
-            set => tsbClose.Visible = value;
+            get => _showCloseButton;
+            set
+            {
+                _showCloseButton = value;
+                tsbClose.Visible = _showCloseButton;
+            }
         }
+
+        private bool _showCloseButton = true;
 
         public ToolStrip TitleBar => tlsTitle;
 
@@ -88,6 +136,7 @@ namespace com.outlook_styner07.cs.control
             Font = new Font("Arial", 9f);
             FormBorderStyle = FormBorderStyle.None;
             StartPosition = FormStartPosition.CenterScreen;
+            Padding = new Padding(1);
         }
 
         private void InitializeDefaultTitleBar()
@@ -149,6 +198,17 @@ namespace com.outlook_styner07.cs.control
         {
             base.OnControlAdded(e);
             tlsTitle.SendToBack();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
+                _borderColor, (_borderSides & ToolStripStatusLabelBorderSides.Left) == ToolStripStatusLabelBorderSides.Left ? 1 : 0, ButtonBorderStyle.Solid,
+                _borderColor, (_borderSides & ToolStripStatusLabelBorderSides.Top) == ToolStripStatusLabelBorderSides.Top ? 1 : 0, ButtonBorderStyle.Solid,
+                _borderColor, (_borderSides & ToolStripStatusLabelBorderSides.Right) == ToolStripStatusLabelBorderSides.Right ? 1 : 0, ButtonBorderStyle.Solid,
+                _borderColor, (_borderSides & ToolStripStatusLabelBorderSides.Bottom) == ToolStripStatusLabelBorderSides.Bottom ? 1 : 0, ButtonBorderStyle.Solid);
         }
 
         protected override void WndProc(ref Message m)
