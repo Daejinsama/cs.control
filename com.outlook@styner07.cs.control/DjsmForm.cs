@@ -178,7 +178,7 @@ namespace com.outlook_styner07.cs.control
                 Image = Properties.Resources.Maximize_Window,
                 ImageScaling = ToolStripItemImageScaling.None
             };
-            tsbMaximize.Click += (s, e) => WindowState = FormWindowState.Maximized;
+            tsbMaximize.Click += (s, e) => WindowState = WindowState == FormWindowState.Normal ? FormWindowState.Maximized : FormWindowState.Normal;
 
             tsbClose = new ToolStripButton
             {
