@@ -59,11 +59,12 @@ namespace com.outlook_styner07.cs.control.Button
         protected override void OnPaint(PaintEventArgs pevent)
         {
             Graphics g = pevent.Graphics;
-            
-            if(Parent != null && Parent.BackColor != Color.Transparent){
+
+            if (Parent != null && Parent.BackColor != Color.Transparent)
+            {
                 g.Clear(Parent.BackColor);
             }
-                
+
             g.SmoothingMode = _smoothMode;
             g.TextRenderingHint = _textRenderingHint;
 
@@ -104,9 +105,9 @@ namespace com.outlook_styner07.cs.control.Button
                 _pressedBackColor = AdjustBrightness(BackColor, 0.6f);
             }
         }
-        
+
         private static int Clamp(float value) => Math.Min(255, Math.Max(0, (int)value));
-        
+
         private static Color AdjustBrightness(Color color, float factor)
         {
             return Color.FromArgb(
@@ -119,29 +120,29 @@ namespace com.outlook_styner07.cs.control.Button
 
         protected override void OnMouseDown(MouseEventArgs mevent)
         {
-            base.OnMouseDown(mevent);
             _state = ButtonState.Pressed;
-            Invalidate();
+            base.OnMouseDown(mevent);
+            //Invalidate();
         }
 
         protected override void OnMouseUp(MouseEventArgs mevent)
         {
-            base.OnMouseUp(mevent);
             _state = ButtonState.Normal;
-            Invalidate();
+            base.OnMouseUp(mevent);
+            //Invalidate();
         }
 
         protected override void OnMouseEnter(EventArgs eventargs)
         {
-            base.OnMouseEnter(eventargs);
             _state = ButtonState.MouseOver;
-            Invalidate();
+            base.OnMouseEnter(eventargs);
+            //Invalidate();
         }
 
         protected override void OnMouseLeave(EventArgs eventargs)
         {
-            base.OnMouseLeave(eventargs);
             _state = ButtonState.Normal;
+            base.OnMouseLeave(eventargs);
         }
     }
 }
