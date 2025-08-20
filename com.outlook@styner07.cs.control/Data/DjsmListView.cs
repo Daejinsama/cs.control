@@ -96,9 +96,7 @@
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // NntListView
-            // 
+            
             this.BackColor = System.Drawing.SystemColors.Info;
             this.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Dock = System.Windows.Forms.DockStyle.Fill;

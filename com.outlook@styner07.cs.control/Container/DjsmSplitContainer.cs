@@ -103,9 +103,7 @@ namespace com.outlook_styner07.cs.control.Container
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
-            // NntSplitContainer
-            // 
+             
             this.Font = new System.Drawing.Font("Arial", 9F);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);

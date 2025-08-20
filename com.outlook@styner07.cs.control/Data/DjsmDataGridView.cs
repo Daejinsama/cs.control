@@ -444,9 +444,7 @@ namespace com.outlook_styner07.cs.control.Data
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
-            // NntDataGridView
-            // 
+            
             this.AllowUserToAddRows = false;
             this.AllowUserToDeleteRows = false;
             this.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;

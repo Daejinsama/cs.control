@@ -49,9 +49,7 @@ namespace com.outlook_styner07.cs.control.Data
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // NntPropertyGrid
-            // 
+            
             this.Font = new System.Drawing.Font("Arial", 9F);
             this.ResumeLayout(false);
         }

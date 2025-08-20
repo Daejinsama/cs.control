@@ -62,9 +62,7 @@ namespace com.outlook_styner07.cs.control.Container
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // NntRadioGroupBox
-            // 
+            
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ResumeLayout(false);
 

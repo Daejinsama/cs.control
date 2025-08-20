@@ -94,12 +94,12 @@ namespace com.outlook_styner07.cs.control.Container
 
             if (pressExpand && rectExpand.Contains(new Point(e.X, e.Y)))
             {
-                ExpandClick?.Invoke(this, new TabButtonEventArgs { Index = (TabPages[SelectedIndex] as NntTabPage).Index });
+                ExpandClick?.Invoke(this, new TabButtonEventArgs { Index = (TabPages[SelectedIndex] as DjsmTabPage).Index });
             }
 
             else if (pressClose && rectClose.Contains(new Point(e.X, e.Y)))
             {
-                CloseClick?.Invoke(this, new TabButtonEventArgs { Index = (TabPages[SelectedIndex] as NntTabPage).Index });
+                CloseClick?.Invoke(this, new TabButtonEventArgs { Index = (TabPages[SelectedIndex] as DjsmTabPage).Index });
                 TabPages.RemoveAt(SelectedIndex);
             }
 
@@ -227,25 +227,13 @@ namespace com.outlook_styner07.cs.control.Container
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // NntTabControl
-            // 
+            
             this.Font = new System.Drawing.Font("Arial", 9F);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.ResumeLayout(false);
 
         }
 
-        //↓remove all margin with tab headers
-        //private const int TCM_ADJUSTRECT = 0x1328;
-        //protected override void WndProc(ref Message m)
-        //{
-        //    base.WndProc(ref m);
-        //    if (m.Msg == TCM_ADJUSTRECT)
-        //    {
-        //        m.Result = new IntPtr(1);
-        //    }
-        //}
 
         #region remove tabcontrol margins
         private readonly int TCM_ADJUSTRECT = (0x1300 + 40);
@@ -276,7 +264,7 @@ namespace com.outlook_styner07.cs.control.Container
             public int Index { get; set; }
         }
     }
-    public class NntTabPage : TabPage
+    public class DjsmTabPage : TabPage
     {
         public int Index { get; set; }
     }

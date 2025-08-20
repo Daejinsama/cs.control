@@ -89,49 +89,8 @@ namespace com.outlook_styner07.cs.control
                 borderColor, 0, ButtonBorderStyle.None,
                 borderColor, 1, ButtonBorderStyle.Solid);
 
-                //if (string.IsNullOrEmpty(Text) && !Focused)
-                //{
-                //    SizeF size = g.MeasureString(_description, Font);
-
-                //    Point drawPoint = new Point(0, 0);
-
-                //    switch (TextAlign)
-                //    {
-                //        case HorizontalAlignment.Right:
-                //            drawPoint.X = (int)(txtbox.Width - size.Width);
-                //            break;
-                //        case HorizontalAlignment.Center:
-                //            drawPoint.X = (int)((txtbox.Width / 2) - (size.Width / 2));
-                //            break;
-                //    }
-
-
-                //    g.DrawString(_description, Font, new SolidBrush(NntColorTable.SecondaryLight), drawPoint);
-                //}
             }
         }
-
-        //private const int WM_SETFOCUS = 0x0007;
-        //private const int WM_PAINT = 0x000F;
-        //private const int WM_KILLFOCUS = 0x0008;
-        //private const int WM_NCLBUTTONDOWN = 0x00A1;
-
-        //protected override void WndProc(ref Message m)
-        //{
-        //    switch (m.Msg)
-        //    {
-        //        case WM_PAINT:
-        //        case WM_SETFOCUS:
-        //        case WM_KILLFOCUS:
-        //            //case WM_NCLBUTTONDOWN:
-        //            base.WndProc(ref m);
-        //            DrawBorder();
-        //            break;
-        //        default:
-        //            base.WndProc(ref m);
-        //            break;
-        //    }
-        //}
 
         private void DrawBorder()
         {
@@ -147,9 +106,6 @@ namespace com.outlook_styner07.cs.control
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // NntTextBox
-            // 
             this.Size = new System.Drawing.Size(390, 150);
             this.ResumeLayout(false);
 

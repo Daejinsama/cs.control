@@ -2,7 +2,7 @@ using System.Drawing;
 
 namespace com.outlook_styner07.cs.control.Charting
 {
-    public enum NntChartColorPalette
+    public enum DjsmChartColorPalette
     {
         /// <summary>
         /// Palette not set.
@@ -70,7 +70,7 @@ namespace com.outlook_styner07.cs.control.Charting
         BrightPastel
     };
 
-    public static class NntChartColor
+    public static class DjsmChartColor
     {
         #region Fields
 
@@ -284,41 +284,41 @@ namespace com.outlook_styner07.cs.control.Charting
         /// </summary>
         /// <param name="palette">Palette to get the colors for.</param>
         /// <returns>Array of colors.</returns>
-        private static Color[] GetPaletteColors(NntChartColorPalette palette)
+        private static Color[] GetPaletteColors(DjsmChartColorPalette palette)
         {
             switch (palette)
             {
-                case (NntChartColorPalette.None):
+                case (DjsmChartColorPalette.None):
                     return null;
-                case (NntChartColorPalette.Bright):
+                case (DjsmChartColorPalette.Bright):
                     return _colorsDefault;
-                case (NntChartColorPalette.Grayscale):
+                case (DjsmChartColorPalette.Grayscale):
                     return _colorsGrayScale;
-                case (NntChartColorPalette.Excel):
+                case (DjsmChartColorPalette.Excel):
                     return _colorsExcel;
-                case (NntChartColorPalette.Pastel):
+                case (DjsmChartColorPalette.Pastel):
                     return _colorsPastel;
-                case (NntChartColorPalette.Light):
+                case (DjsmChartColorPalette.Light):
                     return _colorsLight;
-                case (NntChartColorPalette.EarthTones):
+                case (DjsmChartColorPalette.EarthTones):
                     return _colorsEarth;
-                case (NntChartColorPalette.SemiTransparent):
+                case (DjsmChartColorPalette.SemiTransparent):
                     return _colorsSemiTransparent;
-                case (NntChartColorPalette.Berry):
+                case (DjsmChartColorPalette.Berry):
                     return _colorsBerry;
-                case (NntChartColorPalette.Chocolate):
+                case (DjsmChartColorPalette.Chocolate):
                     return _colorsChocolate;
-                case (NntChartColorPalette.Fire):
+                case (DjsmChartColorPalette.Fire):
                     return _colorsFire;
-                case (NntChartColorPalette.SeaGreen):
+                case (DjsmChartColorPalette.SeaGreen):
                     return _colorsSeaGreen;
-                case (NntChartColorPalette.BrightPastel):
+                case (DjsmChartColorPalette.BrightPastel):
                     return _colorsBrightPastel;
             }
             return null;
         }
 
-        public static Color GetColor(NntChartColorPalette palette, int index)
+        public static Color GetColor(DjsmChartColorPalette palette, int index)
         {
             index++;
             Color[] colors = GetPaletteColors(palette);

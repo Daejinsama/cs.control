@@ -29,13 +29,11 @@
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // NntCalculatorPanel
-            // 
+            
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Font = new System.Drawing.Font("Arial", 8.25F);
-            this.Name = "NntCalculatorPanel";
+            this.Name = "CalculatorPanel";
             this.Size = new System.Drawing.Size(213, 240);
             this.ResumeLayout(false);
 

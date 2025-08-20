@@ -4,7 +4,7 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmToolStripRenderer : ToolStripProfessionalRenderer
     {
-        public DjsmToolStripRenderer() : base(new NntProfessionalColorTable())
+        public DjsmToolStripRenderer() : base(new DjsmProfessionalColorTable())
         {
             RoundedEdges = false;
         }
@@ -145,7 +145,7 @@ namespace com.outlook_styner07.cs.control.Container
         }
     }
 
-    public class NntProfessionalColorTable : ProfessionalColorTable
+    public class DjsmProfessionalColorTable : ProfessionalColorTable
     {
         public override Color ButtonSelectedHighlight => DEFAULT_BACKGROUND_SELECTED_COLOR;
 

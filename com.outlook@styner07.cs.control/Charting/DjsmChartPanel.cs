@@ -159,14 +159,14 @@
             this.titleToolStripLabel.Size = new System.Drawing.Size(74, 28);
             this.titleToolStripLabel.Text = "Chart Name";
             // 
-            // NntChartPanel
+            // ChartPanel
             // 
             this.BackColor = System.Drawing.Color.White;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.tlb);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Arial", 9F);
-            this.Name = "NntChartPanel";
+            this.Name = "ChartPanel";
             this.Size = new System.Drawing.Size(525, 460);
             this.tlb.ResumeLayout(false);
             this.tlb.PerformLayout();

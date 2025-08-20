@@ -84,9 +84,7 @@ namespace com.outlook_styner07.cs.control.Container
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // NntSplitter
-            // 
+            
             this.Margin = new System.Windows.Forms.Padding(0);
             this.ResumeLayout(false);
         }
