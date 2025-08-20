@@ -75,9 +75,15 @@ namespace com.outlook_styner07.cs.control.Button
 
             GraphicsPath path = DrawingUtil.GetRoundRectPath(drawingArea, g.MeasureString(Text, Font), _radius);
 
-            using (SolidBrush b = new SolidBrush(_state == ButtonState.Normal
-                ? BackColor : _state == ButtonState.MouseOver
-                ? _mouseOverBackColor : _pressedBackColor))
+            Color brushColor = _state switch
+            {
+                ButtonState.Normal => BackColor,
+                ButtonState.MouseOver => _mouseOverBackColor,
+                ButtonState.Pressed => _pressedBackColor,
+                _ => BackColor
+            };
+
+            using (SolidBrush b = new SolidBrush(brushColor))
             {
                 g.FillPath(b, path);
             }
@@ -120,29 +126,27 @@ namespace com.outlook_styner07.cs.control.Button
 
         protected override void OnMouseDown(MouseEventArgs mevent)
         {
-            _state = ButtonState.Pressed;
             base.OnMouseDown(mevent);
-            //Invalidate();
+            _state = ButtonState.Pressed;
         }
 
         protected override void OnMouseUp(MouseEventArgs mevent)
         {
-            _state = ButtonState.Normal;
             base.OnMouseUp(mevent);
-            //Invalidate();
+            _state = ButtonState.MouseOver;
+            Invalidate();
         }
 
         protected override void OnMouseEnter(EventArgs eventargs)
         {
-            _state = ButtonState.MouseOver;
             base.OnMouseEnter(eventargs);
-            //Invalidate();
+            _state = ButtonState.MouseOver;
         }
 
         protected override void OnMouseLeave(EventArgs eventargs)
         {
-            _state = ButtonState.Normal;
             base.OnMouseLeave(eventargs);
+            _state = ButtonState.Normal;
         }
     }
 }
