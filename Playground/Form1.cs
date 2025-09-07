@@ -1,5 +1,7 @@
 using com.outlook_styner07.cs.control;
-using com.outlook_styner07.cs.control.Charting;
+using com.outlook_styner07.cs.control.Data;
+using System.ComponentModel;
+using System.Drawing.Design;
 
 namespace Playground
 {
@@ -8,12 +10,29 @@ namespace Playground
         public Form1()
         {
             InitializeComponent();
-            //Controls.Clear();
-            //DjsmFullSpectrumChart chart = new DjsmFullSpectrumChart();
-            //DjsmChartPanel pnlChart = new DjsmChartPanel(chart);
-            //Controls.Add(pnlChart);
 
+            ppgTemp.SelectedObject = new TestObject();
         }
+    }
 
+    public class TestObject
+    {
+        [TypeConverter(typeof(UppercaseTypeConverter))]
+        [Category("Demo")]
+        [Description("영문 대문자(A-Z)만 허용")]
+        public string Text1 { get; set; }
+
+        [TypeConverter(typeof(NumericNegativeTypeConverter))]
+        [Category("Demo")]
+        public string Text2 { get; set; }
+
+        [TypeConverter(typeof(DecimalNegativeTypeConverter))]
+        [Category("Demo")]
+
+        public string Text3 { get; set; }
+
+        public string Text4 { get; set; }
+
+        public string Text5 { get; set; }
     }
 }
