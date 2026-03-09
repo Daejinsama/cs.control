@@ -10,7 +10,6 @@ namespace Playground
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void djsmButton1_Click(object sender, EventArgs e)

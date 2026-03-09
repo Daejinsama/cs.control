@@ -45,6 +45,7 @@
             // 
             // djsmButton1
             // 
+            djsmButton1.BackColor = Color.Gray;
             djsmButton1.Location = new Point(716, 205);
             djsmButton1.Name = "djsmButton1";
             djsmButton1.Radius = 11;
@@ -53,7 +54,7 @@
             djsmButton1.SmoothMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             djsmButton1.TabIndex = 2;
             djsmButton1.Text = "fittoframe";
-            djsmButton1.UseVisualStyleBackColor = true;
+            djsmButton1.UseVisualStyleBackColor = false;
             djsmButton1.Click += djsmButton1_Click;
             // 
             // Form1

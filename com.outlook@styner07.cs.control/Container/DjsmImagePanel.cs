@@ -10,9 +10,6 @@ namespace com.outlook_styner07.cs.control.Container
             DoubleBuffered = true;
             AllowDrop = true;
 
-            DragEnter += DjsmImagePanel_DragEnter;
-            DragDrop += DjsmImagePanel_DragDrop;
-
             InitializeContextMenu();
         }
         #endregion
@@ -99,8 +96,10 @@ namespace com.outlook_styner07.cs.control.Container
         #endregion
 
         #region Methods
-        private void DjsmImagePanel_DragDrop(object? sender, DragEventArgs e)
+        protected override void OnDragDrop(DragEventArgs e)
         {
+            base.OnDragDrop(e);
+
             string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
 
             if (files?.Length > 0 && IsSupportedFile(files[0]))
@@ -109,8 +108,10 @@ namespace com.outlook_styner07.cs.control.Container
             }
         }
 
-        private void DjsmImagePanel_DragEnter(object? sender, DragEventArgs e)
+        protected override void OnDragEnter(DragEventArgs e)
         {
+            base.OnDragEnter(e);
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
