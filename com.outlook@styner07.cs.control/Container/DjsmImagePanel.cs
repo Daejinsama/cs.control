@@ -75,25 +75,13 @@ namespace com.outlook_styner07.cs.control.Container
                     return;
                 }
 
-                if (_image != null)
-                {
-                    _image.Dispose();
-                    _image = null; 
-                }
-
-                if (value != null)
+                if (_image == null && value != null)
                 {
                     _newWidth = value.Width;
                     _newHeight = value.Height;
-                    _image = value;
                 }
-                //if (_image == null && value != null)
-                //{
-                //    _newWidth = value.Width;
-                //    _newHeight = value.Height;
-                //}
 
-                //_image = value;
+                _image = value;
                 Invalidate();
             }
         }
