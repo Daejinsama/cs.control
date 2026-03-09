@@ -5,17 +5,7 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmCheckGroupBoxNew : GroupBox
     {
-        public bool Checked { get; set; } = false;
-
-        private const int PADDING = 5;
-        private RectangleF titleArea;
-
-        private string _title = string.Empty;
-        public string Title { get { return _title; } set { _title = value; Invalidate(); } }
-
-        [Browsable(false)]
-        public new string Text { get; set; }
-
+        #region Constructors
         public DjsmCheckGroupBoxNew()
         {
             Padding = new Padding(1);
@@ -23,7 +13,34 @@ namespace com.outlook_styner07.cs.control.Container
 
             base.Text = string.Empty;
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        private const int PADDING = 5;
+        private RectangleF _titleArea;
+        private string _title = string.Empty;
+        #endregion
+
+        #region Properties
+        public bool Checked { get; set; } = false;
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                Invalidate();
+            }
+        }
+
+        [Browsable(false)]
+        public new string Text { get; set; }
+        #endregion
+
+        #region Methods
         protected override void OnControlAdded(ControlEventArgs e)
         {
             base.OnControlAdded(e);
@@ -32,7 +49,7 @@ namespace com.outlook_styner07.cs.control.Container
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            
+
             Graphics g = e.Graphics;
 
             Size checkBoxSize = CheckBoxRenderer.GetGlyphSize(g, System.Windows.Forms.VisualStyles.CheckBoxState.CheckedNormal);
@@ -43,9 +60,9 @@ namespace com.outlook_styner07.cs.control.Container
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
-            titleArea = new RectangleF(PADDING, -3, textSize.Width + PADDING + checkBoxSize.Width, textSize.Height + 3);
+            _titleArea = new RectangleF(PADDING, -3, textSize.Width + PADDING + checkBoxSize.Width, textSize.Height + 3);
 
-            g.FillRectangle(new SolidBrush(BackColor), titleArea);
+            g.FillRectangle(new SolidBrush(BackColor), _titleArea);
             g.DrawString(_title, Font, new SolidBrush(ForeColor), textLocation);
 
             CheckBoxRenderer.DrawCheckBox(g, new Point(PADDING + 3, 0), Checked ? System.Windows.Forms.VisualStyles.CheckBoxState.CheckedNormal : System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
@@ -55,11 +72,12 @@ namespace com.outlook_styner07.cs.control.Container
         {
             base.OnMouseUp(e);
 
-            if (titleArea.Contains(e.Location))
+            if (_titleArea.Contains(e.Location))
             {
                 Checked = !Checked;
                 Invalidate();
             }
         }
+        #endregion
     }
 }

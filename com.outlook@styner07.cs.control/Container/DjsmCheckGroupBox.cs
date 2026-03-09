@@ -4,26 +4,7 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmCheckGroupBox : GroupBox
     {
-        private const int RADIO_LEFT_MARGIN = 5;
-        private CheckBox chkButton;
-        
-        public event EventHandler GroupCheckedChanged;
-
-        [Browsable(true)]
-        public bool Checked
-        {
-            get
-            {
-                return chkButton.Checked;
-            }
-
-            set
-            {
-                chkButton.Checked = value;
-                SetEnabled(value);
-            }
-        }
-
+        #region Constructors
         public DjsmCheckGroupBox()
         {
             chkButton = new CheckBox { Location = new Point(RADIO_LEFT_MARGIN, 0), AutoSize = true, };
@@ -36,7 +17,36 @@ namespace com.outlook_styner07.cs.control.Container
 
             base.Text = "";
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        private const int RADIO_LEFT_MARGIN = 5;
+        protected CheckBox chkButton;
+
+        public event EventHandler GroupCheckedChanged;
+
+        #endregion
+
+        #region Properties
+        [Browsable(true)]
+        public bool Checked
+        {
+            get
+            {
+                return chkButton.Checked;
+            }
+            set
+            {
+                chkButton.Checked = value;
+                SetEnabled(value);
+            }
+        }
+        #endregion
+
+        #region Methods
         public void SetEnabled(bool enabled)
         {
             for (int len = Controls.Count, i = 0; i < len; i++)
@@ -45,6 +55,7 @@ namespace com.outlook_styner07.cs.control.Container
                 {
                     continue;
                 }
+
                 Controls[i].Enabled = enabled;
             }
         }
@@ -55,17 +66,11 @@ namespace com.outlook_styner07.cs.control.Container
             {
                 BackColor = Parent.BackColor;
             }
-            base.OnPaint(e);
+
             chkButton.Text = base.Text;
-        }
 
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            
-            this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResumeLayout(false);
-
+            base.OnPaint(e);
         }
+        #endregion
     }
 }

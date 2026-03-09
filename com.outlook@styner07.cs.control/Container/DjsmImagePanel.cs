@@ -4,6 +4,23 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmImagePanel : Panel
     {
+        #region Constructors
+        public DjsmImagePanel()
+        {
+            DoubleBuffered = true;
+            AllowDrop = true;
+
+            DragEnter += DjsmImagePanel_DragEnter;
+            DragDrop += DjsmImagePanel_DragDrop;
+
+            InitializeContextMenu();
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
         private const int CROSSLINE_MARGIN = 10;
 
         private const string CONTEXT_NAME_FIT_TO_FRAME = "Fit To Frame";
@@ -12,32 +29,22 @@ namespace com.outlook_styner07.cs.control.Container
 
         private const float ZOOM_SCALE_1 = 0.1f;
 
-        private static string IMAGE_FORMAT_BMP = nameof(ImageFormat.Bmp);
-        private static string IMAGE_FORMAT_JPG = "Jpg";
-        private static string IMAGE_FORMAT_JPEG = nameof(ImageFormat.Jpeg);
-        private static string IMAGE_FORMAT_PNG = nameof(ImageFormat.Png);
-        private static string IMAGE_FORMAT_TIFF = nameof(ImageFormat.Tiff);
-        private static string IMAGE_FORMAT_TIF = "Tif";
-
-        public static string SUPPORT_FILE_FILTER
-            = $"Supported Image File|*.{IMAGE_FORMAT_BMP};*.{IMAGE_FORMAT_JPG};*.{IMAGE_FORMAT_JPEG};*.{IMAGE_FORMAT_PNG};*.{IMAGE_FORMAT_TIF};*.{IMAGE_FORMAT_TIFF}";
+        private const string IMAGE_FORMAT_BMP = nameof(ImageFormat.Bmp);
+        private const string IMAGE_FORMAT_JPG = "Jpg";
+        private const string IMAGE_FORMAT_JPEG = nameof(ImageFormat.Jpeg);
+        private const string IMAGE_FORMAT_PNG = nameof(ImageFormat.Png);
+        private const string IMAGE_FORMAT_TIFF = nameof(ImageFormat.Tiff);
+        private const string IMAGE_FORMAT_TIF = "Tif";
+        public static string SUPPORT_FILE_FILTER = $"Supported Image File|*.{IMAGE_FORMAT_BMP};*.{IMAGE_FORMAT_JPG};*.{IMAGE_FORMAT_JPEG};*.{IMAGE_FORMAT_PNG};*.{IMAGE_FORMAT_TIF};*.{IMAGE_FORMAT_TIFF}";
 
         private Image? _image;
-
         private float _newWidth;
-        public float NewWidth => _newWidth;
-
         private float _newHeight;
-        public float NewHeight => _newHeight;
 
         private float _zoomScale = ZOOM_SCALE_1;
         private float _zoomFactor = 1.0f;
 
-        public float ZoomFactor => _zoomFactor;
-
         private PointF _imagePosition = new PointF(0, 0);  // 이미지 초기 위치
-
-        public PointF ImagePosition => _imagePosition;
 
         private PointF _mouseDownPosition;
         private bool _isPanning = false;
@@ -54,60 +61,81 @@ namespace com.outlook_styner07.cs.control.Container
 
         private bool _contextMenuEnabled = true;
 
+        private bool _panEnabled = true;
+        #endregion
+
+        #region Properties
         public Image? Image
         {
             get { return _image; }
             set
             {
-                if (_image == null && value != null)
+                if (_image == value)
+                {
+                    return;
+                }
+
+                if (_image != null)
+                {
+                    _image.Dispose();
+                    _image = null; 
+                }
+
+                if (value != null)
                 {
                     _newWidth = value.Width;
                     _newHeight = value.Height;
+                    _image = value;
                 }
+                //if (_image == null && value != null)
+                //{
+                //    _newWidth = value.Width;
+                //    _newHeight = value.Height;
+                //}
 
-                _image = value;
-
+                //_image = value;
                 Invalidate();
             }
         }
 
-        private bool _panEnabled = true;
-
-        public bool PanEnabled { get => _panEnabled; set => _panEnabled = value; }
-
-        public DjsmImagePanel()
+        public bool PanEnabled
         {
-            DoubleBuffered = true;
-            AllowDrop = true;
+            get => _panEnabled;
+            set => _panEnabled = value;
+        }
 
-            InitializeContextMenu();
+        public float NewWidth => _newWidth;
+        public float NewHeight => _newHeight;
+        public float ZoomFactor => _zoomFactor;
+        public PointF ImagePosition => _imagePosition;
+        #endregion
 
-            DragEnter += (sender, e) =>
+        #region Methods
+        private void DjsmImagePanel_DragDrop(object? sender, DragEventArgs e)
+        {
+            string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
+
+            if (files?.Length > 0 && IsSupportedFile(files[0]))
             {
-                if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                {
-                    string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
-                    if (files?.Length > 0 && IsSupportedFile(files[0]))
-                    {
-                        e.Effect = DragDropEffects.Copy;
-                        e.DropImageType = DropImageType.Copy;
-                    }
+                Image = Image.FromFile(files[0]);
+            }
+        }
 
-                    return;
-                }
-
-                e.Effect = DragDropEffects.None;
-            };
-
-            DragDrop += (sender, e) =>
+        private void DjsmImagePanel_DragEnter(object? sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
-
                 if (files?.Length > 0 && IsSupportedFile(files[0]))
                 {
-                    Image = Image.FromFile(files[0]);
+                    e.Effect = DragDropEffects.Copy;
+                    e.DropImageType = DropImageType.Copy;
                 }
-            };
+
+                return;
+            }
+
+            e.Effect = DragDropEffects.None;
         }
 
         public void ContextMenuEnabled(bool enable)
@@ -121,6 +149,7 @@ namespace com.outlook_styner07.cs.control.Container
             {
                 return;
             }
+
             float imageAspect = (float)_image.Width / _image.Height;
             float frameAspect = (float)Width / Height;
 
@@ -243,19 +272,20 @@ namespace com.outlook_styner07.cs.control.Container
 
                                 _image.Save(dlg.FileName, format);
                             }
+
                             break;
 
-                        //case CONTEXT_NAME_RESET_ZOOM:
-                        //    _zoomFactor = 1;
+                            //case CONTEXT_NAME_RESET_ZOOM:
+                            //    _zoomFactor = 1;
 
-                        //    _imagePosition.X = Width < _image.Width ? 0 : (Width - _image.Width) / 2;
-                        //    _imagePosition.Y = Height < _image.Height ? 0 : (Height - _image.Height) / 2;
+                            //    _imagePosition.X = Width < _image.Width ? 0 : (Width - _image.Width) / 2;
+                            //    _imagePosition.Y = Height < _image.Height ? 0 : (Height - _image.Height) / 2;
 
-                        //    _newWidth = _image.Width;
-                        //    _newHeight = _image.Height;
+                            //    _newWidth = _image.Width;
+                            //    _newHeight = _image.Height;
 
-                        //    Invalidate();
-                        //    break;
+                            //    Invalidate();
+                            //    break;
                     }
                 }
             };
@@ -274,6 +304,11 @@ namespace com.outlook_styner07.cs.control.Container
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
+            g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
 
             if (_image != null)
             {
@@ -301,7 +336,10 @@ namespace com.outlook_styner07.cs.control.Container
             }
             else
             {
-                g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
+                using (var brush = new SolidBrush(BackColor))
+                {
+                    g.FillRectangle(brush, ClientRectangle);
+                }
             }
 
             if (_drawCrossLine)
@@ -414,8 +452,20 @@ namespace com.outlook_styner07.cs.control.Container
             }
             else if (e.Button == MouseButtons.Right)
             {
-                _ctxMenu.Show(this, e.X, e.Y);
+                _ctxMenu?.Show(this, e.X, e.Y);
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _image?.Dispose();
+                _ctxMenu?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+        #endregion
     }
 }

@@ -5,18 +5,63 @@ namespace com.outlook_styner07.cs.control
 {
     public partial class DjsmForm : Form
     {
+        #region Constructors
+        public DjsmForm()
+        {
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            InitializeComponent();
+            InitializeDefaultTitleBar();
+
+            DoubleBuffered = true;
+
+            Font = new Font("Arial", 9f);
+            FormBorderStyle = FormBorderStyle.None;
+            StartPosition = FormStartPosition.CenterScreen;
+            Padding = new Padding(1);
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
         private const int HTBOTTOMRIGHT = 17;
         private const int WM_NCHITTEST = 0x84;
 
-        private const int _gripSize = 32;
+        private const int GRIP_SIZE = 32;
 
-        private DjsmToolStrip tlsTitle;
+        protected DjsmToolStrip tlsTitle;
 
-        private ToolStripLabel tslTitle;
+        protected ToolStripLabel tslTitle;
 
-        private ToolStripButton tsbMinimize;
-        private ToolStripButton tsbMaximize;
-        private ToolStripButton tsbClose;
+        protected ToolStripButton tsbMinimize;
+        protected ToolStripButton tsbMaximize;
+        protected ToolStripButton tsbClose;
+
+        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
+        private Color _borderColor = DjsmColorTable.SecondaryLight;
+
+        private bool _showTitleBar = true;
+
+        private bool _showTitleLabel = true;
+
+        private bool _showMinimizeButton = true;
+
+        private bool _showMaximizeButton = true;
+
+        private bool _showCloseButton = true;
+        #endregion
+
+        #region Properties
+        public ToolStrip TitleBar => tlsTitle;
+
+        public ToolStripLabel TitleLabel => tslTitle;
+
+        public ToolStripButton MinimizeButton => tsbMinimize;
+
+        public ToolStripButton MaximizeButton => tsbMaximize;
+
+        public ToolStripButton CloseButton => tsbClose;
 
         [Browsable(true)]
         public ToolStripStatusLabelBorderSides BorderSides
@@ -32,8 +77,6 @@ namespace com.outlook_styner07.cs.control
             }
         }
 
-        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
-
         [Browsable(true)]
         public Color BorderColor
         {
@@ -47,7 +90,6 @@ namespace com.outlook_styner07.cs.control
                 }
             }
         }
-        private Color _borderColor = DjsmColorTable.SecondaryLight;
 
         [Browsable(true)]
         public bool Resizable { get; set; } = true;
@@ -63,8 +105,6 @@ namespace com.outlook_styner07.cs.control
             }
         }
 
-        private bool _showTitleBar = true;
-
         [Browsable(true)]
         public bool ShowTitleLabel
         {
@@ -75,8 +115,6 @@ namespace com.outlook_styner07.cs.control
                 tslTitle.Visible = _showTitleLabel;
             }
         }
-
-        private bool _showTitleLabel = true;
 
         [Browsable(true)]
         public bool ShowMinimizeButton
@@ -89,8 +127,6 @@ namespace com.outlook_styner07.cs.control
             }
         }
 
-        private bool _showMinimizeButton = true;
-
         [Browsable(true)]
         public bool ShowMaximizeButton
         {
@@ -102,10 +138,8 @@ namespace com.outlook_styner07.cs.control
             }
         }
 
-        private bool _showMaximizeButton = true;
-
         [Browsable(true)]
-        public bool showCloseButton
+        public bool ShowCloseButton
         {
             get => _showCloseButton;
             set
@@ -114,33 +148,9 @@ namespace com.outlook_styner07.cs.control
                 tsbClose.Visible = _showCloseButton;
             }
         }
+        #endregion
 
-        private bool _showCloseButton = true;
-
-        public ToolStrip TitleBar => tlsTitle;
-
-        public ToolStripLabel TitleLabel => tslTitle;
-
-        public ToolStripButton MinimizeButton => tsbMinimize;
-
-        public ToolStripButton MaximizeButton => tsbMaximize;
-
-        public ToolStripButton CloseButton => tsbClose;
-
-        public DjsmForm()
-        {
-            SetStyle(ControlStyles.ResizeRedraw, true);
-            InitializeComponent();
-            InitializeDefaultTitleBar();
-
-            DoubleBuffered = true;
-
-            Font = new Font("Arial", 9f);
-            FormBorderStyle = FormBorderStyle.None;
-            StartPosition = FormStartPosition.CenterScreen;
-            Padding = new Padding(1);
-        }
-
+        #region Methods
         private void InitializeDefaultTitleBar()
         {
             tlsTitle = new DjsmToolStrip
@@ -225,12 +235,13 @@ namespace com.outlook_styner07.cs.control
             if (m.Msg == WM_NCHITTEST)
             {
                 Point pos = PointToClient(Cursor.Position);
-                if (pos.X >= ClientSize.Width - _gripSize &&
-                    pos.Y >= ClientSize.Height - _gripSize)
+                if (pos.X >= ClientSize.Width - GRIP_SIZE &&
+                    pos.Y >= ClientSize.Height - GRIP_SIZE)
                 {
                     m.Result = (IntPtr)HTBOTTOMRIGHT;
                 }
             }
         }
+        #endregion
     }
 }
