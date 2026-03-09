@@ -26,9 +26,6 @@ namespace com.outlook_styner07.cs.control.Container
 
         protected override void OnControlAdded(ControlEventArgs e)
         {
-            Font oldFont = e.Control.Font;
-            e.Control.Font = new Font(oldFont.FontFamily, 9f, oldFont.Style);
-
             base.OnControlAdded(e);
         }
 
@@ -47,11 +44,6 @@ namespace com.outlook_styner07.cs.control.Container
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
             titleArea = new RectangleF(PADDING, -3, textSize.Width + PADDING + checkBoxSize.Width, textSize.Height + 3);
-
-            //g.SetClip (titleArea);
-            //g.Clear(BackColor);
-            ////g.Save();
-            //g.ResetClip();
 
             g.FillRectangle(new SolidBrush(BackColor), titleArea);
             g.DrawString(_title, Font, new SolidBrush(ForeColor), textLocation);

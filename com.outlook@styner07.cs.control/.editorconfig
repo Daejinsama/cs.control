@@ -1,0 +1,328 @@
+root = true
+
+[*.cs]
+
+#### 기본 서식 설정 ####
+indent_size = 4
+indent_style = space
+tab_width = 4
+end_of_line = crlf
+insert_final_newline = true
+charset = utf-8-bom
+
+#### 중괄호 및 블록 스타일 ####
+csharp_prefer_braces = true:error
+csharp_new_line_before_open_brace = all
+csharp_style_allow_embedded_statements_on_same_line_experimental = false:error
+csharp_preserve_single_line_statements = false:error
+csharp_preserve_single_line_blocks = false:error
+
+#### 코드 정렬 및 가독성 ####
+csharp_new_line_before_catch = true
+csharp_new_line_before_else = true
+csharp_new_line_before_finally = true
+csharp_new_line_between_query_expression_clauses = true
+csharp_indent_block_contents = true
+csharp_indent_case_contents = true
+csharp_indent_case_contents_when_block = true
+csharp_indent_labels = one_less_than_current
+csharp_indent_switch_labels = true
+
+#### 공백(Spacing) 규칙 ####
+csharp_space_after_comma = true
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_around_binary_operators = before_and_after
+csharp_space_between_method_call_name_and_opening_parenthesis = false
+csharp_space_between_method_declaration_name_and_open_parenthesis = false
+csharp_space_between_parentheses = false
+
+#### Using 지시문 위치 ####
+csharp_using_directive_placement = outside_namespace:error
+dotnet_sort_system_directives_first = true
+
+#### var 사용 제한 ####
+csharp_style_var_elsewhere = true:suggestion
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+
+#### 식 본문 멤버(표현식 본문) 규칙 ####
+csharp_style_expression_bodied_properties = true:suggestion
+csharp_style_expression_bodied_methods = false:error
+
+#### null, 초기화, 표현식 수준 규칙 ####
+dotnet_style_object_initializer = true
+dotnet_style_collection_initializer = true
+dotnet_style_null_propagation = true
+dotnet_style_coalesce_expression = true
+dotnet_style_prefer_simplified_boolean_expressions = true
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true
+dotnet_style_prefer_auto_properties = true
+
+#### this./Me. 생략 규칙 ####
+dotnet_style_qualification_for_field = false
+dotnet_style_qualification_for_property = false
+dotnet_style_qualification_for_method = false
+dotnet_style_qualification_for_event = false
+
+#### 접근제한자 및 한정자 순서 ####
+csharp_preferred_modifier_order = public,private,protected,internal,file,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,required,volatile,async
+dotnet_style_require_accessibility_modifiers = for_non_interface_members
+
+#### 명명 규칙 ####
+
+# 클래스, 구조체, 인터페이스, 열거형 → PascalCase
+dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum
+dotnet_naming_symbols.types.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.types.required_modifiers =
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+dotnet_naming_rule.types_should_be_pascal_case.symbols = types
+dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.types_should_be_pascal_case.severity = error
+
+# 메서드는 항상 PascalCase (대문자 시작)
+dotnet_naming_rule.methods_should_be_pascal_case.severity = warning
+dotnet_naming_rule.methods_should_be_pascal_case.symbols = all_methods
+dotnet_naming_rule.methods_should_be_pascal_case.style = pascal_case_style
+
+dotnet_naming_symbols.all_methods.applicable_kinds = method
+dotnet_naming_symbols.all_methods.applicable_accessibilities = *
+dotnet_naming_symbols.all_methods.required_modifiers = *
+
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+dotnet_naming_style.pascal_case_style.required_prefix =
+dotnet_naming_style.pascal_case_style.required_suffix =
+
+
+# const 및 readonly 필드 → ALL_CAPS_WITH_UNDERSCORES
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.required_modifiers = const
+dotnet_naming_rule.constants_should_be_uppercase.symbols = constants
+dotnet_naming_rule.constants_should_be_uppercase.style = all_upper_with_underscores
+dotnet_naming_rule.constants_should_be_uppercase.severity = error
+dotnet_naming_style.all_upper_with_underscores.capitalization = all_upper
+dotnet_naming_style.all_upper_with_underscores.word_separator = _
+
+dotnet_naming_symbols.readonly_fields.applicable_kinds = field
+dotnet_naming_symbols.readonly_fields.required_modifiers = readonly
+dotnet_naming_rule.readonly_fields_should_be_uppercase.symbols = readonly_fields
+dotnet_naming_rule.readonly_fields_should_be_uppercase.style = camel_case
+dotnet_naming_rule.readonly_fields_should_be_uppercase.severity = suggestion
+
+# Enum naming rule
+dotnet_naming_rule.enums_should_be_pascalcase.severity = suggestion
+dotnet_naming_rule.enums_should_be_pascalcase.symbols = enums
+dotnet_naming_rule.enums_should_be_pascalcase.style = pascal_case
+
+dotnet_naming_symbols.enums.applicable_kinds = enum
+dotnet_naming_symbols.enums.applicable_accessibilities = *
+dotnet_naming_symbols.enums.required_modifiers = *
+
+dotnet_naming_style.pascalcase.capitalization = pascal_case
+
+
+# 인터페이스 → I 접두사 + PascalCase
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_style.starts_with_I.required_prefix = I
+dotnet_naming_style.starts_with_I.capitalization = pascal_case
+dotnet_naming_rule.interfaces_should_begin_with_I.symbols = interfaces
+dotnet_naming_rule.interfaces_should_begin_with_i.style = starts_with_I
+dotnet_naming_rule.interfaces_should_begin_with_i.severity = error
+
+# Private 필드 → _camelCase
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_style.underscore_camel_case.required_prefix = _
+dotnet_naming_style.underscore_camel_case.capitalization = camel_case
+dotnet_naming_rule.private_fields_should_be_underscore_camel_case.symbols = private_fields
+dotnet_naming_rule.private_fields_should_be_underscore_camel_case.style = underscore_camel_case
+dotnet_naming_rule.private_fields_should_be_underscore_camel_case.severity = error
+
+# 지역 변수 & 매개변수 → camelCase (데이터타입 접두어 금지)
+dotnet_naming_symbols.variables_and_parameters.applicable_kinds = local, parameter
+dotnet_naming_style.camel_case.capitalization = camel_case
+dotnet_naming_rule.variables_should_be_camel_case.symbols = variables_and_parameters
+dotnet_naming_rule.variables_should_be_camel_case.style = camel_case
+dotnet_naming_rule.variables_should_be_camel_case.severity = error
+
+# 속성 (Property) → PascalCase
+dotnet_naming_symbols.properties.applicable_kinds = property
+dotnet_naming_symbols.properties.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_style.pascal_case_properties.capitalization = pascal_case
+dotnet_naming_rule.properties_should_be_pascal_case.symbols = properties
+dotnet_naming_rule.properties_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.properties_should_be_pascal_case.severity = error
+
+
+#### 불필요한 빈줄 및 한줄문장 제한 ####
+dotnet_style_allow_multiple_blank_lines_experimental = false:error
+dotnet_style_allow_statement_immediately_after_block_experimental = false:error
+csharp_style_conditional_delegate_call = true:suggestion
+csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true:silent
+csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true:silent
+csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = true:silent
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = true:silent
+csharp_style_expression_bodied_constructors = false:silent
+csharp_style_expression_bodied_operators = false:silent
+csharp_style_expression_bodied_indexers = true:silent
+csharp_style_expression_bodied_accessors = true:silent
+csharp_style_expression_bodied_lambdas = true:silent
+csharp_style_expression_bodied_local_functions = false:silent
+csharp_style_throw_expression = true:suggestion
+csharp_style_prefer_null_check_over_type_check = true:suggestion
+csharp_prefer_simple_default_expression = true:suggestion
+csharp_style_prefer_local_over_anonymous_function = true:suggestion
+csharp_style_prefer_index_operator = true:suggestion
+csharp_style_prefer_range_operator = true:suggestion
+csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
+csharp_style_prefer_implicitly_typed_lambda_expression = true:suggestion
+csharp_style_prefer_tuple_swap = true:suggestion
+csharp_style_prefer_unbound_generic_type_in_nameof = true:suggestion
+csharp_style_prefer_utf8_string_literals = true:suggestion
+csharp_style_inlined_variable_declaration = true:suggestion
+csharp_style_deconstructed_variable_declaration = true:suggestion
+csharp_style_unused_value_assignment_preference = discard_variable:suggestion
+csharp_style_unused_value_expression_statement_preference = discard_variable:silent
+csharp_prefer_simple_using_statement = true:suggestion
+csharp_style_namespace_declarations = block_scoped:silent
+csharp_style_prefer_method_group_conversion = true:silent
+csharp_style_prefer_top_level_statements = true:silent
+csharp_style_prefer_primary_constructors = true:suggestion
+csharp_prefer_system_threading_lock = true:suggestion
+csharp_style_prefer_switch_expression = true:suggestion
+csharp_style_prefer_pattern_matching = true:silent
+csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
+csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+csharp_style_prefer_not_pattern = true:suggestion
+csharp_style_prefer_extended_property_pattern = true:suggestion
+csharp_prefer_static_local_function = true:suggestion
+csharp_prefer_static_anonymous_function = true:suggestion
+csharp_style_prefer_readonly_struct = true:suggestion
+csharp_style_prefer_readonly_struct_member = true:suggestion
+
+[*.{cs,vb}]
+dotnet_style_qualification_for_field = false:silent
+dotnet_style_qualification_for_property = false:silent
+dotnet_style_qualification_for_method = false:silent
+dotnet_style_qualification_for_event = false:silent
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_other_operators = always_for_clarity:silent
+dotnet_code_quality_unused_parameters = all:warning
+dotnet_style_allow_multiple_blank_lines_experimental = false:error
+dotnet_style_allow_statement_immediately_after_block_experimental = false:error
+dotnet_style_coalesce_expression = true:suggestion
+dotnet_style_null_propagation = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+dotnet_style_prefer_auto_properties = true:silent
+dotnet_style_object_initializer = true:suggestion
+dotnet_style_collection_initializer = true:suggestion
+dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true:silent
+dotnet_style_prefer_conditional_expression_over_return = true:silent
+dotnet_style_explicit_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_tuple_names = true:suggestion
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_compound_assignment = true:suggestion
+dotnet_style_prefer_simplified_interpolation = true:suggestion
+dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
+dotnet_style_namespace_match_folder = true:suggestion
+dotnet_style_predefined_type_for_locals_parameters_members = true:silent
+dotnet_style_predefined_type_for_member_access = true:silent
+dotnet_style_readonly_field = true:suggestion
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
+tab_width = 4
+indent_size = 4
+end_of_line = crlf
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+
+#############################################
+# 3. XAML / XML 기본 규칙
+#############################################
+
+[*.{xml,xaml}]
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+
+# XML Namespace 정렬
+dotnet_naming_rule.namespace_sorting.enabled = true
+
+# XAML 분석기 규칙(기본 제공)
+dotnet_analyzer_diagnostic.category-Style.severity = suggestion
+dotnet_analyzer_diagnostic.category-Design.severity = suggestion
+
+
+
+#############################################
+# 4. XAML 전용 규칙 (WPF + Avalonia 공통)
+#############################################
+
+# 불필요한 Name 속성 제거 경고 끄기 (Avalonia에서 종종 불필요)
+dotnet_diagnostic.xaml0001.severity = none
+
+# Markup Extension 줄바꿈 금지
+xaml_option.wrap_markup_extensions = false
+
+# 속성 정렬
+xaml_option.sort_attributes = true
+
+
+
+#############################################
+# 5. XAML Styler (Avalonia 강력 추천)
+#############################################
+
+[*.xaml]
+xaml-styler.ConfigurationVersion = 2
+
+# 들여쓰기
+xaml-styler.IndentWithTabs = false
+xaml-styler.IndentSize = 4
+
+# 태그 정렬
+xaml-styler.ReorderAttributes = true
+xaml-styler.ReorderElements = false
+
+# 속성 줄 수 제한
+xaml-styler.MaxAttributesPerLine = 1
+xaml-styler.AttributesTolerance = 1
+xaml-styler.PutEndingBracketOnNewLine = true
+
+# 네임스페이스 정렬
+xaml-styler.OrderNamespaces = true
+xaml-styler.NamespaceAliasesFirst = true
+
+# 공백 정리
+xaml-styler.RemoveRedundantSpaces = true
+xaml-styler.RemoveTrailingWhitespace = true
+
+# 요소 줄바꿈 방식
+xaml-styler.LineBreakRule = Auto
+
+# Self-closing 태그 스타일
+xaml-styler.KeepSelfClosingTagOnSameLine = true
+
+# 자식 요소 정렬
+xaml-styler.ReorderElements = false
+
+# Avalonia 권장 옵션
+xaml-styler.NoNewLineForBraces = false
+xaml-styler.EnforceConsistentSpacing = true
+
+
+
+#############################################
+# 6. Avalonia XAML 권장 규칙
+#############################################
+
+# 바인딩 관련 분석기 옵션 (불완전하므로 대부분 suggestion)
+dotnet_diagnostic.AVA0001.severity = suggestion   # invalid binding
+dotnet_diagnostic.AVA0002.severity = suggestion
+dotnet_diagnostic.AVA0003.severity = warning      # missing DataContext
+
+# 스타일 정의 키 검사
+dotnet_diagnostic.AVA1000.severity = suggestion
+
+# ControlTemplate 구조 검사
+dotnet_diagnostic.AVA2000.severity = warning

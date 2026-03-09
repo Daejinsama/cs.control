@@ -60,9 +60,6 @@ namespace com.outlook_styner07.cs.control.Container
 
         protected override void OnControlAdded(ControlEventArgs e)
         {
-            //Font oldFont = e.Control.Font;
-            //e.Control.Font = new Font(oldFont.FontFamily, 9f, oldFont.Style);
-
             base.OnControlAdded(e);
         }
 
