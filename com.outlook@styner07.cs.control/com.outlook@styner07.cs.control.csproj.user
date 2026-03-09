@@ -47,6 +47,9 @@
     <Compile Update="Container\DjsmImagePanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Container\DjsmImagePanelNew.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Container\DjsmPanel.cs">
       <SubType>Component</SubType>
     </Compile>

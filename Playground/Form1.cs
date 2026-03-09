@@ -10,8 +10,12 @@ namespace Playground
         public Form1()
         {
             InitializeComponent();
+            
+        }
 
-            ppgTemp.SelectedObject = new TestObject();
+        private void djsmButton1_Click(object sender, EventArgs e)
+        {
+            djsmImagePanel1.FitToFrame();
         }
     }
 

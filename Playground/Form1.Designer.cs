@@ -28,37 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ppgTemp = new com.outlook_styner07.cs.control.Data.DjsmPropertyGrid();
+            djsmImagePanel1 = new com.outlook_styner07.cs.control.Container.DjsmImagePanel();
+            djsmButton1 = new com.outlook_styner07.cs.control.Button.DjsmButton();
             SuspendLayout();
             // 
-            // ppgTemp
+            // djsmImagePanel1
             // 
-            ppgTemp.CategoryForeColor = Color.White;
-            ppgTemp.HelpVisible = false;
-            ppgTemp.LineColor = SystemColors.ControlDark;
-            ppgTemp.Location = new Point(120, 156);
-            ppgTemp.Name = "ppgTemp";
-            ppgTemp.ReadOnly = false;
-            ppgTemp.Size = new Size(240, 340);
-            ppgTemp.TabIndex = 1;
-            ppgTemp.ToolbarVisible = false;
-            ppgTemp.ViewBackColor = SystemColors.Control;
+            djsmImagePanel1.AllowDrop = true;
+            djsmImagePanel1.BackColor = SystemColors.ActiveCaption;
+            djsmImagePanel1.Image = null;
+            djsmImagePanel1.Location = new Point(98, 71);
+            djsmImagePanel1.Name = "djsmImagePanel1";
+            djsmImagePanel1.PanEnabled = true;
+            djsmImagePanel1.Size = new Size(515, 453);
+            djsmImagePanel1.TabIndex = 1;
+            // 
+            // djsmButton1
+            // 
+            djsmButton1.Location = new Point(716, 205);
+            djsmButton1.Name = "djsmButton1";
+            djsmButton1.Radius = 11;
+            djsmButton1.RenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            djsmButton1.Size = new Size(75, 23);
+            djsmButton1.SmoothMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            djsmButton1.TabIndex = 2;
+            djsmButton1.Text = "fittoframe";
+            djsmButton1.UseVisualStyleBackColor = true;
+            djsmButton1.Click += djsmButton1_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1221, 599);
-            Controls.Add(ppgTemp);
+            Controls.Add(djsmButton1);
+            Controls.Add(djsmImagePanel1);
             Name = "Form1";
             Text = "Form1";
-            Controls.SetChildIndex(ppgTemp, 0);
+            Controls.SetChildIndex(djsmImagePanel1, 0);
+            Controls.SetChildIndex(djsmButton1, 0);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private com.outlook_styner07.cs.control.Data.DjsmPropertyGrid ppgTemp;
+        private com.outlook_styner07.cs.control.Container.DjsmImagePanel djsmImagePanel1;
+        private com.outlook_styner07.cs.control.Button.DjsmButton djsmButton1;
     }
 }
