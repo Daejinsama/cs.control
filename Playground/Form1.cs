@@ -10,6 +10,7 @@ namespace Playground
         public Form1()
         {
             InitializeComponent();
+            djsmPropertyGrid1.SelectedObject = new TestObject();
         }
 
         private void djsmButton1_Click(object sender, EventArgs e)
