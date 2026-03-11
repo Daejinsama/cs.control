@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms.DataVisualization.Charting;
+using static com.outlook_styner07.cs.control.Charting.SeriesCustomizingDialog;
 
 namespace com.outlook_styner07.cs.control.Charting
 {
