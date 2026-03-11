@@ -2,48 +2,61 @@
 {
     public class DjsmChartPanel : UserControl
     {
-        public DjsmChart chart;
-
-        private bool isMaximized;
-
-        private ToolStrip tlb;
-        private ToolStripButton snapToolStripButton;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripLabel titleToolStripLabel;
-        private ToolStripLabel toolStripLabel1;
-        private ToolStripButton maximizeToolStripButton;
-
-        public DjsmChartPanel(DjsmChart chart)
+        #region Constructors
+        public DjsmChartPanel()
         {
             InitializeComponent();
 
             Dock = DockStyle.Fill;
 
-            toolStripLabel1.BackColor = DjsmColorTable.SecondaryDark;
+            tsl.BackColor = DjsmColorTable.SecondaryDark;
+            tlb.MouseDown += tlb_MouseDown;
 
-            tlb.MouseDown += Tlb_MouseDown;
-            for (int len = tlb.Items.Count, i = 0; i < len; i ++)
+            for (int len = tlb.Items.Count, i = 0; i < len; i++)
             {
                 if (!(tlb.Items[i] is ToolStripButton))
                 {
-                    tlb.Items[i].MouseDown += Tlb_MouseDown;
+                    tlb.Items[i].MouseDown += tlb_MouseDown;
                 }
             }
 
-            isMaximized = false;
+            _isMaximized = false;
 
-            this.chart = chart;
-            Controls.Add(chart);
+            Chart = new DjsmChart { Dock = DockStyle.Fill };
+            Controls.Add(Chart);
         }
 
-        private void Tlb_MouseDown(object sender, MouseEventArgs e)
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private bool _isMaximized;
+
+        protected ToolStrip tlb;
+        protected ToolStripButton tsbSnap;
+        protected ToolStripSeparator toolStripSeparator1;
+        protected ToolStripLabel tslTitle;
+        protected ToolStripLabel tsl;
+        protected ToolStripButton tlbMaximize;
+
+        public event EventHandler<MaximizedEventArgs> Maximized;
+        #endregion
+
+        #region Properties
+        public DjsmChart Chart { get; set; }
+        #endregion
+
+        #region Methods
+        private void tlb_MouseDown(object? sender, MouseEventArgs e)
         {
             DoDragDrop(this, DragDropEffects.Move);
         }
 
         private void MaximizeToolStripButton_Click(object sender, EventArgs e)
         {
-            if (isMaximized) //to normal
+            if (_isMaximized) //to normal
             {
                 OnMaximize(new MaximizedEventArgs() { Maximized = false });
             }
@@ -52,8 +65,8 @@
                 OnMaximize(new MaximizedEventArgs() { Maximized = true });
             }
 
-            isMaximized = !isMaximized;
-            maximizeToolStripButton.Image = isMaximized
+            _isMaximized = !_isMaximized;
+            tlbMaximize.Image = _isMaximized
                 ? Properties.Resources.Compress
                 : Properties.Resources.Enlarge;
         }
@@ -68,13 +81,13 @@
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                chart.SaveImage(sfd.FileName, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+                Chart.SaveImage(sfd.FileName, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
             }
         }
 
         public void SetTitle(string title)
         {
-            titleToolStripLabel.Text = title;
+            tslTitle.Text = title;
         }
 
         public void HideTitleBar()
@@ -82,104 +95,99 @@
             tlb.Hide();
         }
 
-        private void InitializeComponent()
-        {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DjsmChartPanel));
-            this.tlb = new System.Windows.Forms.ToolStrip();
-            this.maximizeToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.snapToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.titleToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.tlb.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // tlb
-            // 
-            this.tlb.BackColor = System.Drawing.Color.White;
-            this.tlb.Font = new System.Drawing.Font("Arial", 9F);
-            this.tlb.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.tlb.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.maximizeToolStripButton,
-            this.toolStripSeparator1,
-            this.snapToolStripButton,
-            this.toolStripLabel1,
-            this.titleToolStripLabel});
-            this.tlb.Location = new System.Drawing.Point(0, 0);
-            this.tlb.Name = "tlb";
-            this.tlb.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tlb.Size = new System.Drawing.Size(525, 31);
-            this.tlb.TabIndex = 0;
-            this.tlb.Text = "toolStrip1";
-            // 
-            // maximizeToolStripButton
-            // 
-            this.maximizeToolStripButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.maximizeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.maximizeToolStripButton.Image =  Properties.Resources.Enlarge;
-            this.maximizeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.maximizeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.maximizeToolStripButton.Name = "maximizeToolStripButton";
-            this.maximizeToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.maximizeToolStripButton.Text = "Maximize";
-            this.maximizeToolStripButton.ToolTipText = "Maximize/Restore";
-            this.maximizeToolStripButton.Click += new System.EventHandler(this.MaximizeToolStripButton_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // snapToolStripButton
-            // 
-            this.snapToolStripButton.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.snapToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.snapToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("snapToolStripButton.Image")));
-            this.snapToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.snapToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.snapToolStripButton.Name = "snapToolStripButton";
-            this.snapToolStripButton.Size = new System.Drawing.Size(28, 28);
-            this.snapToolStripButton.Text = "Snap";
-            this.snapToolStripButton.Click += new System.EventHandler(this.SnapToolStripButton_Click);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.AutoSize = false;
-            this.toolStripLabel1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(5, 26);
-            // 
-            // titleToolStripLabel
-            // 
-            this.titleToolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.titleToolStripLabel.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleToolStripLabel.Name = "titleToolStripLabel";
-            this.titleToolStripLabel.Size = new System.Drawing.Size(74, 28);
-            this.titleToolStripLabel.Text = "Chart Name";
-            // 
-            // ChartPanel
-            // 
-            this.BackColor = System.Drawing.Color.White;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.tlb);
-            this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Arial", 9F);
-            this.Name = "ChartPanel";
-            this.Size = new System.Drawing.Size(525, 460);
-            this.tlb.ResumeLayout(false);
-            this.tlb.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
-        }
-
-        public event EventHandler<MaximizedEventArgs> Maximized;
         protected virtual void OnMaximize(MaximizedEventArgs args)
         {
             Maximized?.Invoke(this, args);
         }
+
+        private void InitializeComponent()
+        {
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(DjsmChartPanel));
+            tlb = new ToolStrip();
+            tlbMaximize = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            tsbSnap = new ToolStripButton();
+            tsl = new ToolStripLabel();
+            tslTitle = new ToolStripLabel();
+            tlb.SuspendLayout();
+            SuspendLayout();
+            // 
+            // tlb
+            // 
+            tlb.BackColor = Color.White;
+            tlb.Font = new Font("Arial", 9F);
+            tlb.GripStyle = ToolStripGripStyle.Hidden;
+            tlb.Items.AddRange(new ToolStripItem[] { tlbMaximize, toolStripSeparator1, tsbSnap, tsl, tslTitle });
+            tlb.Location = new Point(0, 0);
+            tlb.Name = "tlb";
+            tlb.RenderMode = ToolStripRenderMode.System;
+            tlb.Size = new Size(525, 31);
+            tlb.TabIndex = 0;
+            tlb.Text = "toolStrip1";
+            // 
+            // tlbMaximize
+            // 
+            tlbMaximize.Alignment = ToolStripItemAlignment.Right;
+            tlbMaximize.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tlbMaximize.Image = Properties.Resources.Enlarge;
+            tlbMaximize.ImageScaling = ToolStripItemImageScaling.None;
+            tlbMaximize.ImageTransparentColor = Color.Magenta;
+            tlbMaximize.Name = "tlbMaximize";
+            tlbMaximize.Size = new Size(28, 28);
+            tlbMaximize.Text = "Maximize";
+            tlbMaximize.ToolTipText = "Maximize/Restore";
+            tlbMaximize.Click += MaximizeToolStripButton_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Alignment = ToolStripItemAlignment.Right;
+            toolStripSeparator1.Margin = new Padding(0, 3, 0, 3);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 25);
+            // 
+            // tsbSnap
+            // 
+            tsbSnap.Alignment = ToolStripItemAlignment.Right;
+            tsbSnap.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbSnap.Image = (Image)resources.GetObject("tsbSnap.Image");
+            tsbSnap.ImageScaling = ToolStripItemImageScaling.None;
+            tsbSnap.ImageTransparentColor = Color.Magenta;
+            tsbSnap.Name = "tsbSnap";
+            tsbSnap.Size = new Size(28, 28);
+            tsbSnap.Text = "Snap";
+            tsbSnap.Click += SnapToolStripButton_Click;
+            // 
+            // tsl
+            // 
+            tsl.AutoSize = false;
+            tsl.BackColor = SystemColors.ControlDark;
+            tsl.Name = "tsl";
+            tsl.Size = new Size(5, 26);
+            // 
+            // tslTitle
+            // 
+            tslTitle.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tslTitle.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tslTitle.Name = "tslTitle";
+            tslTitle.Size = new Size(74, 28);
+            tslTitle.Text = "Chart Name";
+            // 
+            // DjsmChartPanel
+            // 
+            BackColor = Color.White;
+            BorderStyle = BorderStyle.FixedSingle;
+            Controls.Add(tlb);
+            DoubleBuffered = true;
+            Font = new Font("Arial", 9F);
+            Name = "DjsmChartPanel";
+            Size = new Size(525, 460);
+            tlb.ResumeLayout(false);
+            tlb.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+
+        }
+        #endregion
 
         public class MaximizedEventArgs : EventArgs
         {

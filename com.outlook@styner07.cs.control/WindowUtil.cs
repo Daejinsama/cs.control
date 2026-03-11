@@ -4,21 +4,33 @@ namespace com.outlook_styner07.cs.control
 {
     public class WindowUtil
     {
+        #region Constructors
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
-        public const int WM_CLOSE = 0x10,
-            SW_NORMAL = 1,
-            SW_MAXIMIZE = 3,
-            SW_MINIMIZE = 6;
+        public const int WM_CLOSE = 0x10;
+        public const int SW_NORMAL = 1;
+        public const int SW_MAXIMIZE = 3;
+        public const int SW_MINIMIZE = 6;
+        #endregion
 
+        #region Properties
+        #endregion
+
+        #region Methods
         [DllImport("user32.dll")]
-        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
+        private static extern IntPtr SendMessage(IntPtr hWnd, UInt32 msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
-        public static extern bool ShowWindowAsync(IntPtr hWnd, int SW_MAXIMIZE);
+        public static extern bool ShowWindowAsync(IntPtr hWnd, int maximize);
 
         [DllImport("user32.dll")]
         private static extern bool ReleaseCapture();
@@ -63,5 +75,6 @@ namespace com.outlook_styner07.cs.control
                 }
             }
         }
+        #endregion
     }
 }

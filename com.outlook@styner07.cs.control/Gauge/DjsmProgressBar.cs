@@ -4,6 +4,32 @@ namespace com.outlook_styner07.cs.control.Gauge
 {
     public class DjsmProgressBar : ProgressBar
     {
+        #region Constructors
+        /// <summary>
+        /// not support marquee style.
+        /// </summary>
+        public DjsmProgressBar()
+        {
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private Font _progressFont = new Font("arial", 9f, FontStyle.Regular);
+        private Color _progressFontColor = Color.Black;
+        private Color _progressBarColor = Color.Blue;
+
+        private System.Timers.Timer? _marqueeTimer;
+        private bool _updateMarquee = false;
+        private float _marqueePos = float.MinValue;
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public Font ProgressFont
         {
@@ -17,8 +43,6 @@ namespace com.outlook_styner07.cs.control.Gauge
                 }
             }
         }
-        private Font _progressFont = new Font("arial", 9f, FontStyle.Regular);
-
 
         [Browsable(true)]
         public Color ProgressFontColor
@@ -33,7 +57,6 @@ namespace com.outlook_styner07.cs.control.Gauge
                 }
             }
         }
-        private Color _progressFontColor = Color.Black;
 
         [Browsable(true)]
         public Color ProgressBarColor
@@ -49,9 +72,6 @@ namespace com.outlook_styner07.cs.control.Gauge
             }
         }
 
-        private Color _progressBarColor = Color.Blue;
-
-
         [Browsable(true)]
         public bool LabelDrawing { get; set; } = true;
 
@@ -63,51 +83,39 @@ namespace com.outlook_styner07.cs.control.Gauge
 
         [Browsable(false)]
         public new Color ForeColor { get; set; }
+        #endregion
 
-        /// <summary>
-        /// not support marquee style.
-        /// </summary>
-        public DjsmProgressBar()
-        {
-            SetStyle(ControlStyles.UserPaint, true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-        }
-
-        private System.Timers.Timer? marqueeTimer;
-
-        private bool updateMarquee = false;
+        #region Methods
         public void StartMarquee()
         {
-            if (marqueeTimer == null)
+            if (_marqueeTimer == null)
             {
-                marqueeTimer = new System.Timers.Timer(MarqueeAnimationSpeed);
-                marqueeTimer.Elapsed += (sender, e) =>
+                _marqueeTimer = new System.Timers.Timer(MarqueeAnimationSpeed);
+                _marqueeTimer.Elapsed += (sender, e) =>
                 {
                     Invoke((MethodInvoker)delegate
                     {
-                        updateMarquee = true;
+                        _updateMarquee = true;
                         Invalidate();
-                        marqueePos += Step;
+                        _marqueePos += Step;
                     });
                 };
-                marqueeTimer.Start();
+                _marqueeTimer.Start();
             }
         }
 
         public void StopMarquee()
         {
-            if (marqueeTimer != null)
+            if (_marqueeTimer != null)
             {
-                marqueeTimer.Stop();
-                marqueeTimer.Dispose();
-                marqueeTimer = null;
+                _marqueeTimer.Stop();
+                _marqueeTimer.Dispose();
+                _marqueeTimer = null;
             }
-            marqueePos = ClientRectangle.Width;
+
+            _marqueePos = ClientRectangle.Width;
             Invalidate();
         }
-
-        private float marqueePos = float.MinValue;
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -120,41 +128,46 @@ namespace com.outlook_styner07.cs.control.Gauge
                 ProgressBarRenderer.DrawHorizontalBar(g, e.ClipRectangle);
             }
 
-            if (Style == ProgressBarStyle.Marquee && updateMarquee)
+            using var fontBrush = new SolidBrush(ProgressFontColor);
+            using var backBrush = new SolidBrush(BackColor);
+            using var barBrush = new SolidBrush(ProgressBarColor);
+
+            if (Style == ProgressBarStyle.Marquee && _updateMarquee)
             {
                 RectangleF newRect = e.ClipRectangle;
                 newRect.Width = (int)(newRect.Width * 0.35);
 
-                if (marqueePos < -newRect.Width)
+                if (_marqueePos < -newRect.Width)
                 {
-                    marqueePos = -newRect.Width;
+                    _marqueePos = -newRect.Width;
                 }
 
-                if (marqueePos >= newRect.Width)
+                if (_marqueePos >= newRect.Width)
                 {
-                    marqueePos = -newRect.Width;
+                    _marqueePos = -newRect.Width;
                 }
 
-                g.FillRectangle(new SolidBrush(ProgressBarColor), marqueePos, 0, newRect.Width, newRect.Height);
+                g.FillRectangle(barBrush, _marqueePos, 0, newRect.Width, newRect.Height);
 
                 if (LabelDrawing)
                 {
                     SizeF stringSize = g.MeasureString(LabelText, ProgressFont);
 
-                    g.DrawString(LabelText, ProgressFont, new SolidBrush(ProgressFontColor), newRect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                    g.DrawString(LabelText, ProgressFont, fontBrush, newRect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
                 }
-                updateMarquee = false;
+
+                _updateMarquee = false;
             }
             else
             {
                 Rectangle rect = e.ClipRectangle;
 
-                g.FillRectangle(new SolidBrush(BackColor), rect);
+                g.FillRectangle(backBrush, rect);
 
                 rect.Width = (int)(rect.Width * ((double)Value / Maximum)) - 4;
                 rect.Height = rect.Height - 4;
 
-                g.FillRectangle(new SolidBrush(ProgressBarColor), 2, 2, rect.Width, rect.Height);
+                g.FillRectangle(barBrush, 2, 2, rect.Width, rect.Height);
 
                 if (LabelDrawing)
                 {
@@ -162,16 +175,17 @@ namespace com.outlook_styner07.cs.control.Gauge
 
                     if (IsFixedLabel)
                     {
-                        g.DrawString(LabelText, ProgressFont, new SolidBrush(ProgressFontColor), e.ClipRectangle, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                        g.DrawString(LabelText, ProgressFont, fontBrush, e.ClipRectangle, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
                     }
                     else
                     {
                         string percentage = string.Format("{0:0.0}%", ((double)Value / Maximum) * 100);
 
-                        g.DrawString(percentage, ProgressFont, new SolidBrush(ProgressFontColor), rect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
+                        g.DrawString(percentage, ProgressFont, fontBrush, rect, new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center });
                     }
                 }
             }
         }
+        #endregion
     }
 }

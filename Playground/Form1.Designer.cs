@@ -30,7 +30,9 @@
         {
             djsmImagePanel1 = new com.outlook_styner07.cs.control.Container.DjsmImagePanel();
             djsmButton1 = new com.outlook_styner07.cs.control.Button.DjsmButton();
-            djsmPropertyGrid1 = new com.outlook_styner07.cs.control.Data.DjsmPropertyGrid();
+            djsmSplitContainer1 = new com.outlook_styner07.cs.control.Container.DjsmSplitContainer();
+            ((System.ComponentModel.ISupportInitialize)djsmSplitContainer1).BeginInit();
+            djsmSplitContainer1.SuspendLayout();
             SuspendLayout();
             // 
             // djsmImagePanel1
@@ -58,34 +60,34 @@
             djsmButton1.UseVisualStyleBackColor = false;
             djsmButton1.Click += djsmButton1_Click;
             // 
-            // djsmPropertyGrid1
+            // djsmSplitContainer1
             // 
-            djsmPropertyGrid1.CategoryForeColor = Color.White;
-            djsmPropertyGrid1.CellHeight = 80;
-            djsmPropertyGrid1.Font = new Font("Arial", 9F);
-            djsmPropertyGrid1.HelpVisible = false;
-            djsmPropertyGrid1.LineColor = SystemColors.ControlDark;
-            djsmPropertyGrid1.Location = new Point(671, 126);
-            djsmPropertyGrid1.Name = "djsmPropertyGrid1";
-            djsmPropertyGrid1.ReadOnly = false;
-            djsmPropertyGrid1.Size = new Size(279, 311);
-            djsmPropertyGrid1.TabIndex = 3;
-            djsmPropertyGrid1.ToolbarVisible = false;
-            djsmPropertyGrid1.ViewBackColor = SystemColors.Control;
+            djsmSplitContainer1.BorderColor = Color.FromArgb(80, 119, 120, 123);
+            djsmSplitContainer1.Location = new Point(689, 186);
+            djsmSplitContainer1.Name = "djsmSplitContainer1";
+            djsmSplitContainer1.Size = new Size(343, 269);
+            djsmSplitContainer1.SplitterBorderColor = Color.White;
+            djsmSplitContainer1.SplitterColor = Color.FromArgb(119, 120, 123);
+            djsmSplitContainer1.SplitterDistance = 177;
+            djsmSplitContainer1.SplitterHandleColor = Color.White;
+            djsmSplitContainer1.SplitterWidth = 0;
+            djsmSplitContainer1.TabIndex = 3;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1221, 540);
-            Controls.Add(djsmPropertyGrid1);
+            Controls.Add(djsmSplitContainer1);
             Controls.Add(djsmButton1);
             Controls.Add(djsmImagePanel1);
             Name = "Form1";
             Text = "Form1";
             Controls.SetChildIndex(djsmImagePanel1, 0);
             Controls.SetChildIndex(djsmButton1, 0);
-            Controls.SetChildIndex(djsmPropertyGrid1, 0);
+            Controls.SetChildIndex(djsmSplitContainer1, 0);
+            ((System.ComponentModel.ISupportInitialize)djsmSplitContainer1).EndInit();
+            djsmSplitContainer1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -94,6 +96,6 @@
 
         private com.outlook_styner07.cs.control.Container.DjsmImagePanel djsmImagePanel1;
         private com.outlook_styner07.cs.control.Button.DjsmButton djsmButton1;
-        private com.outlook_styner07.cs.control.Data.DjsmPropertyGrid djsmPropertyGrid1;
+        private com.outlook_styner07.cs.control.Container.DjsmSplitContainer djsmSplitContainer1;
     }
 }

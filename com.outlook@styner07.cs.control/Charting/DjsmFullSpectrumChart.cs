@@ -1,22 +1,10 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
+﻿using System.Windows.Forms.DataVisualization.Charting;
 
 namespace com.outlook_styner07.cs.control.Charting
 {
     public class DjsmFullSpectrumChart : DjsmChart
     {
-        public const string FULL_SPECTRUM_SERIES_NAME = "Full Spectrum";
-
-        private const string X_AXIS_LABEL = "Wavelength";
-        private const string Y_AXIS_LABEL = "Intensity";
-
-        private const int X_AXIS_MINIMUM = 200;
-        private const int X_AXIS_MAXIMUM = 850;
-
-        private const int Y_AXIS_MINIMUM = 0;
-        private const int Y_AXIS_MAXIMUM = 65535;
-
+        #region Constructors
         public DjsmFullSpectrumChart()
         {
             SetXAxisLabel(X_AXIS_LABEL);
@@ -36,7 +24,72 @@ namespace com.outlook_styner07.cs.control.Charting
             /// contextmenuenabled 에서 context menu 초기화
             InitializeContextMenu();
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        public const string FULL_SPECTRUM_SERIES_NAME = "Full Spectrum";
+
+        private const string X_AXIS_LABEL = "Wavelength";
+        private const string Y_AXIS_LABEL = "Intensity";
+
+        private const int X_AXIS_MINIMUM = 200;
+        private const int X_AXIS_MAXIMUM = 850;
+
+        private const int Y_AXIS_MINIMUM = 0;
+        private const int Y_AXIS_MAXIMUM = 65535;
+
+        private Font _legendheaderFont = new Font("Arial", 9f, FontStyle.Bold);
+        private Legend _legendFullSpectrum;
+        private Legend _legendRegion;
+
+        private bool _referenceSpectrumVisible;
+        private bool _stripLineVisible;
+        #endregion
+
+        #region Properties
+        public bool ReferenceSpectrumVisible
+        {
+            get { return _referenceSpectrumVisible; }
+            set
+            {
+                _referenceSpectrumVisible = value;
+
+                for (int len = Series.Count, i = 0; i < len; i++)
+                {
+                    if (!Series[i].Name.Equals(FULL_SPECTRUM_SERIES_NAME))
+                    {
+                        Series[i].Enabled = _referenceSpectrumVisible;
+                    }
+                }
+            }
+        }
+
+        public bool StripLineVisible
+        {
+            get { return _stripLineVisible; }
+            set
+            {
+                _stripLineVisible = value;
+                for (int len = XAxis.StripLines.Count, i = 0; i < len; i++)
+                {
+                    StripLine s = XAxis.StripLines[i];
+
+                    if (s.BackSecondaryColor != Color.Transparent && s.BackColor != Color.Transparent)
+                    {
+                        s.Tag = new Color[] { s.BackColor, s.BackSecondaryColor };
+                    }
+
+                    s.BackColor = _stripLineVisible ? (s.Tag as Color[])[0] : Color.Transparent;
+                    s.BackSecondaryColor = _stripLineVisible ? (s.Tag as Color[])[1] : Color.Transparent;
+                }
+            }
+        }
+        #endregion
+
+        #region Methods
         private void InitializeContextMenu()
         {
             ToolStripItem ctxMnuChart_Style_Line = new ToolStripMenuItem("Line");
@@ -71,115 +124,112 @@ namespace com.outlook_styner07.cs.control.Charting
             ctxMnuChart.Items.Insert(0, ctxMnuChart_Style);
         }
 
-        private Font legendheaderFont = new Font("Arial", 9f, FontStyle.Bold);
-        private Legend legendFullSpectrum, legendRegion;
-
         public void AddRegionLegend()
         {
-            if (legendRegion == null)
+            if (_legendRegion == null)
             {
-                legendRegion = AddLegend("Region", 0);
-                legendRegion.CellColumns.Add(new LegendCellColumn
+                _legendRegion = AddLegend("Region", 0);
+                _legendRegion.CellColumns.Add(new LegendCellColumn
                 {
                     ColumnType = LegendCellColumnType.SeriesSymbol,
                     HeaderText = string.Empty,
-                    HeaderFont = legendheaderFont,
+                    HeaderFont = _legendheaderFont,
                     Name = "Color",
                 });
 
-                legendRegion.CellColumns.Add(new LegendCellColumn
+                _legendRegion.CellColumns.Add(new LegendCellColumn
                 {
                     ColumnType = LegendCellColumnType.Text,
                     HeaderText = "Name",
-                    HeaderFont = legendheaderFont,
+                    HeaderFont = _legendheaderFont,
                     Name = "Name",
                 });
 
-                legendRegion.CellColumns.Add(new LegendCellColumn
+                _legendRegion.CellColumns.Add(new LegendCellColumn
                 {
                     ColumnType = LegendCellColumnType.Text,
                     HeaderText = "Region",
-                    HeaderFont = legendheaderFont,
+                    HeaderFont = _legendheaderFont,
                     Name = "Region",
                 });
 
-                legendRegion.LegendStyle = LegendStyle.Table;
-                legendRegion.HeaderSeparator = LegendSeparatorStyle.Line;
-                legendRegion.HeaderSeparatorColor = Color.Gray;
+                _legendRegion.LegendStyle = LegendStyle.Table;
+                _legendRegion.HeaderSeparator = LegendSeparatorStyle.Line;
+                _legendRegion.HeaderSeparatorColor = Color.Gray;
             }
             else
             {
-                if (!Legends.Contains(legendRegion))
+                if (!Legends.Contains(_legendRegion))
                 {
-                    Legends.Insert(0, legendRegion);
+                    Legends.Insert(0, _legendRegion);
                 }
             }
         }
 
         public void RemoveRegionLegend()
         {
-            if (legendRegion != null && Legends.Contains(legendRegion))
+            if (_legendRegion != null && Legends.Contains(_legendRegion))
             {
-                Legends.Remove(legendRegion);
+                Legends.Remove(_legendRegion);
             }
         }
 
         public void AddFullSpectrumLegend()
         {
 
-            if (legendFullSpectrum == null)
+            if (_legendFullSpectrum == null)
             {
-                legendFullSpectrum = AddLegend("Full Spectrum", 1);
+                _legendFullSpectrum = AddLegend("Full Spectrum", 1);
 
-                legendFullSpectrum.CellColumns.Add(new LegendCellColumn
+                _legendFullSpectrum.CellColumns.Add(new LegendCellColumn
                 {
                     ColumnType = LegendCellColumnType.SeriesSymbol,
                     HeaderText = string.Empty,
-                    HeaderFont = legendheaderFont,
+                    HeaderFont = _legendheaderFont,
                     Name = "Color",
 
                 });
 
-                legendFullSpectrum.CellColumns.Add(new LegendCellColumn
+                _legendFullSpectrum.CellColumns.Add(new LegendCellColumn
                 {
                     ColumnType = LegendCellColumnType.Text,
                     HeaderText = "Name",
-                    HeaderFont = legendheaderFont,
+                    HeaderFont = _legendheaderFont,
                     Name = "Name"
                 });
 
-                legendFullSpectrum.CellColumns.Add(new LegendCellColumn
+                _legendFullSpectrum.CellColumns.Add(new LegendCellColumn
                 {
                     ColumnType = LegendCellColumnType.Text,
                     HeaderText = "Min",
-                    HeaderFont = legendheaderFont,
+                    HeaderFont = _legendheaderFont,
                     Name = "Min",
                     Text = "#MIN{N2}"
                 });
 
-                legendFullSpectrum.CellColumns.Add(new LegendCellColumn
+                _legendFullSpectrum.CellColumns.Add(new LegendCellColumn
                 {
                     ColumnType = LegendCellColumnType.Text,
                     HeaderText = "Max",
-                    HeaderFont = legendheaderFont,
+                    HeaderFont = _legendheaderFont,
                     Name = "Max",
                     Text = "#MAX{N2}"
                 });
 
-                legendFullSpectrum.CellColumns.Add(new LegendCellColumn
+                _legendFullSpectrum.CellColumns.Add(new LegendCellColumn
                 {
                     ColumnType = LegendCellColumnType.Text,
                     HeaderText = "Avg",
-                    HeaderFont = legendheaderFont,
+                    HeaderFont = _legendheaderFont,
                     Name = "Avg",
                     Text = "#AVG{N2}"
                 });
             }
             else
             {
-                if (!Legends.Contains(legendFullSpectrum))
+                if (!Legends.Contains(_legendFullSpectrum))
                 {
-                    Legends.Add(legendFullSpectrum);
+                    Legends.Add(_legendFullSpectrum);
                 }
             }
         }
@@ -194,13 +244,13 @@ namespace com.outlook_styner07.cs.control.Charting
             item.Cells.Add(LegendCellType.Text, name, ContentAlignment.MiddleCenter);
             item.Cells.Add(LegendCellType.Text, region, ContentAlignment.MiddleCenter);
 
-            legendRegion.CustomItems.Add(item);
+            _legendRegion.CustomItems.Add(item);
             return item;
         }
 
         public void ClearRegionLegend()
         {
-            legendRegion.CustomItems.Clear();
+            _legendRegion.CustomItems.Clear();
         }
 
         public Series AddSeries(string name)
@@ -212,7 +262,7 @@ namespace com.outlook_styner07.cs.control.Charting
                 YValueType = ChartValueType.Int32,
                 BorderWidth = 1,
                 Name = name,
-                Legend = legendFullSpectrum.Name,
+                Legend = _legendFullSpectrum.Name,
                 //ToolTip = name,
             };
 
@@ -230,7 +280,7 @@ namespace com.outlook_styner07.cs.control.Charting
                 BorderWidth = 1,
                 Name = name,
                 BorderDashStyle = ChartDashStyle.Dash,
-                Legend = legendFullSpectrum.Name,
+                Legend = _legendFullSpectrum.Name,
                 //ToolTip = name,
             };
 
@@ -252,53 +302,6 @@ namespace com.outlook_styner07.cs.control.Charting
                 }
             }
         }
-
-        private bool _referenceSpectrumVisible;
-        public bool ReferenceSpectrumVisible
-        {
-            get { return _referenceSpectrumVisible; }
-            set
-            {
-                _referenceSpectrumVisible = value;
-
-                for (int len = Series.Count, i = 0; i < len; i++)
-                {
-                    if (!Series[i].Name.Equals(FULL_SPECTRUM_SERIES_NAME))
-                    {
-                        Series[i].Enabled = _referenceSpectrumVisible;
-                    }
-                }
-            }
-        }
-
-        private bool _stripLineVisible;
-        public bool StripLineVisible
-        {
-            get { return _stripLineVisible; }
-            set
-            {
-                _stripLineVisible = value;
-                for (int len = XAxis.StripLines.Count, i = 0; i < len; i++)
-                {
-                    StripLine s = XAxis.StripLines[i];
-
-                    if (s.BackSecondaryColor != Color.Transparent && s.BackColor != Color.Transparent)
-                    {
-                        s.Tag = new Color[] { s.BackColor, s.BackSecondaryColor };
-                    }
-
-                    s.BackColor = _stripLineVisible ? (s.Tag as Color[])[0] : Color.Transparent;
-                    s.BackSecondaryColor = _stripLineVisible ? (s.Tag as Color[])[1] : Color.Transparent;
-                }
-            }
-        }
-
-        private void InitializeComponent()
-        {
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            this.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
-            this.ResumeLayout(false);
-        }
+        #endregion
     }
 }

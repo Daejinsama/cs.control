@@ -4,8 +4,24 @@ namespace com.outlook_styner07.cs.control
 {
     public class DjsmLabel : Label
     {
-        public enum TextAngles { Rotate_0 = 0, Rotate_90 = 90, Rotate_180 = 180, Rotate_270 = 270 }
+        #region Constructors
+        #endregion
 
+        #region Types
+        public enum TextAngles
+        {
+            Rotate_0 = 0,
+            Rotate_90 = 90,
+            Rotate_180 = 180,
+            Rotate_270 = 270
+        }
+        #endregion
+
+        #region Fields
+        public TextAngles textAngle = TextAngles.Rotate_0;
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public TextAngles TextAngle
         {
@@ -15,16 +31,19 @@ namespace com.outlook_styner07.cs.control
             }
             set
             {
-                textAngle = value;
-                Invalidate();
+                if (textAngle != value)
+                {
+                    textAngle = value;
+                    Invalidate();
+                }
             }
         }
 
-        public TextAngles textAngle = TextAngles.Rotate_0;
-
         [Browsable(false)]
         public override ContentAlignment TextAlign { get; set; } = ContentAlignment.MiddleCenter;
+        #endregion
 
+        #region Methods
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -55,13 +74,19 @@ namespace com.outlook_styner07.cs.control
                     y = (int)((rect.Height - textSize.Height) / 2);
                     break;
             }
-            
+
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             g.RotateTransform((float)textAngle);
-            g.DrawString(Text, Font, new SolidBrush(ForeColor), x, y);
+            
+            using (var b = new SolidBrush(ForeColor))
+            {
+                g.DrawString(Text, Font, b, x, y);
+            }
+            
             g.ResetTransform();
         }
+        #endregion
     }
 }

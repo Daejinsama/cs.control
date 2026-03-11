@@ -1,77 +1,76 @@
-using System.Drawing;
-
-namespace com.outlook_styner07.cs.control.Charting
+﻿namespace com.outlook_styner07.cs.control.Charting
 {
-    public enum DjsmChartColorPalette
-    {
-        /// <summary>
-        /// Palette not set.
-        /// </summary>
-        None,
-
-        /// <summary>
-        /// Bright palette.
-        /// </summary>
-        Bright,
-
-        /// <summary>
-        /// Palette with gray scale colors.
-        /// </summary>
-        Grayscale,
-
-        /// <summary>
-        /// Palette with Excel style colors.
-        /// </summary>
-        Excel,
-
-        /// <summary>
-        /// Palette with LightStyle style colors.
-        /// </summary>
-        Light,
-
-        /// <summary>
-        /// Palette with Pastel style colors.
-        /// </summary>
-        Pastel,
-
-        /// <summary>
-        /// Palette with Earth Tones style colors.
-        /// </summary>
-        EarthTones,
-
-        /// <summary>
-        /// Palette with SemiTransparent style colors.
-        /// </summary>
-        SemiTransparent,
-
-        /// <summary>
-        /// Palette with Berry style colors.
-        /// </summary>
-        Berry,
-
-        /// <summary>
-        /// Palette with Chocolate style colors.
-        /// </summary>
-        Chocolate,
-
-        /// <summary>
-        /// Palette with Fire style colors.
-        /// </summary>
-        Fire,
-
-        /// <summary>
-        /// Palette with SeaGreen style colors.
-        /// </summary>
-        SeaGreen,
-
-        /// <summary>
-        /// Bright pastel palette.
-        /// </summary>
-        BrightPastel
-    };
-
     public static class DjsmChartColor
     {
+        #region Types
+        public enum DjsmChartColorPalette
+        {
+            /// <summary>
+            /// Palette not set.
+            /// </summary>
+            None,
+
+            /// <summary>
+            /// Bright palette.
+            /// </summary>
+            Bright,
+
+            /// <summary>
+            /// Palette with gray scale colors.
+            /// </summary>
+            Grayscale,
+
+            /// <summary>
+            /// Palette with Excel style colors.
+            /// </summary>
+            Excel,
+
+            /// <summary>
+            /// Palette with LightStyle style colors.
+            /// </summary>
+            Light,
+
+            /// <summary>
+            /// Palette with Pastel style colors.
+            /// </summary>
+            Pastel,
+
+            /// <summary>
+            /// Palette with Earth Tones style colors.
+            /// </summary>
+            EarthTones,
+
+            /// <summary>
+            /// Palette with SemiTransparent style colors.
+            /// </summary>
+            SemiTransparent,
+
+            /// <summary>
+            /// Palette with Berry style colors.
+            /// </summary>
+            Berry,
+
+            /// <summary>
+            /// Palette with Chocolate style colors.
+            /// </summary>
+            Chocolate,
+
+            /// <summary>
+            /// Palette with Fire style colors.
+            /// </summary>
+            Fire,
+
+            /// <summary>
+            /// Palette with SeaGreen style colors.
+            /// </summary>
+            SeaGreen,
+
+            /// <summary>
+            /// Bright pastel palette.
+            /// </summary>
+            BrightPastel
+        };
+        #endregion
         #region Fields
 
         // Fields which store the palette color values
@@ -257,7 +256,9 @@ namespace com.outlook_styner07.cs.control.Charting
         #endregion
 
         #region Constructor
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Initializes the GrayScale color array
         /// </summary>
@@ -273,18 +274,13 @@ namespace com.outlook_styner07.cs.control.Charting
 
             return grayScale;
         }
-
-        #endregion
-
-        #region Methods
-
         /// <summary>
         /// Return array of colors for the specified palette. Number of
         /// colors returned varies depending on the palette selected.
         /// </summary>
         /// <param name="palette">Palette to get the colors for.</param>
         /// <returns>Array of colors.</returns>
-        private static Color[] GetPaletteColors(DjsmChartColorPalette palette)
+        private static Color[]? GetPaletteColors(DjsmChartColorPalette palette)
         {
             switch (palette)
             {
@@ -315,6 +311,7 @@ namespace com.outlook_styner07.cs.control.Charting
                 case (DjsmChartColorPalette.BrightPastel):
                     return _colorsBrightPastel;
             }
+
             return null;
         }
 
@@ -324,7 +321,6 @@ namespace com.outlook_styner07.cs.control.Charting
             Color[] colors = GetPaletteColors(palette);
             return colors[index % colors.Length];
         }
-
         #endregion
     }
 }

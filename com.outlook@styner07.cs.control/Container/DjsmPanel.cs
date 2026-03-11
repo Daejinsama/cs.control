@@ -2,8 +2,26 @@
 
 namespace com.outlook_styner07.cs.control.Container
 {
-    public class DjsmPanel : System.Windows.Forms.Panel
+    public class DjsmPanel : Panel
     {
+        #region Constructors
+        public DjsmPanel()
+        {
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            BorderStyle = BorderStyle.None;
+            Padding = new Padding(1);
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private Color _borderColor = DjsmColorTable.SecondaryLight;
+        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public Color BorderColor
         {
@@ -17,12 +35,7 @@ namespace com.outlook_styner07.cs.control.Container
                 }
             }
         }
-        private Color _borderColor = DjsmColorTable.SecondaryLight;
-
-        //[System.Runtime.InteropServices.ComVisible(true),
-        //Editor(typeof(BorderSidesEditor), typeof(UITypeEditor)), Flags]
-        //public enum ToolStripStatusLabelBorderSides { Left = 0x0001, Top = 0x0010, Right = 0x0100, Bottom = 0x1000 }
-
+        
         [Browsable(true)]
         public ToolStripStatusLabelBorderSides BorderSides
         {
@@ -36,15 +49,9 @@ namespace com.outlook_styner07.cs.control.Container
                 }
             }
         }
-        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
+        #endregion
 
-        public DjsmPanel()
-        {
-            SetStyle(ControlStyles.ResizeRedraw, true);
-            BorderStyle = BorderStyle.None;
-            Padding = new Padding(1);
-        }
-
+        #region Methods
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -55,5 +62,6 @@ namespace com.outlook_styner07.cs.control.Container
                 _borderColor, (_borderSides & ToolStripStatusLabelBorderSides.Right) == ToolStripStatusLabelBorderSides.Right ? 1 : 0, ButtonBorderStyle.Solid,
                 _borderColor, (_borderSides & ToolStripStatusLabelBorderSides.Bottom) == ToolStripStatusLabelBorderSides.Bottom ? 1 : 0, ButtonBorderStyle.Solid);
         }
+        #endregion
     }
 }

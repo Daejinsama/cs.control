@@ -4,6 +4,7 @@ namespace com.outlook_styner07.cs.control
 {
     public partial class DjsmCalculatorPanel : UserControl
     {
+        #region Constructors
         public DjsmCalculatorPanel()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -11,7 +12,12 @@ namespace com.outlook_styner07.cs.control
             SetStyle(ControlStyles.UserPaint, true);
             InitializeComponent();
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
         public const string BACKSPACE = "BS";
         //public const string NEGATE = "±";
         public const string PLUS = "+";
@@ -35,8 +41,18 @@ namespace com.outlook_styner07.cs.control
             { "", "0", DOT, PLUS }
         };
 
-        private Rectangle[,] cells = new Rectangle[ROW_COUNT, COLUMN_COUNT];
+        private Rectangle[,] _cells = new Rectangle[ROW_COUNT, COLUMN_COUNT];
 
+        private bool _isPressed = false;
+        private Point _currentPosition;
+
+        public event EventHandler<KeyPadEventArgs> KeyPadClick;
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -49,8 +65,6 @@ namespace com.outlook_styner07.cs.control
             int cellWidth = (Width - (COLUMN_COUNT) * GAP) / COLUMN_COUNT;
             int cellHeight = (Height - (ROW_COUNT) * GAP) / ROW_COUNT;
 
-            Pen borderPen = new Pen(Brushes.DimGray) { Width = 1 };
-
             for (int r = 0; r < ROW_COUNT; r++)
             {
                 for (int c = 0; c < COLUMN_COUNT; c++)
@@ -58,18 +72,18 @@ namespace com.outlook_styner07.cs.control
                     string padValue = CHAR_SET[r, c];
                     SizeF charSize = g.MeasureString(padValue, f);
 
-                    cells[r, c] = new Rectangle(
+                    _cells[r, c] = new Rectangle(
                         c * cellWidth + GAP * c,
                         r * cellHeight + GAP * r,
                         cellWidth, cellHeight);
 
-                    float charPosX = cells[r, c].X + (cells[r, c].Width - charSize.Width) / 2;
-                    float charPosY = cells[r, c].Y + (cells[r, c].Height - charSize.Height) / 2;
+                    float charPosX = _cells[r, c].X + (_cells[r, c].Width - charSize.Width) / 2;
+                    float charPosY = _cells[r, c].Y + (_cells[r, c].Height - charSize.Height) / 2;
 
                     Color tempBackColor = BackColor;
                     Color tempForeColor = ForeColor;
 
-                    if (!string.IsNullOrEmpty(padValue) && isPressed && cells[r, c].Contains(currentPosition))
+                    if (!string.IsNullOrEmpty(padValue) && _isPressed && _cells[r, c].Contains(_currentPosition))
                     {
                         tempBackColor = ForeColor;
                         tempForeColor = BackColor;
@@ -77,8 +91,15 @@ namespace com.outlook_styner07.cs.control
                         KeyPadClick?.Invoke(null, new KeyPadEventArgs { Value = padValue });
                     }
 
-                    g.FillRectangle(new SolidBrush(tempBackColor), cells[r, c]);
-                    g.DrawRectangle(borderPen, cells[r, c]);
+                    using (var backBrush = new SolidBrush(tempBackColor))
+                    {
+                        g.FillRectangle(backBrush, _cells[r, c]);
+                    }
+
+                    using (Pen borderPen = new Pen(Brushes.DimGray, 1))
+                    {
+                        g.DrawRectangle(borderPen, _cells[r, c]);
+                    }
 
                     if (padValue.Equals(BACKSPACE))
                     {
@@ -89,7 +110,10 @@ namespace com.outlook_styner07.cs.control
                     }
                     else
                     {
-                        g.DrawString(padValue, f, new SolidBrush(tempForeColor), new PointF(charPosX, charPosY));
+                        using (var foreBrush = new SolidBrush(tempForeColor))
+                        {
+                            g.DrawString(padValue, f, foreBrush, new PointF(charPosX, charPosY));
+                        }
                     }
                 }
             }
@@ -99,9 +123,9 @@ namespace com.outlook_styner07.cs.control
 
         private void DrawBackspace(Graphics g, float x, float y, SizeF size, Color color)
         {
-            Pen p = new Pen(new SolidBrush(color)) { Width = size.Height / 6 };
+            using Pen p = new Pen(new SolidBrush(color), size.Height / 6);
 
-            GraphicsPath borderPath = new GraphicsPath();
+            using GraphicsPath borderPath = new GraphicsPath();
             borderPath.AddLines(new PointF[] {
                 new PointF(x, y + size.Height/2),
                 new PointF(x + (size.Width / 3), y),
@@ -118,14 +142,11 @@ namespace com.outlook_styner07.cs.control
             g.DrawLine(p, new PointF(x + (size.Width / 5) * 4, y + (size.Height / 5)), new PointF(x + (size.Width / 5) * 2, y + (size.Height / 5) * 4));
         }
 
-        private bool isPressed = false;
-        private Point currentPosition;
-
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-            isPressed = true;
-            currentPosition = e.Location;
+            _isPressed = true;
+            _currentPosition = e.Location;
 
             Invalidate();
         }
@@ -133,15 +154,15 @@ namespace com.outlook_styner07.cs.control
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
-            isPressed = false;
+            _isPressed = false;
 
             Invalidate();
         }
 
-        public event EventHandler<KeyPadEventArgs> KeyPadClick;
         public class KeyPadEventArgs : EventArgs
         {
-            public string Value { get; set; }
+            public string Value { get; set; } = string.Empty;
         }
+        #endregion
     }
 }

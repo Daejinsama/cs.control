@@ -1,7 +1,6 @@
 using com.outlook_styner07.cs.control;
-using com.outlook_styner07.cs.control.Data;
+using com.outlook_styner07.cs.control.Data.TypeConverters;
 using System.ComponentModel;
-using System.Drawing.Design;
 
 namespace Playground
 {
@@ -10,7 +9,6 @@ namespace Playground
         public Form1()
         {
             InitializeComponent();
-            djsmPropertyGrid1.SelectedObject = new TestObject();
         }
 
         private void djsmButton1_Click(object sender, EventArgs e)

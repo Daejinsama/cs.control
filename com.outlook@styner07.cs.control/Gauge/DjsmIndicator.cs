@@ -5,160 +5,193 @@ namespace com.outlook_styner07.cs.control.Gauge
 {
     public class DjsmIndicator : Control
     {
+        #region Constructors
+        #endregion
+
+        #region Types
+        public enum ShapeType
+        {
+            Ellipse,
+            Rectangle
+        }
+        #endregion
+
+        #region Fields
+        private const int PADDING = 1;
+
+        private Color _color = Color.Lime;
+        private Color _borderColor = Color.Gray;
+        private int _borderWidth = 1;
+        private byte _opacity = 10;
+
+        private ShapeType _shape = ShapeType.Ellipse;
+
+        private bool _blink = false;
+        private long _blinkInterval = 500;
+        private Color _blinkOnColor = Color.Lime;
+        private Color _blinkOffColor = Color.Red;
+
+        private System.Threading.Timer? _blinkTimer;
+
+        public event EventHandler? ColorChanged;
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public Color BorderColor
         {
             get
             {
-                return borderColor;
+                return _borderColor;
             }
             set
             {
-                borderColor = value;
-                Invalidate();
+                if (_borderColor != value)
+                {
+                    _borderColor = value;
+                    Invalidate();
+                }
             }
         }
-
-        private Color borderColor = Color.Gray;
 
         [Browsable(true)]
         public int BorderWidth
         {
-            get { return borderWidth; }
+            get { return _borderWidth; }
             set
             {
-                borderWidth = value; Invalidate();
+                if (_borderWidth != value)
+                {
+                    _borderWidth = value;
+                    Invalidate();
+                }
             }
         }
-
-        private int borderWidth = 1;
-
-        public event EventHandler? ColorChanged;
 
         [Browsable(true)]
         public Color Color
         {
             get
             {
-                return color;
+                return _color;
             }
             set
             {
-                color = value;
-                Invalidate();
+                if (_color != value)
+                {
+                    _color = value;
+                    Invalidate();
 
-                ColorChanged?.Invoke(this, EventArgs.Empty);
+                    ColorChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
-
-        private Color color = Color.Lime;
 
         [Browsable(true)]
         public byte Opacity
         {
             get
             {
-                return opacity;
+                return _opacity;
             }
             set
             {
-                opacity = value;
-                Invalidate();
+                if (_opacity != value)
+                {
+                    _opacity = value;
+                    Invalidate();
+                }
             }
         }
-
-        private byte opacity = 10;
-
-        public enum ShapeType { Ellipse, Rectangle }
 
         public ShapeType Shape
         {
-            get { return shape; }
+            get { return _shape; }
             set
             {
-                shape = value;
-                Invalidate();
+                if (_shape != value)
+                {
+                    _shape = value;
+                    Invalidate();
+                }
             }
         }
-
-        private ShapeType shape = ShapeType.Ellipse;
 
         public bool Blink
         {
-            get { return blink; }
+            get { return _blink; }
             set
             {
-                blink = value;
-                SetBlink();
+                if (_blink != value)
+                {
+                    _blink = value;
+                    SetBlink();
+                }
             }
         }
-
-        private bool blink = false;
 
         [Browsable(true)]
         public long BlinkInterval
         {
-            get { return blinkInterval; }
+            get { return _blinkInterval; }
             set
             {
-                blinkInterval = value;
-                SetBlink();
+                if (_blinkInterval != value)
+                {
+                    _blinkInterval = value;
+                    SetBlink();
+                }
             }
         }
-
-        private long blinkInterval = 500;
 
         public Color BlinkOnColor
         {
-            get { return blinkOnColor; }
+            get { return _blinkOnColor; }
             set
             {
-                blinkOnColor = value;
-                SetBlink();
+                if (_blinkOnColor != value)
+                {
+                    _blinkOnColor = value;
+                    SetBlink();
+                }
             }
         }
-
-        private Color blinkOnColor = Color.Lime;
 
         public Color BlinkOffColor
         {
-            get { return blinkOffColor; }
+            get { return _blinkOffColor; }
             set
             {
-                blinkOffColor = value;
-                SetBlink();
+                if (_blinkOffColor != value)
+                {
+                    _blinkOffColor = value;
+                    SetBlink();
+                }
             }
         }
 
-        private Color blinkOffColor = Color.Red;
-
         [Browsable(false)]
         public new Color BackColor { get; } = Color.Transparent;
+        #endregion
 
-        private const int PADDING = 1;
-
-        private System.Threading.Timer? blinkTimer;
-
+        #region Methods
         private void SetBlink()
         {
-            blinkTimer?.Dispose();
-            blinkTimer = null;
+            _blinkTimer?.Dispose();
+            _blinkTimer = null;
 
-            if (blink)
+            if (_blink)
             {
-                blinkTimer = new System.Threading.Timer((obj) =>
+                _blinkTimer = new System.Threading.Timer((obj) =>
                 {
-                    color = color == blinkOnColor ? blinkOffColor : blinkOnColor;
+                    _color = _color == _blinkOnColor ? _blinkOffColor : _blinkOnColor;
                     Invalidate();
-                }, null, 0, blinkInterval);
+                }, null, 0, _blinkInterval);
             }
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            /// 20240806_
-            /// region 설정 및 출력 시 동작 및 출력 불안정
-            /// 왜 그럴까? 
             Graphics g = e.Graphics;
 
             g.Clear(Parent.BackColor);
@@ -166,43 +199,44 @@ namespace com.outlook_styner07.cs.control.Gauge
 
             Rectangle rectF;
 
-            GraphicsPath path = new GraphicsPath();
-
-            if (shape == ShapeType.Ellipse)
+            using (GraphicsPath path = new GraphicsPath())
             {
-                int diameter = Math.Min(Size.Width, Size.Height);
-
-                rectF = new Rectangle((Width - diameter) / 2 + PADDING, (Height - diameter) / 2 + PADDING, diameter - PADDING * 2, diameter - PADDING * 2);
-
-                path.AddEllipse(rectF);
-
-                using (PathGradientBrush pathBrush = new PathGradientBrush(path)
+                if (_shape == ShapeType.Ellipse)
                 {
-                    CenterColor = Color.FromArgb(opacity, Color),
-                    SurroundColors = [Color],
-                })
-                {
-                    g.FillEllipse(pathBrush, rectF);
+                    int diameter = Math.Min(Size.Width, Size.Height);
 
-                    if (borderWidth > 0)
+                    rectF = new Rectangle((Width - diameter) / 2 + PADDING, (Height - diameter) / 2 + PADDING, diameter - PADDING * 2, diameter - PADDING * 2);
+
+                    path.AddEllipse(rectF);
+
+                    using (PathGradientBrush pathBrush = new PathGradientBrush(path)
                     {
-                        g.DrawEllipse(new Pen(borderColor, borderWidth), rectF);
+                        CenterColor = Color.FromArgb(_opacity, Color),
+                        SurroundColors = [Color],
+                    })
+                    {
+                        g.FillEllipse(pathBrush, rectF);
+
+                        if (_borderWidth > 0)
+                        {
+                            g.DrawEllipse(new Pen(_borderColor, _borderWidth), rectF);
+                        }
                     }
                 }
-            }
-            else
-            {
-                rectF = new Rectangle(PADDING, PADDING, Size.Width - PADDING * 2, Size.Height - PADDING * 2);
-
-                path.AddRectangle(rectF);
-
-                using (LinearGradientBrush pathBrush = new LinearGradientBrush(new Point(rectF.X, rectF.Y), new Point(rectF.Width, rectF.Height), Color.FromArgb(opacity, Color), Color))
+                else
                 {
-                    g.FillRectangle(pathBrush, rectF);
+                    rectF = new Rectangle(PADDING, PADDING, Size.Width - PADDING * 2, Size.Height - PADDING * 2);
 
-                    if (borderWidth > 0)
+                    path.AddRectangle(rectF);
+
+                    using (LinearGradientBrush pathBrush = new LinearGradientBrush(new Point(rectF.X, rectF.Y), new Point(rectF.Width, rectF.Height), Color.FromArgb(_opacity, Color), Color))
                     {
-                        g.DrawRectangle(new Pen(borderColor, borderWidth), rectF);
+                        g.FillRectangle(pathBrush, rectF);
+
+                        if (_borderWidth > 0)
+                        {
+                            g.DrawRectangle(new Pen(_borderColor, _borderWidth), rectF);
+                        }
                     }
                 }
             }
@@ -210,8 +244,12 @@ namespace com.outlook_styner07.cs.control.Gauge
             if (!string.IsNullOrEmpty(Text))
             {
                 SizeF size = g.MeasureString(Text, Font);
-                g.DrawString(Text, Font, new SolidBrush(ForeColor), new PointF((Size.Width - size.Width) / 2 + 1, (Size.Height - size.Height) / 2));
+                using (var b = new SolidBrush(ForeColor))
+                {
+                    g.DrawString(Text, Font, b, new PointF((Size.Width - size.Width) / 2 + 1, (Size.Height - size.Height) / 2));
+                }
             }
         }
+        #endregion
     }
 }

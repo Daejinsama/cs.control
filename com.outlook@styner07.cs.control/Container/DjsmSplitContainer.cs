@@ -4,34 +4,81 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmSplitContainer : SplitContainer
     {
-        [Browsable(false)]
-        public new int SplitterWidth { get; set; }
-
-        private Color _splitterColor = DjsmColorTable.Secondary;
-        public Color SplitterColor { get { return _splitterColor; } set { _splitterColor = value; Invalidate(); } }
-
-        private Color _splitterBorderColor = Color.White;
-        public Color SplitterBorderColor { get { return _splitterBorderColor; } set { _splitterBorderColor = value; Invalidate(); } }
-
-        private Color _splitterHandleColor = Color.White;
-        public Color SplitterHandleColor { get { return _splitterHandleColor; } set { _splitterHandleColor = value; Invalidate(); } }
-
-        private Color _borderColor = DjsmColorTable.SecondaryLight;
-        public Color BorderColor { get { return _borderColor; } set { _borderColor = value; Invalidate(); } }
-
+        #region Constructors
         public DjsmSplitContainer()
         {
             DoubleBuffered = true;
+        }
+        #endregion
 
-            //Panel1.Paint += (obj, e) => {
-            //    ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, BorderColor, ButtonBorderStyle.Solid);
-            //};
+        #region Types
+        #endregion
 
-            //Panel2.Paint += (obj, e) => {
-            //    ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, BorderColor, ButtonBorderStyle.Solid);
-            //};
+        #region Fields
+        private Color _splitterColor = DjsmColorTable.Secondary;
+        private Color _splitterBorderColor = Color.White;
+        private Color _splitterHandleColor = Color.White;
+        private Color _borderColor = DjsmColorTable.SecondaryLight;
+        #endregion
+
+        #region Properties
+        [Browsable(false)]
+        public new int SplitterWidth { get; set; }
+
+        public Color SplitterColor
+        {
+            get { return _splitterColor; }
+            set
+            {
+                if (_splitterColor != value)
+                {
+                    _splitterColor = value;
+                    Invalidate();
+                }
+            }
         }
 
+        public Color SplitterBorderColor
+        {
+            get { return _splitterBorderColor; }
+            set
+            {
+                if (_splitterBorderColor != value)
+                {
+                    _splitterBorderColor = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        public Color SplitterHandleColor
+        {
+            get { return _splitterHandleColor; }
+            set
+            {
+                if (_splitterHandleColor != value)
+                {
+                    _splitterHandleColor = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        public Color BorderColor
+        {
+            get { return _borderColor; }
+            set
+            {
+                if (_borderColor != value)
+                {
+                    _borderColor = value;
+                    Invalidate();
+                }
+            }
+        }
+        #endregion
+
+        #region Methods
         protected override void OnResize(EventArgs e)
         {
             try
@@ -103,10 +150,11 @@ namespace com.outlook_styner07.cs.control.Container
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-             
+
             this.Font = new System.Drawing.Font("Arial", 9F);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
         }
+        #endregion
     }
 }

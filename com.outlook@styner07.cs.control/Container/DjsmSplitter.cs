@@ -4,20 +4,64 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmSplitter : Splitter
     {
-        private Color _splitterColor = DjsmColorTable.Secondary;
-        public Color SplitterColor { get { return _splitterColor; } set { _splitterColor = value; Invalidate(); } }
-
-        private Color _splitterBorderColor = Color.White;
-        public Color SplitterBorderColor { get { return _splitterBorderColor; } set { _splitterBorderColor = value; Invalidate(); } }
-
-        private Color _splitterHandleColor = Color.White;
-        public Color SplitterHandleColor { get { return _splitterHandleColor; } set { _splitterHandleColor = value; Invalidate(); } }
-
+        #region Constructors
         public DjsmSplitter()
         {
             DoubleBuffered = true;
             BackColor = Color.FromArgb(0xA7, 0xA9, 0xAC);
             BorderStyle = BorderStyle.None;
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private const int DEFAULT_BAR_WIDTH = 8;
+
+        private Color _splitterColor = DjsmColorTable.Secondary;
+        private Color _splitterBorderColor = Color.White;
+        private Color _splitterHandleColor = Color.White;
+        #endregion
+
+        #region Properties
+        public Color SplitterColor
+        {
+            get { return _splitterColor; }
+            set
+            {
+                if (_splitterColor != value)
+                {
+                    _splitterColor = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        public Color SplitterBorderColor
+        {
+            get { return _splitterBorderColor; }
+            set
+            {
+                if (_splitterBorderColor != value)
+                {
+                    _splitterBorderColor = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        public Color SplitterHandleColor
+        {
+            get { return _splitterHandleColor; }
+            set
+            {
+                if (_splitterHandleColor != value)
+                {
+                    _splitterHandleColor = value;
+                    Invalidate();
+                }
+            }
         }
 
         [Browsable(false)]
@@ -25,21 +69,22 @@ namespace com.outlook_styner07.cs.control.Container
 
         [Browsable(false)]
         public new BorderStyle BorderStyle { get; set; }
+        #endregion
 
+        #region Methods
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
             Invalidate();
         }
 
-        private const int DEFAULT_BAR_WIDTH = 8;
-
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             g.FillRectangle(new SolidBrush(SplitterColor), ClientRectangle);
-            Brush handleBrush = new SolidBrush(SplitterHandleColor);
+
+            using Brush handleBrush = new SolidBrush(SplitterHandleColor);
             using (Pen p = new Pen(new SolidBrush(SplitterBorderColor), 2))
             {
                 if (Dock == DockStyle.Left || Dock == DockStyle.Right)
@@ -84,9 +129,10 @@ namespace com.outlook_styner07.cs.control.Container
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            
+
             this.Margin = new System.Windows.Forms.Padding(0);
             this.ResumeLayout(false);
         }
+        #endregion
     }
 }

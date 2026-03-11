@@ -1,19 +1,14 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
+﻿using System.Windows.Forms.DataVisualization.Charting;
 
 namespace com.outlook_styner07.cs.control.Charting
 {
     public partial class SeriesCustomizingDialog : Form
     {
-        private DjsmChart chartPreview;
-        private DjsmCustomStyleSeries series;
-
+        #region Constructors
         public SeriesCustomizingDialog(DjsmCustomStyleSeries oldSeries)
         {
-            series = new DjsmCustomStyleSeries { ChartType = oldSeries.ChartType };
-            series.ApplyStyle(oldSeries.ExtractStyle());
+            _series = new DjsmCustomStyleSeries { ChartType = oldSeries.ChartType };
+            _series.ApplyStyle(oldSeries.ExtractStyle());
 
             InitializeComponent();
             InitializeSeriesComponent();
@@ -23,41 +18,55 @@ namespace com.outlook_styner07.cs.control.Charting
             RegisterControlEvent();
             titleToolStripLabel.Text = string.Format("{0}_{1}", titleToolStripLabel.Text, oldSeries.Name);
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        private DjsmChart _chartPreview;
+        private DjsmCustomStyleSeries _series;
+
+        private readonly object[] WIDTH = { 1, 2, 3, 4, 5 };
+        private readonly object[] STEP = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        private readonly object[] SIZE = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
         private void LoadOldSeriesStyle()
         {
-            cmbLineDash.SelectedItem = series.BorderDashStyle;
-            cmbLineWidth.SelectedItem = series.BorderWidth;
-            btnLineColor.BackColor = series.Color;
+            cmbLineDash.SelectedItem = _series.BorderDashStyle;
+            cmbLineWidth.SelectedItem = _series.BorderWidth;
+            btnLineColor.BackColor = _series.Color;
 
-            cmbMarkerShape.SelectedItem = series.MarkerStyle;
-            cmbMarkerStep.SelectedItem = series.MarkerStep;
-            cmbMarkerSize.SelectedItem = series.MarkerSize;
-            btnMarkerColor.BackColor = series.MarkerColor;
-            cmbMarkerBorderWidth.SelectedItem = series.MarkerBorderWidth;
-            btnMarkerBorderColor.BackColor = series.MarkerBorderColor;
+            cmbMarkerShape.SelectedItem = _series.MarkerStyle;
+            cmbMarkerStep.SelectedItem = _series.MarkerStep;
+            cmbMarkerSize.SelectedItem = _series.MarkerSize;
+            btnMarkerColor.BackColor = _series.MarkerColor;
+            cmbMarkerBorderWidth.SelectedItem = _series.MarkerBorderWidth;
+            btnMarkerBorderColor.BackColor = _series.MarkerBorderColor;
         }
 
-        private object[] WIDTH = { 1, 2, 3, 4, 5 };
-        private object[] STEP = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        private object[] SIZE = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         private void InitializeSeriesComponent()
         {
             cmbLineDash.Items.Clear();
-            cmbLineDash.Items.AddRange(new object[] {
+            cmbLineDash.Items.AddRange([
                 ChartDashStyle.Dash,
                 ChartDashStyle.DashDot,
                 ChartDashStyle.DashDotDot,
                 ChartDashStyle.Dot,
                 ChartDashStyle.NotSet,
-                ChartDashStyle.Solid});
+                ChartDashStyle.Solid]);
 
             cmbLineWidth.Items.Clear();
             cmbLineWidth.Items.AddRange(WIDTH);
             cmbLineWidth.SelectedIndex = 0;
 
             cmbMarkerShape.Items.Clear();
-            cmbMarkerShape.Items.AddRange(new object[] {
+            cmbMarkerShape.Items.AddRange([
                 MarkerStyle.Circle,
                 MarkerStyle.Cross,
                 MarkerStyle.Diamond,
@@ -68,7 +77,7 @@ namespace com.outlook_styner07.cs.control.Charting
                 MarkerStyle.Star5,
                 MarkerStyle.Star6,
                 MarkerStyle.Triangle
-            });
+            ]);
 
             cmbMarkerStep.Items.Clear();
             cmbMarkerStep.Items.AddRange(STEP);
@@ -86,60 +95,60 @@ namespace com.outlook_styner07.cs.control.Charting
             {
                 if (cmbLineDash.SelectedItem != null)
                 {
-                    series.BorderDashStyle = (ChartDashStyle)cmbLineDash.SelectedItem;
+                    _series.BorderDashStyle = (ChartDashStyle)cmbLineDash.SelectedItem;
                 }
             };
 
             cmbLineWidth.SelectedIndexChanged += delegate
             {
-                series.BorderWidth = (int)WIDTH[cmbLineWidth.SelectedIndex];
+                _series.BorderWidth = (int)WIDTH[cmbLineWidth.SelectedIndex];
             };
 
-            btnLineColor.Click += (object sender, EventArgs e) =>
+            btnLineColor.Click += (sender, e) =>
             {
-                Color color = (sender as System.Windows.Forms.Button).BackColor;
+                Color color = ((System.Windows.Forms.Button)sender).BackColor;
                 GetColorFromPicker(ref color);
                 btnLineColor.BackColor = color;
-                series.Color = color;
+                _series.Color = color;
             };
 
             cmbMarkerShape.SelectedValueChanged += delegate
             {
                 if (cmbMarkerShape.SelectedItem != null)
                 {
-                    series.MarkerStyle = (MarkerStyle)(cmbMarkerShape.SelectedItem);
+                    _series.MarkerStyle = (MarkerStyle)(cmbMarkerShape.SelectedItem);
                 }
             };
 
             cmbMarkerStep.SelectedIndexChanged += delegate
             {
-                series.MarkerStep = (int)STEP[cmbMarkerStep.SelectedIndex];
+                _series.MarkerStep = (int)STEP[cmbMarkerStep.SelectedIndex];
             };
 
             cmbMarkerSize.SelectedIndexChanged += delegate
             {
-                series.MarkerSize = (int)SIZE[cmbMarkerSize.SelectedIndex];
+                _series.MarkerSize = (int)SIZE[cmbMarkerSize.SelectedIndex];
             };
 
-            btnMarkerColor.Click += (object sender, EventArgs e) =>
+            btnMarkerColor.Click += (sender, e) =>
             {
-                Color color = (sender as System.Windows.Forms.Button).BackColor;
+                Color color = ((System.Windows.Forms.Button)sender).BackColor;
                 GetColorFromPicker(ref color);
                 btnMarkerColor.BackColor = color;
-                series.MarkerColor = color;
+                _series.MarkerColor = color;
             };
 
             cmbMarkerBorderWidth.SelectedIndexChanged += delegate
             {
-                series.MarkerBorderWidth = (int)WIDTH[cmbMarkerBorderWidth.SelectedIndex];
+                _series.MarkerBorderWidth = (int)WIDTH[cmbMarkerBorderWidth.SelectedIndex];
             };
 
-            btnMarkerBorderColor.Click += (object sender, EventArgs e) =>
+            btnMarkerBorderColor.Click += (sender, e) =>
             {
-                Color color = (sender as System.Windows.Forms.Button).BackColor;
+                Color color = ((System.Windows.Forms.Button)sender).BackColor;
                 GetColorFromPicker(ref color);
                 btnMarkerBorderColor.BackColor = color;
-                series.MarkerBorderColor = color;
+                _series.MarkerBorderColor = color;
             };
         }
 
@@ -154,15 +163,15 @@ namespace com.outlook_styner07.cs.control.Charting
 
         private void InitializePreviewChart()
         {
-            chartPreview = new DjsmChart
+            _chartPreview = new DjsmChart
             {
                 Dock = DockStyle.Fill,
                 BackColor = this.BackColor,
             };
 
-            chartPreview.AreaMain.Visible = false;
+            _chartPreview.AreaMain.Visible = false;
 
-            Legend legend = chartPreview.Legends.Add("Style");
+            Legend legend = _chartPreview.Legends.Add("Style");
             legend.Enabled = true;
             legend.Position.X = 0;
             legend.Position.Y = 0;
@@ -175,20 +184,27 @@ namespace com.outlook_styner07.cs.control.Charting
                 MaximumWidth = 250
             });
 
-            gbxPreview.Controls.Add(chartPreview);
-            chartPreview.Series.Add(series);
+            gbxPreview.Controls.Add(_chartPreview);
+            _chartPreview.Series.Add(_series);
         }
 
         public SeriesStyleObject GetSeriesStyle()
         {
-            return series.ExtractStyle();
+            return _series.ExtractStyle();
         }
 
-        private void BtnApply_Click(object sender, EventArgs e)
+        private void btnApply_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+        #endregion
 
         #region dialog close when click out side
         //private const int WM_NACTIVATE = 0x86;
@@ -216,24 +232,18 @@ namespace com.outlook_styner07.cs.control.Charting
         //}
         #endregion
 
-        private void BtnCancel_Click(object sender, EventArgs e)
+        public class SeriesStyleObject
         {
-            DialogResult = DialogResult.Cancel;
-            Close();
+            public MarkerStyle MarkerStyle { get; set; } = MarkerStyle.None;
+            public int MarkerStep { get; set; } = 1;
+            public int MarkerSize { get; set; } = 3;
+            public int MarkerColor { get; set; } = Color.Red.ToArgb();
+            public int MarkerBorderColor { get; set; } = Color.Black.ToArgb();
+            public int MarkerBorderWidth { get; set; } = 1;
+
+            public int LineColor { get; set; } = Color.Empty.ToArgb();
+            public int LineWidth { get; set; } = 1;
+            public ChartDashStyle LineStyle { get; set; } = ChartDashStyle.Solid;
         }
-    }
-
-    public class SeriesStyleObject
-    {
-        public MarkerStyle MarkerStyle { get; set; } = MarkerStyle.None;
-        public int MarkerStep { get; set; } = 1;
-        public int MarkerSize { get; set; } = 3;
-        public int MarkerColor { get; set; } = Color.Red.ToArgb();
-        public int MarkerBorderColor { get; set; } = Color.Black.ToArgb();
-        public int MarkerBorderWidth { get; set; } = 1;
-
-        public int LineColor { get; set; } = Color.Empty.ToArgb();
-        public int LineWidth { get; set; } = 1;
-        public ChartDashStyle LineStyle { get; set; } = ChartDashStyle.Solid;
     }
 }

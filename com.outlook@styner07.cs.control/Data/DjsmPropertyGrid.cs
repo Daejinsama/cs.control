@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace com.outlook_styner07.cs.control.Data
 {

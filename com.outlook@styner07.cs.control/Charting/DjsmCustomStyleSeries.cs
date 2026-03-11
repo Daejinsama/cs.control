@@ -1,12 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms.DataVisualization.Charting;
+﻿using System.Windows.Forms.DataVisualization.Charting;
 
 namespace com.outlook_styner07.cs.control.Charting
 {
     public class DjsmCustomStyleSeries : Series
     {
+        #region Constructors
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private int _color = Color.Empty.ToArgb();
+
+        public event EventHandler? StyleUpdated;
+        #endregion
+
+        #region Properties
+        public new Color Color
+        {
+            get { return Color.FromArgb(_color); }
+            set
+            {
+                _color = value.ToArgb();
+                base.Color = value;
+            }
+        }
+
+        public int LatestBorderWidth { get; set; } = 1;
+        #endregion
+
+        #region Methods
         public void ApplyStyle(SeriesStyleObject style)
         {
             Color = Color.FromArgb(style.LineColor);
@@ -20,7 +44,7 @@ namespace com.outlook_styner07.cs.control.Charting
             MarkerBorderColor = Color.FromArgb(style.MarkerBorderColor);
             MarkerBorderWidth = style.MarkerBorderWidth;
 
-            StyleUpdated?.Invoke(this, null);
+            StyleUpdated?.Invoke(this, EventArgs.Empty);
 
             LatestBorderWidth = style.LineWidth;
         }
@@ -40,20 +64,6 @@ namespace com.outlook_styner07.cs.control.Charting
                 MarkerStyle = MarkerStyle
             };
         }
-
-        public event EventHandler StyleUpdated;
-
-        public new Color Color
-        {
-            get { return Color.FromArgb(_color); }
-            set
-            {
-                _color = value.ToArgb();
-                base.Color = value;
-            }
-        }
-        private int _color = Color.Empty.ToArgb();
-
-        public int LatestBorderWidth { get; set; } = 1;
+        #endregion
     }
 }

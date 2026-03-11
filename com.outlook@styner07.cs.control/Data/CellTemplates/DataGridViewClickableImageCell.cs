@@ -1,19 +1,27 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace com.outlook_styner07.cs.control.Data.CellTemplates
+﻿namespace com.outlook_styner07.cs.control.Data.CellTemplates
 {
     public class DataGridViewClickableImageCell : DataGridViewImageCell
     {
-        public Image ImgDefault { get; set; }
-        public Image ImgPressed { get; set; }
-
+        #region Constructors
         public DataGridViewClickableImageCell()
         {
             ValueIsIcon = false;
             ImageLayout = DataGridViewImageCellLayout.Normal;
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Properties
+        public Image ImgDefault { get; set; }
+        public Image ImgPressed { get; set; }
+        #endregion
+
+        #region Methods
         protected override void OnMouseDown(DataGridViewCellMouseEventArgs e)
         {
             base.OnMouseDown(e);
@@ -37,5 +45,6 @@ namespace com.outlook_styner07.cs.control.Data.CellTemplates
                 Value = ImgDefault;
             }
         }
+        #endregion
     }
 }

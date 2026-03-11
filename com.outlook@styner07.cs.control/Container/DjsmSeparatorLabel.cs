@@ -6,17 +6,31 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public partial class DjsmSeparatorLabel : Label
     {
+        #region Constructors
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public TextRenderingHint RenderingHint
         {
             get { return _textRenderingHint; }
             set
             {
-                _textRenderingHint = value; Invalidate();
+                if (_textRenderingHint != value)
+                {
+                    _textRenderingHint = value;
+                    Invalidate();
+                }
             }
         }
-
-        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
 
         [Browsable(true)]
         public SmoothingMode SmoothMode
@@ -24,26 +38,37 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _smoothMode; }
             set
             {
-                _smoothMode = value; Invalidate();
+                if (_smoothMode != value)
+                {
+                    _smoothMode = value;
+                    Invalidate();
+                }
             }
         }
+        #endregion
 
-        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
-
+        #region Methods
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            
+
             g.SmoothingMode = _smoothMode;
             g.TextRenderingHint = _textRenderingHint;
 
             SizeF size = g.MeasureString(Text, Font);
 
-            g.DrawString(Text, Font, new SolidBrush(ForeColor),0, (Height - size.Height) / 2);
-
+            using (var b = new SolidBrush(ForeColor))
+            {
+                g.DrawString(Text, Font, b, 0, (Height - size.Height) / 2);
+            }
+            
             int lineY = Height / 2 + 1;
 
-            g.DrawLine(new Pen(new SolidBrush(Color.LightGray), 1), new PointF(size.Width + 3, lineY), new Point(Width, lineY));
+            using (var p = new Pen(new SolidBrush(Color.LightGray), 1))
+            {
+                g.DrawLine(p, new PointF(size.Width + 3, lineY), new Point(Width, lineY));
+            }
         }
+        #endregion
     }
 }

@@ -9,24 +9,7 @@ namespace com.outlook_styner07.cs.control.Container
     /// </summary>
     public class DjsmToolStrip : ToolStrip
     {
-        public bool WindowDragEnabled { get; set; } = true;
-
-        [Browsable(true)]
-        public Color BorderColor { get { return _borderColor; } set { _borderColor = value; Invalidate(); } }
-        private Color _borderColor = DjsmColorTable.SecondaryLight;
-
-        [Browsable(true)]
-        public ToolStripStatusLabelBorderSides BorderSides
-        {
-            get { return _borderSides; }
-            set
-            {
-
-                _borderSides = value; Invalidate();
-            }
-        }
-        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
-
+        #region Constructors
         public DjsmToolStrip()
         {
             InitializeComponent();
@@ -36,9 +19,52 @@ namespace com.outlook_styner07.cs.control.Container
             RenderMode = ToolStripRenderMode.Professional;
             Renderer = new DjsmToolStripRenderer();
         }
+        #endregion
 
-        private bool readyToDrag = false;
+        #region Types
+        #endregion
 
+        #region Fields
+        private const uint WM_MOUSEACTIVATE = 0x21;
+
+        private Color _borderColor = DjsmColorTable.SecondaryLight;
+        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
+        private bool _readyToDrag = false;
+        #endregion
+
+        #region Properties
+        public bool WindowDragEnabled { get; set; } = true;
+
+        [Browsable(true)]
+        public Color BorderColor
+        {
+            get { return _borderColor; }
+            set
+            {
+                if (_borderColor != value)
+                {
+                    _borderColor = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        [Browsable(true)]
+        public ToolStripStatusLabelBorderSides BorderSides
+        {
+            get { return _borderSides; }
+            set
+            {
+                if (_borderSides != value)
+                {
+                    _borderSides = value;
+                    Invalidate();
+                }
+            }
+        }
+        #endregion
+
+        #region Methods
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -47,7 +73,7 @@ namespace com.outlook_styner07.cs.control.Container
                 {
                     if (!(GetItemAt(e.Location) is ToolStripButton))
                     {
-                        readyToDrag = true;
+                        _readyToDrag = true;
                     }
                 }
             }
@@ -57,29 +83,30 @@ namespace com.outlook_styner07.cs.control.Container
 
         protected override void OnMouseMove(MouseEventArgs mea)
         {
-            if (readyToDrag)
+            if (_readyToDrag && Parent != null)
             {
                 WindowUtil.DoDragWindow(Parent.Handle);
             }
+
             base.OnMouseMove(mea);
         }
 
         protected override void OnMouseUp(MouseEventArgs mea)
         {
-            readyToDrag = false;
+            _readyToDrag = false;
 
             base.OnMouseUp(mea);
         }
 
         protected override void OnMouseDoubleClick(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && Parent != null)
             {
                 if (Parent is Form && WindowDragEnabled)
                 {
                     if (!(GetItemAt(e.Location) is ToolStripButton))
                     {
-                        Form frm = Parent as Form;
+                        Form frm = (Form)Parent;
                         frm.WindowState = frm.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
                     }
                 }
@@ -99,7 +126,6 @@ namespace com.outlook_styner07.cs.control.Container
                 _borderColor, (_borderSides & ToolStripStatusLabelBorderSides.Bottom) == ToolStripStatusLabelBorderSides.Bottom ? 1 : 0, ButtonBorderStyle.Solid);
         }
 
-        private const uint WM_MOUSEACTIVATE = 0x21;
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == WM_MOUSEACTIVATE && CanFocus && !Focused)
@@ -113,9 +139,10 @@ namespace com.outlook_styner07.cs.control.Container
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            
+
             this.Font = new System.Drawing.Font("Arial", 9F);
             this.ResumeLayout(false);
         }
+        #endregion
     }
 }

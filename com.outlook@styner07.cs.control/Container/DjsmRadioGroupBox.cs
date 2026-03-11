@@ -4,39 +4,52 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmRadioGroupBox : GroupBox
     {
-        private const int RADIO_LEFT_MARGIN = 5;
-        private readonly RadioButton _radiobutton;
+        #region Constructors
+        public DjsmRadioGroupBox()
+        {
+            _button = new RadioButton { Location = new Point(RADIO_LEFT_MARGIN, 0), AutoSize = true, };
+            _button.CheckedChanged += _button_CheckedChanged;
 
+            Controls.Add(_button);
+
+            base.Text = "";
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private const int RADIO_LEFT_MARGIN = 5;
+        private readonly RadioButton _button;
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public bool Checked
         {
             get
             {
-                return _radiobutton.Checked;
+                return _button.Checked;
             }
-
             set
             {
-                _radiobutton.Checked = value;
+                if (_button.Checked != value)
+                {
+                    _button.Checked = value;
+                }
             }
         }
+        #endregion
 
-        public DjsmRadioGroupBox()
+        #region Methods
+        private void _button_CheckedChanged(object? sender, EventArgs e)
         {
-            _radiobutton = new RadioButton { Location = new Point(RADIO_LEFT_MARGIN, 0), AutoSize = true, };
-            _radiobutton.CheckedChanged += Radiobutton_CheckedChanged;
-            Controls.Add(_radiobutton);
-
-            base.Text = "";
-        }
-
-        private void Radiobutton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (_radiobutton.Checked)
+            if (Parent != null && _button.Checked)
             {
-                for (int len = Parent.Controls.Count, i = 0; i < len; i++)
+                for (int il = Parent.Controls.Count, i = 0; i < il; i++)
                 {
-                    System.Windows.Forms. Control c = Parent.Controls[i];
+                    Control c = Parent.Controls[i];
 
                     if (c.Equals(this))
                     {
@@ -44,38 +57,42 @@ namespace com.outlook_styner07.cs.control.Container
                     }
                     else
                     {
-                        if (c is DjsmRadioGroupBox)
+                        if (c is DjsmRadioGroupBox btn)
                         {
-                            (c as DjsmRadioGroupBox).Checked = false;
+                            btn.Checked = false;
                         }
                     }
                 }
             }
 
-            for (int len = Controls.Count, i = 0; i < len; i++)
+            bool enabled = _button.Checked;
+            for (int il = Controls.Count, i = 0; i < il; i++)
             {
-                System.Windows.Forms.Control c = Controls[i];
-                if (c.Equals(_radiobutton))
+                Control c = Controls[i];
+
+                if (c.Equals(_button))
                 {
                     continue;
                 }
-                c.Enabled = _radiobutton.Checked;
+
+                c.Enabled = enabled;
             }
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            _radiobutton.Text = base.Text;
+            _button.Text = base.Text;
         }
 
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            
+
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ResumeLayout(false);
 
         }
+        #endregion
     }
 }

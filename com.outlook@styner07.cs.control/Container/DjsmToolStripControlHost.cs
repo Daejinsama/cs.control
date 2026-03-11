@@ -1,19 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace com.outlook_styner07.cs.control.Container
+﻿namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmToolStripControlHost : ToolStripControlHost
     {
-        public DjsmToolStripControlHost(System.Windows.Forms.Control c) : base(c)
-        {
-        }
+        #region Constructors
+        public DjsmToolStripControlHost(Control c) : base(c) { }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
         public override Size GetPreferredSize(Size constrainingSize)
         {
+            if (Owner == null)
+            {
+                return DefaultSize;
+            }
+
             // Use the default size if the text box is on the overflow menu
             // or is on a vertical ToolStrip.
             if (IsOnOverflow || Owner.Orientation == Orientation.Vertical)
@@ -29,8 +38,7 @@ namespace com.outlook_styner07.cs.control.Container
             // Subtract the width of the overflow button if it is displayed.
             if (Owner.OverflowButton.Visible)
             {
-                width = width - Owner.OverflowButton.Width -
-                    Owner.OverflowButton.Margin.Horizontal;
+                width = width - Owner.OverflowButton.Width - Owner.OverflowButton.Margin.Horizontal;
             }
 
             // Declare a variable to maintain a count of ToolStripSpringTextBox
@@ -40,7 +48,10 @@ namespace com.outlook_styner07.cs.control.Container
             foreach (ToolStripItem item in Owner.Items)
             {
                 // Ignore items on the overflow menu.
-                if (item.IsOnOverflow) continue;
+                if (item.IsOnOverflow)
+                {
+                    continue;
+                }
 
                 if (item is DjsmToolStripControlHost)
                 {
@@ -59,11 +70,17 @@ namespace com.outlook_styner07.cs.control.Container
 
             // If there are multiple ToolStripSpringTextBox items in the owning
             // ToolStrip, divide the total available width between them.
-            if (springBoxCount > 1) width /= springBoxCount;
+            if (springBoxCount > 1)
+            {
+                width /= springBoxCount;
+            }
 
             // If the available width is less than the default width, use the
             // default width, forcing one or more items onto the overflow menu.
-            if (width < DefaultSize.Width) width = DefaultSize.Width;
+            if (width < DefaultSize.Width)
+            {
+                width = DefaultSize.Width;
+            }
 
             // Retrieve the preferred size from the base class, but change the
             // width to the calculated width.
@@ -71,5 +88,6 @@ namespace com.outlook_styner07.cs.control.Container
             size.Width = width;
             return size;
         }
+        #endregion
     }
 }

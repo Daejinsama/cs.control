@@ -4,16 +4,7 @@ namespace com.outlook_styner07.cs.control.Data
 {
     public class DjsmDataGridView : DataGridView
     {
-        public readonly Color SELECTION_BACK_COLOR = Color.FromArgb(0xA7, 0xA9, 0xAC);
-
-        public static readonly Color COLOR_DIM_CELL = Color.LightGray;
-        public static readonly Color HEADER_BACK_COLOR = SystemColors.Control;
-
-        public static readonly Font DEFAULT_HEADER_FONT = new Font("Arial", 8f, FontStyle.Bold);
-        public static readonly Font DEFAULT_CELL_FONT = new Font("Arial", 8f, FontStyle.Regular);
-
-        public bool RemoveRowHeaderArrow { get; set; } = false;
-
+        #region Constructors
         public DjsmDataGridView()
         {
             SetStyle(ControlStyles.UserPaint, true);
@@ -62,13 +53,45 @@ namespace com.outlook_styner07.cs.control.Data
             MultiSelect = false;
             RowHeadersVisible = true;
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        private const string NO_DATA = "no data to display";
+
+        public readonly Color SELECTION_BACK_COLOR = Color.FromArgb(0xA7, 0xA9, 0xAC);
+
+        public static readonly Color COLOR_DIM_CELL = Color.LightGray;
+        public static readonly Color HEADER_BACK_COLOR = SystemColors.Control;
+
+        public static readonly Font DEFAULT_HEADER_FONT = new Font("Arial", 8f, FontStyle.Bold);
+        public static readonly Font DEFAULT_CELL_FONT = new Font("Arial", 8f, FontStyle.Regular);
+
+        private DataGridViewRow _dummyRow;
+
+        private bool _isAllChecked = false;
+
+        private List<ColMergeObject> _colMergeObjects;
+        #endregion
+
+        #region Properties
+        public bool RemoveRowHeaderArrow { get; set; } = false;
+
+        public bool IsAllChecked { get => _isAllChecked; set => _isAllChecked = value; }
+
+        public Color MergeCellTextColor { get; set; } = Color.Black;
+        #endregion
+
+        #region Methods
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
             {
                 e.Handled = true;
             }
+
             base.OnKeyDown(e);
         }
 
@@ -89,22 +112,21 @@ namespace com.outlook_styner07.cs.control.Data
             }
         }
 
-        private DataGridViewRow dummyRow;
         public DataGridViewRow GetDummyRow()
         {
-            if (dummyRow == null)
+            if (_dummyRow == null)
             {
-                dummyRow = new DataGridViewRow();
+                _dummyRow = new DataGridViewRow();
                 DataGridViewCell[] cells = new DataGridViewCell[Columns.Count];
                 for (int len = Columns.Count, i = 0; i < len; i++)
                 {
                     cells[i] = Columns[i].CellTemplate;
                 }
 
-                dummyRow.Cells.AddRange(cells);
+                _dummyRow.Cells.AddRange(cells);
             }
 
-            return dummyRow.Clone() as DataGridViewRow;
+            return (DataGridViewRow)_dummyRow.Clone();
         }
 
         public DataGridViewNumericUpDownColumn AddNumericUpDownColumn(string colName, DataGridViewContentAlignment align)
@@ -121,10 +143,6 @@ namespace com.outlook_styner07.cs.control.Data
             Columns.Add(col);
             return col;
         }
-
-        public bool IsAllChecked { get => isAllChecked; set => isAllChecked = value; }
-        private bool isAllChecked = false;
-
         public DataGridViewCheckBoxColumn AddCheckBoxColumn(string colName, bool enabledAllCheck = true)
         {
             DataGridViewCheckBoxColumn ret = AddCheckBoxColumn(enabledAllCheck);
@@ -147,7 +165,7 @@ namespace com.outlook_styner07.cs.control.Data
 
             if (enabledAllCheck)
             {
-                CellPainting += (object sender, DataGridViewCellPaintingEventArgs e) =>
+                CellPainting += (sender, e) =>
                 {
                     if (e.RowIndex == -1 && col.Index == e.ColumnIndex)
                     {
@@ -164,7 +182,7 @@ namespace com.outlook_styner07.cs.control.Data
                         pt.Y += offsetY;
 
                         CheckBoxRenderer.DrawCheckBox(e.Graphics, pt,
-                            isAllChecked
+                            _isAllChecked
                             ? System.Windows.Forms.VisualStyles.CheckBoxState.CheckedNormal
                             : System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
 
@@ -172,11 +190,11 @@ namespace com.outlook_styner07.cs.control.Data
                     }
                 };
 
-                ColumnHeaderMouseClick += (object sender, DataGridViewCellMouseEventArgs e) =>
+                ColumnHeaderMouseClick += (sender, e) =>
                 {
                     if (e.ColumnIndex == col.Index)
                     {
-                        isAllChecked = !isAllChecked;
+                        _isAllChecked = !_isAllChecked;
                         InvalidateColumn(col.Index);
 
                         /// begin/end edit 호출로 화면상 비갱신 셀들도 업데이트 함
@@ -186,7 +204,7 @@ namespace com.outlook_styner07.cs.control.Data
 
                             for (int len = Rows.Count, i = 0; i < len; i++)
                             {
-                                Rows[i].Cells[col.Index].Value = isAllChecked;
+                                Rows[i].Cells[col.Index].Value = _isAllChecked;
                             }
 
                             EndEdit();
@@ -194,7 +212,6 @@ namespace com.outlook_styner07.cs.control.Data
                     }
                 };
             }
-
 
             return col;
         }
@@ -224,7 +241,6 @@ namespace com.outlook_styner07.cs.control.Data
             {
                 HeaderText = colName,
                 Width = 80,
-
             };
             col.DefaultCellStyle.BackColor = BackgroundColor;
             col.DefaultCellStyle.Font = DEFAULT_CELL_FONT;
@@ -240,7 +256,6 @@ namespace com.outlook_styner07.cs.control.Data
             {
                 HeaderText = colName,
             };
-
             col.DefaultCellStyle.BackColor = BackgroundColor;
             col.DefaultCellStyle.Font = DEFAULT_CELL_FONT;
             col.HeaderCell.Style.Font = DEFAULT_HEADER_FONT;
@@ -315,18 +330,15 @@ namespace com.outlook_styner07.cs.control.Data
 
             if (Rows.Count == 0)
             {
-                const string NO_DATA = "no data to display";
-
                 Graphics g = e.Graphics;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
                 SizeF textSize = g.MeasureString(NO_DATA, Font);
-
-                g.DrawString(NO_DATA, Font, new SolidBrush(ForeColor), new Point(
-                    ClientRectangle.X + (int)(ClientRectangle.Width - textSize.Width) / 2,
-                    ClientRectangle.Y + (int)(ClientRectangle.Height - textSize.Height) / 2
-                    ));
+                using (var b = new SolidBrush(ForeColor))
+                {
+                    g.DrawString(NO_DATA, Font, b, new Point(ClientRectangle.X + (int)(ClientRectangle.Width - textSize.Width) / 2, ClientRectangle.Y + (int)(ClientRectangle.Height - textSize.Height) / 2));
+                }
             }
         }
 
@@ -342,8 +354,6 @@ namespace com.outlook_styner07.cs.control.Data
             CurrentCell = this[e.ColumnIndex, e.RowIndex];
         }
 
-        public Color MergeCellTextColor { get; set; } = Color.Black;
-
         protected override void OnScroll(ScrollEventArgs e)
         {
             base.OnScroll(e);
@@ -352,12 +362,12 @@ namespace com.outlook_styner07.cs.control.Data
 
         protected override void OnCellPainting(DataGridViewCellPaintingEventArgs e)
         {
-            if (colMergeObjects != null && colMergeObjects.Count > 0 && e.RowIndex == -1)
+            if (_colMergeObjects != null && _colMergeObjects.Count > 0 && e.RowIndex == -1)
             {
-                for (int len = colMergeObjects.Count, i = 0; i < len; i++)
+                for (int len = _colMergeObjects.Count, i = 0; i < len; i++)
                 {
-                    int startColIndex = colMergeObjects[i].StartColIndex;
-                    int endColIndex = colMergeObjects[i].EndColIndex;
+                    int startColIndex = _colMergeObjects[i].StartColIndex;
+                    int endColIndex = _colMergeObjects[i].EndColIndex;
 
                     int mergedCellWidth = 0;
 
@@ -393,12 +403,14 @@ namespace com.outlook_styner07.cs.control.Data
 
                         g.SetClip(rect);
 
-                        g.FillRectangle(new SolidBrush(colMergeObjects[i].BackColor), rect);
+                        using (var b = new SolidBrush(_colMergeObjects[i].BackColor))
+                        {
+                            g.FillRectangle(b, rect);
+                        }
 
-                        string title = colMergeObjects[i].ColTitle;
+                        string title = _colMergeObjects[i].ColTitle;
 
                         SizeF stringSize = g.MeasureString(title, DEFAULT_HEADER_FONT);
-
 
                         int textRenderOffsetX = 0;
 
@@ -411,7 +423,10 @@ namespace com.outlook_styner07.cs.control.Data
                                 rect.X + (rect.Width - textRenderOffsetX - stringSize.Width) / 2,
                                 rect.Y + (rect.Height - stringSize.Height) / 2);
 
-                        g.DrawString(title, DEFAULT_HEADER_FONT, new SolidBrush(MergeCellTextColor), textRenderPosition);
+                        using (var b = new SolidBrush(MergeCellTextColor))
+                        {
+                            g.DrawString(title, DEFAULT_HEADER_FONT, b, textRenderPosition);
+                        }
 
                         g.ResetClip();
 
@@ -419,6 +434,7 @@ namespace com.outlook_styner07.cs.control.Data
                     }
                 }
             }
+
             base.OnCellPainting(e);
         }
 
@@ -440,43 +456,52 @@ namespace com.outlook_styner07.cs.control.Data
             base.OnRowPrePaint(e);
         }
 
-        private void InitializeComponent()
+        public void CellMerge(int startColIndex, int endColIndex, string colTitle, Color backColor)
         {
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            this.SuspendLayout();
-            
-            this.AllowUserToAddRows = false;
-            this.AllowUserToDeleteRows = false;
-            this.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.RowTemplate.Height = 23;
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
-            this.ResumeLayout(false);
+            if (_colMergeObjects == null)
+            {
+                _colMergeObjects = new List<ColMergeObject>();
+            }
 
+            _colMergeObjects.Add(new ColMergeObject
+            {
+                StartColIndex = startColIndex,
+                EndColIndex = endColIndex,
+                ColTitle = colTitle,
+                BackColor = backColor,
+            });
         }
+        #endregion
 
-        public class ItemComparer : System.Collections.IComparer
+        private class ItemComparer : System.Collections.IComparer
         {
-            private int[] indexes;
-
-            private SortOrder[] orders;
-
+            #region Constructors
             public ItemComparer(int[] indexes)
             {
-                this.indexes = indexes;
+                _indexes = indexes;
             }
 
             public ItemComparer(int[] indexes, SortOrder[] orders) : this(indexes)
             {
-                this.orders = orders;
+                _orders = orders;
             }
 
             public ItemComparer(int[] indexes, SortOrder order) : this(indexes, new SortOrder[] { order }) { }
+            #endregion
 
+            #region Types
+            #endregion
+
+            #region Fields
+            private int[] _indexes;
+
+            private SortOrder[] _orders;
+            #endregion
+
+            #region Properties
+            #endregion
+
+            #region Methods
             public int Compare(object x, object y)
             {
                 DataGridViewRow row1 = (DataGridViewRow)x;
@@ -486,19 +511,19 @@ namespace com.outlook_styner07.cs.control.Data
                 int cellIndex;
                 int ordering = 1;
 
-                for (int len = indexes.Length, i = 0; i < len; i++)
+                for (int len = _indexes.Length, i = 0; i < len; i++)
                 {
-                    cellIndex = indexes[i];
+                    cellIndex = _indexes[i];
 
-                    if (orders == null)
+                    if (_orders == null)
                     {
                         ordering = 1;
                     }
                     else
                     {
-                        if (i < orders.Length)
+                        if (i < _orders.Length)
                         {
-                            ordering = orders[i] == SortOrder.Descending ? -1 : 1;
+                            ordering = _orders[i] == SortOrder.Descending ? -1 : 1;
                         }
                     }
 
@@ -527,31 +552,14 @@ namespace com.outlook_styner07.cs.control.Data
 
                 return compareResult;
             }
-        }
-
-        private List<ColMergeObject> colMergeObjects;
-
-        public void CellMerge(int startColIndex, int endColIndex, string colTitle, Color backColor)
-        {
-            if (colMergeObjects == null)
-            {
-                colMergeObjects = new List<ColMergeObject>();
-            }
-
-            colMergeObjects.Add(new ColMergeObject
-            {
-                StartColIndex = startColIndex,
-                EndColIndex = endColIndex,
-                ColTitle = colTitle,
-                BackColor = backColor,
-            });
+            #endregion
         }
 
         private class ColMergeObject
         {
             public int StartColIndex { get; set; }
             public int EndColIndex { get; set; }
-            public string ColTitle { get; set; }
+            public string ColTitle { get; set; } = string.Empty;
             public Color BackColor { get; set; }
         }
     }

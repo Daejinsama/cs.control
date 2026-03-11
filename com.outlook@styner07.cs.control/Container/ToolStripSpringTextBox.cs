@@ -3,13 +3,30 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class ToolStripSpringTextBox : ToolStripTextBox
     {
+        #region Constructors
         public ToolStripSpringTextBox()
         {
             BorderStyle = BorderStyle.None;
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
         public override Size GetPreferredSize(Size constrainingSize)
         {
+            if (Owner == null)
+            {
+                return DefaultSize;
+            }
+
             // Use the default size if the text box is on the overflow menu
             // or is on a vertical ToolStrip.
             if (IsOnOverflow || Owner.Orientation == Orientation.Vertical)
@@ -36,7 +53,10 @@ namespace com.outlook_styner07.cs.control.Container
             foreach (ToolStripItem item in Owner.Items)
             {
                 // Ignore items on the overflow menu.
-                if (item.IsOnOverflow) continue;
+                if (item.IsOnOverflow)
+                {
+                    continue;
+                }
 
                 if (item is ToolStripSpringTextBox)
                 {
@@ -55,11 +75,17 @@ namespace com.outlook_styner07.cs.control.Container
 
             // If there are multiple ToolStripSpringTextBox items in the owning
             // ToolStrip, divide the total available width between them.
-            if (springBoxCount > 1) width /= springBoxCount;
+            if (springBoxCount > 1)
+            {
+                width /= springBoxCount;
+            }
 
             // If the available width is less than the default width, use the
             // default width, forcing one or more items onto the overflow menu.
-            if (width < DefaultSize.Width) width = DefaultSize.Width;
+            if (width < DefaultSize.Width)
+            {
+                width = DefaultSize.Width;
+            }
 
             // Retrieve the preferred size from the base class, but change the
             // width to the calculated width.
@@ -67,5 +93,6 @@ namespace com.outlook_styner07.cs.control.Container
             size.Width = width;
             return size;
         }
+        #endregion
     }
 }

@@ -1,122 +1,110 @@
-using System;
-using System.ComponentModel;
+Ôªøusing System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
-using System.Windows.Forms;
 
-namespace com.outlook_styner07.cs.control.Data
+namespace com.outlook_styner07.cs.control.Data.CellTemplates
 {
     /// <summary>
     /// Defines a NumericUpDown cell type for the System.Windows.Forms.DataGridView control
     /// </summary>
     public class DataGridViewNumericUpDownCell : DataGridViewTextBoxCell
     {
-        // Used in KeyEntersEditMode function
-        [System.Runtime.InteropServices.DllImport("USER32.DLL", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
-        private static extern short VkKeyScan(char key);
-
-        // Used in TranslateAlignment function
-        private static readonly DataGridViewContentAlignment anyRight = DataGridViewContentAlignment.TopRight |
-                                                                        DataGridViewContentAlignment.MiddleRight |
-                                                                        DataGridViewContentAlignment.BottomRight;
-        private static readonly DataGridViewContentAlignment anyCenter = DataGridViewContentAlignment.TopCenter |
-                                                                         DataGridViewContentAlignment.MiddleCenter |
-                                                                         DataGridViewContentAlignment.BottomCenter;
-
-        // Default dimensions of the static rendering bitmap used for the painting of the non-edited cells
-        private const int DATAGRIDVIEWNUMERICUPDOWNCELL_defaultRenderingBitmapWidth = 100;
-        private const int DATAGRIDVIEWNUMERICUPDOWNCELL_defaultRenderingBitmapHeight = 22;
-
-        // Default value of the DecimalPlaces property
-        internal const int DATAGRIDVIEWNUMERICUPDOWNCELL_defaultDecimalPlaces = 0;
-        // Default value of the Increment property
-        internal const Decimal DATAGRIDVIEWNUMERICUPDOWNCELL_defaultIncrement = Decimal.One;
-        // Default value of the Maximum property
-        internal const Decimal DATAGRIDVIEWNUMERICUPDOWNCELL_defaultMaximum = (Decimal)100.0;
-        // Default value of the Minimum property
-        internal const Decimal DATAGRIDVIEWNUMERICUPDOWNCELL_defaultMinimum = Decimal.Zero;
-        // Default value of the ThousandsSeparator property
-        internal const bool DATAGRIDVIEWNUMERICUPDOWNCELL_defaultThousandsSeparator = false;
-
-        // Type of this cell's editing control
-        private readonly static Type defaultEditType = typeof(DataGridViewNumericUpDownEditingControl);
-        // Type of this cell's value. The formatted value type is string, the same as the base class DataGridViewTextBoxCell
-        private readonly static Type defaultValueType = typeof(System.Decimal);
-
-        // The bitmap used to paint the non-edited cells via a call to NumericUpDown.DrawToBitmap
-        [ThreadStatic]
-        private static Bitmap renderingBitmap;
-
-        // The NumericUpDown control used to paint the non-edited cells via a call to NumericUpDown.DrawToBitmap
-        [ThreadStatic]
-        private static NumericUpDown paintingNumericUpDown;
-
-        private int decimalPlaces;       // Caches the value of the DecimalPlaces property
-        private Decimal increment;       // Caches the value of the Increment property
-        private Decimal minimum;         // Caches the value of the Minimum property
-        private Decimal maximum;         // Caches the value of the Maximum property
-        private bool thousandsSeparator; // Caches the value of the ThousandsSeparator property
-
+        #region Constructors
         /// <summary>
         /// Constructor for the DataGridViewNumericUpDownCell cell type
         /// </summary>
         public DataGridViewNumericUpDownCell()
         {
             // Create a thread specific bitmap used for the painting of the non-edited cells
-            if (renderingBitmap == null)
+            if (_renderingBitmap == null)
             {
-                renderingBitmap = new Bitmap(DATAGRIDVIEWNUMERICUPDOWNCELL_defaultRenderingBitmapWidth, DATAGRIDVIEWNUMERICUPDOWNCELL_defaultRenderingBitmapHeight);
+                _renderingBitmap = new Bitmap(DEFAULT_RENDERING_BITMAP_WIDTH, DEFAULT_RENDERING_BITMAP_HEIGHT);
             }
 
             // Create a thread specific NumericUpDown control used for the painting of the non-edited cells
-            if (paintingNumericUpDown == null)
+            if (_paintingNumericUpDown == null)
             {
-                paintingNumericUpDown = new NumericUpDown
+                _paintingNumericUpDown = new NumericUpDown
                 {
                     BorderStyle = BorderStyle.None,
-                    Maximum = Decimal.MaxValue / 10,
-                    Minimum = Decimal.MinValue / 10,
+                    Maximum = decimal.MaxValue / 10,
+                    Minimum = decimal.MinValue / 10,
                 };
-                // Some properties only need to be set once for the lifetime of the control:
-
             }
 
             // Set the default values of the properties:
-            this.decimalPlaces = DATAGRIDVIEWNUMERICUPDOWNCELL_defaultDecimalPlaces;
-            this.increment = DATAGRIDVIEWNUMERICUPDOWNCELL_defaultIncrement;
-            this.minimum = DATAGRIDVIEWNUMERICUPDOWNCELL_defaultMinimum;
-            this.maximum = DATAGRIDVIEWNUMERICUPDOWNCELL_defaultMaximum;
-            this.thousandsSeparator = DATAGRIDVIEWNUMERICUPDOWNCELL_defaultThousandsSeparator;
+            _decimalPlaces = DEFAULT_DECIMAL_PLACES;
+            _increment = DEFAULT_INCREMENT;
+            _minimum = DEFAULT_MINIMUM;
+            _maximum = DEFAULT_MAXIMUM;
+            _thousandsSeparator = DEFAULT_THOUSANDS_SEPARATOR;
         }
-        protected override void Dispose(bool disposing)
-        {
-            disposing = true;
-            base.Dispose(disposing);
-        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private static readonly DataGridViewContentAlignment anyRight = DataGridViewContentAlignment.TopRight | DataGridViewContentAlignment.MiddleRight | DataGridViewContentAlignment.BottomRight;
+        private static readonly DataGridViewContentAlignment anyCenter = DataGridViewContentAlignment.TopCenter | DataGridViewContentAlignment.MiddleCenter | DataGridViewContentAlignment.BottomCenter;
+
+        // Default dimensions of the static rendering bitmap used for the painting of the non-edited cells
+        private const int DEFAULT_RENDERING_BITMAP_WIDTH = 100;
+        private const int DEFAULT_RENDERING_BITMAP_HEIGHT = 22;
+
+        // Default value of the DecimalPlaces property
+        internal const int DEFAULT_DECIMAL_PLACES = 0;
+        // Default value of the Increment property
+        internal const decimal DEFAULT_INCREMENT = decimal.One;
+        // Default value of the Maximum property
+        internal const decimal DEFAULT_MAXIMUM = (decimal)100.0;
+        // Default value of the Minimum property
+        internal const decimal DEFAULT_MINIMUM = decimal.Zero;
+        // Default value of the ThousandsSeparator property
+        internal const bool DEFAULT_THOUSANDS_SEPARATOR = false;
+
+        // Type of this cell's editing control
+        private readonly static Type defaultEditType = typeof(DataGridViewNumericUpDownEditingControl);
+        // Type of this cell's value. The formatted value type is string, the same as the base class DataGridViewTextBoxCell
+        private readonly static Type defaultValueType = typeof(decimal);
+
+        // The bitmap used to paint the non-edited cells via a call to NumericUpDown.DrawToBitmap
+        [ThreadStatic]
+        private static Bitmap _renderingBitmap;
+
+        // The NumericUpDown control used to paint the non-edited cells via a call to NumericUpDown.DrawToBitmap
+        [ThreadStatic]
+        private static NumericUpDown _paintingNumericUpDown;
+
+        private int _decimalPlaces;       // Caches the value of the DecimalPlaces property
+        private decimal _increment;       // Caches the value of the Increment property
+        private decimal _minimum;         // Caches the value of the Minimum property
+        private decimal _maximum;         // Caches the value of the Maximum property
+        private bool _thousandsSeparator; // Caches the value of the ThousandsSeparator property
+        #endregion
+
+        #region Properties
         /// <summary>
         /// The DecimalPlaces property replicates the one from the NumericUpDown control
         /// </summary>
-        [
-            DefaultValue(DATAGRIDVIEWNUMERICUPDOWNCELL_defaultDecimalPlaces)
-        ]
+        [DefaultValue(DEFAULT_DECIMAL_PLACES)]
         public int DecimalPlaces
         {
-
             get
             {
-                return this.decimalPlaces;
+                return _decimalPlaces;
             }
-
             set
             {
                 if (value < 0 || value > 99)
                 {
                     throw new ArgumentOutOfRangeException("The DecimalPlaces property cannot be smaller than 0 or larger than 99.");
                 }
-                if (this.decimalPlaces != value)
+
+                if (_decimalPlaces != value)
                 {
-                    SetDecimalPlaces(this.RowIndex, value);
+                    _decimalPlaces = value;
+                    SetDecimalPlaces(RowIndex, value);
                     OnCommonChange();  // Assure that the cell or column gets repainted and autosized if needed
                 }
             }
@@ -129,7 +117,7 @@ namespace com.outlook_styner07.cs.control.Data
         {
             get
             {
-                return this.DataGridView.EditingControl as DataGridViewNumericUpDownEditingControl;
+                return (DataGridViewNumericUpDownEditingControl)DataGridView.EditingControl;
             }
         }
 
@@ -147,41 +135,43 @@ namespace com.outlook_styner07.cs.control.Data
         /// <summary>
         /// The Increment property replicates the one from the NumericUpDown control
         /// </summary>
-        public Decimal Increment
+        public decimal Increment
         {
-
             get
             {
-                return this.increment;
+                return _increment;
             }
-
             set
             {
-                if (value < (Decimal)0.0)
+                if (value < (decimal)0.0)
                 {
                     throw new ArgumentOutOfRangeException("The Increment property cannot be smaller than 0.");
                 }
-                SetIncrement(this.RowIndex, value);
-                // No call to OnCommonChange is needed since the increment value does not affect the rendering of the cell.
+
+                if (_increment != value)
+                {
+                    _increment = value;
+                    SetIncrement(RowIndex, value);
+                    // No call to OnCommonChange is needed since the increment value does not affect the rendering of the cell.
+                }
             }
         }
 
         /// <summary>
         /// The Maximum property replicates the one from the NumericUpDown control
         /// </summary>
-        public Decimal Maximum
+        public decimal Maximum
         {
-
             get
             {
-                return this.maximum;
+                return _maximum;
             }
-
             set
             {
-                if (this.maximum != value)
+                if (_maximum != value)
                 {
-                    SetMaximum(this.RowIndex, value);
+                    _maximum = value;
+                    SetMaximum(RowIndex, value);
                     OnCommonChange();
                 }
             }
@@ -190,19 +180,18 @@ namespace com.outlook_styner07.cs.control.Data
         /// <summary>
         /// The Minimum property replicates the one from the NumericUpDown control
         /// </summary>
-        public Decimal Minimum
+        public decimal Minimum
         {
-
             get
             {
-                return this.minimum;
+                return _minimum;
             }
-
             set
             {
-                if (this.minimum != value)
+                if (_minimum != value)
                 {
-                    SetMinimum(this.RowIndex, value);
+                    _minimum = value;
+                    SetMinimum(RowIndex, value);
                     OnCommonChange();
                 }
             }
@@ -211,22 +200,19 @@ namespace com.outlook_styner07.cs.control.Data
         /// <summary>
         /// The ThousandsSeparator property replicates the one from the NumericUpDown control
         /// </summary>
-        [
-            DefaultValue(DATAGRIDVIEWNUMERICUPDOWNCELL_defaultThousandsSeparator)
-        ]
+        [DefaultValue(DEFAULT_THOUSANDS_SEPARATOR)]
         public bool ThousandsSeparator
         {
-
             get
             {
-                return this.thousandsSeparator;
+                return _thousandsSeparator;
             }
-
             set
             {
-                if (this.thousandsSeparator != value)
+                if (_thousandsSeparator != value)
                 {
-                    SetThousandsSeparator(this.RowIndex, value);
+                    _thousandsSeparator = value;
+                    SetThousandsSeparator(RowIndex, value);
                     OnCommonChange();
                 }
             }
@@ -239,13 +225,25 @@ namespace com.outlook_styner07.cs.control.Data
         {
             get
             {
-                Type valueType = base.ValueType;
-                if (valueType != null)
+                if (base.ValueType != null)
                 {
-                    return valueType;
+                    return base.ValueType;
                 }
+
                 return defaultValueType;
             }
+        }
+        #endregion
+
+        #region Methods
+        // Used in KeyEntersEditMode function
+        [System.Runtime.InteropServices.DllImport("USER32.DLL", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+        private static extern short VkKeyScan(char key);
+
+        protected override void Dispose(bool disposing)
+        {
+            disposing = true;
+            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -253,50 +251,51 @@ namespace com.outlook_styner07.cs.control.Data
         /// </summary>
         public override object Clone()
         {
-            DataGridViewNumericUpDownCell dataGridViewCell = base.Clone() as DataGridViewNumericUpDownCell;
+            var dataGridViewCell = base.Clone() as DataGridViewNumericUpDownCell;
             if (dataGridViewCell != null)
             {
-                dataGridViewCell.DecimalPlaces = this.DecimalPlaces;
-                dataGridViewCell.Increment = this.Increment;
-                dataGridViewCell.Maximum = this.Maximum;
-                dataGridViewCell.Minimum = this.Minimum;
-                dataGridViewCell.ThousandsSeparator = this.ThousandsSeparator;
+                dataGridViewCell.DecimalPlaces = DecimalPlaces;
+                dataGridViewCell.Increment = Increment;
+                dataGridViewCell.Maximum = Maximum;
+                dataGridViewCell.Minimum = Minimum;
+                dataGridViewCell.ThousandsSeparator = ThousandsSeparator;
             }
+
             return dataGridViewCell;
         }
 
         /// <summary>
         /// Returns the provided value constrained to be within the min and max. 
         /// </summary>
-        private Decimal Constrain(Decimal value)
+        private decimal Constrain(decimal value)
         {
-            Debug.Assert(this.minimum <= this.maximum);
-            if (value < this.minimum)
+            Debug.Assert(_minimum <= _maximum);
+            if (value < _minimum)
             {
-                value = this.minimum;
+                value = _minimum;
             }
-            if (value > this.maximum)
+
+            if (value > _maximum)
             {
-                value = this.maximum;
+                value = _maximum;
             }
+
             return value;
         }
 
         /// <summary>
         /// DetachEditingControl gets called by the DataGridView control when the editing session is ending
         /// </summary>
-        [
-            EditorBrowsable(EditorBrowsableState.Advanced)
-        ]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override void DetachEditingControl()
         {
-            DataGridView dataGridView = this.DataGridView;
+            var dataGridView = DataGridView;
             if (dataGridView == null || dataGridView.EditingControl == null)
             {
                 throw new InvalidOperationException("Cell is detached or its grid has no editing control.");
             }
 
-            NumericUpDown numericUpDown = (NumericUpDown)dataGridView.EditingControl;
+            var numericUpDown = (NumericUpDown)dataGridView.EditingControl;
             if (numericUpDown != null)
             {
                 // Editing controls get recycled. Indeed, when a DataGridViewNumericUpDownCell cell gets edited
@@ -304,10 +303,11 @@ namespace com.outlook_styner07.cs.control.Data
                 // performance reasons (to avoid an unnecessary control destruction and creation). 
                 // Here the undo buffer of the TextBox inside the NumericUpDown control gets cleared to avoid
                 // interferences between the editing sessions.
-                TextBox textBox = (TextBox)numericUpDown.Controls[1];
+                var textBox = (TextBox)numericUpDown.Controls[1];
                 if (textBox != null)
                 {
-                    textBox.Text = numericUpDown.Value.ToString();  /// ≈∞∫∏µÂ ¿‘∑¬∞™ π›øµ
+                    textBox.Text = numericUpDown.Value.ToString();  /// ÌÇ§Î≥¥Îìú ÏûÖÎ†•Í∞í Î∞òÏòÅ
+
                     textBox.ClearUndo();
                 }
             }
@@ -325,7 +325,7 @@ namespace com.outlook_styner07.cs.control.Data
             editingControlBounds.Width = Math.Max(0, editingControlBounds.Width - 2);
 
             // Adjust the vertical location of the editing control:
-            int preferredHeight = cellStyle.Font.Height + 3;
+            var preferredHeight = cellStyle.Font.Height + 3;
             if (preferredHeight < editingControlBounds.Height)
             {
                 switch (cellStyle.Alignment)
@@ -352,17 +352,18 @@ namespace com.outlook_styner07.cs.control.Data
         /// </summary>
         protected override Rectangle GetErrorIconBounds(Graphics graphics, DataGridViewCellStyle cellStyle, int rowIndex)
         {
-            const int ButtonsWidth = 16;
+            int buttonsWidth = 16;
 
-            Rectangle errorIconBounds = base.GetErrorIconBounds(graphics, cellStyle, rowIndex);
-            if (this.DataGridView.RightToLeft == RightToLeft.Yes)
+            var errorIconBounds = base.GetErrorIconBounds(graphics, cellStyle, rowIndex);
+            if (DataGridView.RightToLeft == RightToLeft.Yes)
             {
-                errorIconBounds.X = errorIconBounds.Left + ButtonsWidth;
+                errorIconBounds.X = errorIconBounds.Left + buttonsWidth;
             }
             else
             {
-                errorIconBounds.X = errorIconBounds.Left - ButtonsWidth;
+                errorIconBounds.X = errorIconBounds.Left - buttonsWidth;
             }
+
             return errorIconBounds;
         }
 
@@ -370,28 +371,24 @@ namespace com.outlook_styner07.cs.control.Data
         /// Customized implementation of the GetFormattedValue function in order to include the decimal and thousand separator
         /// characters in the formatted representation of the cell value.
         /// </summary>
-        protected override object GetFormattedValue(object value,
-                                                    int rowIndex,
-                                                    ref DataGridViewCellStyle cellStyle,
-                                                    TypeConverter valueTypeConverter,
-                                                    TypeConverter formattedValueTypeConverter,
-                                                    DataGridViewDataErrorContexts context)
+        protected override object GetFormattedValue(object value, int rowIndex, ref DataGridViewCellStyle cellStyle, TypeConverter valueTypeConverter, TypeConverter formattedValueTypeConverter, DataGridViewDataErrorContexts context)
         {
             // By default, the base implementation converts the Decimal 1234.5 into the string "1234.5"
-            object formattedValue = base.GetFormattedValue(value, rowIndex, ref cellStyle, valueTypeConverter, formattedValueTypeConverter, context);
-            string formattedNumber = formattedValue as string;
+            var formattedValue = base.GetFormattedValue(value, rowIndex, ref cellStyle, valueTypeConverter, formattedValueTypeConverter, context);
+            var formattedNumber = formattedValue as string;
             if (!string.IsNullOrEmpty(formattedNumber) && value != null)
             {
-                Decimal unformattedDecimal = System.Convert.ToDecimal(value);
-                Decimal formattedDecimal = System.Convert.ToDecimal(formattedNumber);
+                var unformattedDecimal = Convert.ToDecimal(value);
+                var formattedDecimal = Convert.ToDecimal(formattedNumber);
                 if (unformattedDecimal == formattedDecimal)
                 {
                     // The base implementation of GetFormattedValue (which triggers the CellFormatting event) did nothing else than 
                     // the typical 1234.5 to "1234.5" conversion. But depending on the values of ThousandsSeparator and DecimalPlaces,
                     // this may not be the actual string displayed. The real formatted value may be "1,234.500"
-                    return formattedDecimal.ToString((this.ThousandsSeparator ? "N" : "F") + this.DecimalPlaces.ToString());
+                    return formattedDecimal.ToString((ThousandsSeparator ? "N" : "F") + DecimalPlaces.ToString());
                 }
             }
+
             return formattedValue;
         }
 
@@ -401,18 +398,19 @@ namespace com.outlook_styner07.cs.control.Data
         /// </summary>
         protected override Size GetPreferredSize(Graphics graphics, DataGridViewCellStyle cellStyle, int rowIndex, Size constraintSize)
         {
-            if (this.DataGridView == null)
+            if (DataGridView == null)
             {
                 return new Size(-1, -1);
             }
 
-            Size preferredSize = base.GetPreferredSize(graphics, cellStyle, rowIndex, constraintSize);
+            var preferredSize = base.GetPreferredSize(graphics, cellStyle, rowIndex, constraintSize);
             if (constraintSize.Width == 0)
             {
-                const int ButtonsWidth = 16; // Account for the width of the up/down buttons.
-                const int ButtonMargin = 8;  // Account for some blank pixels between the text and buttons.
-                preferredSize.Width += ButtonsWidth + ButtonMargin;
+                int buttonsWidth = 16; // Account for the width of the up/down buttons.
+                int buttonMargin = 8;  // Account for some blank pixels between the text and buttons.
+                preferredSize.Width += buttonsWidth + buttonMargin;
             }
+
             return preferredSize;
         }
 
@@ -424,16 +422,16 @@ namespace com.outlook_styner07.cs.control.Data
         public override void InitializeEditingControl(int rowIndex, object initialFormattedValue, DataGridViewCellStyle dataGridViewCellStyle)
         {
             base.InitializeEditingControl(rowIndex, initialFormattedValue, dataGridViewCellStyle);
-            NumericUpDown numericUpDown = (NumericUpDown)this.DataGridView.EditingControl;
+            var numericUpDown = (NumericUpDown)DataGridView.EditingControl;
             if (numericUpDown != null)
             {
                 numericUpDown.BorderStyle = BorderStyle.None;
-                numericUpDown.DecimalPlaces = this.DecimalPlaces;
-                numericUpDown.Increment = this.Increment;
-                numericUpDown.Maximum = this.Maximum;
-                numericUpDown.Minimum = this.Minimum;
-                numericUpDown.ThousandsSeparator = this.ThousandsSeparator;
-                string initialFormattedValueStr = (string)initialFormattedValue;
+                numericUpDown.DecimalPlaces = DecimalPlaces;
+                numericUpDown.Increment = Increment;
+                numericUpDown.Maximum = Maximum;
+                numericUpDown.Minimum = Minimum;
+                numericUpDown.ThousandsSeparator = ThousandsSeparator;
+                var initialFormattedValueStr = (string)initialFormattedValue;
                 if (initialFormattedValueStr == null)
                 {
                     numericUpDown.Text = string.Empty;
@@ -452,22 +450,19 @@ namespace com.outlook_styner07.cs.control.Data
         /// </summary>
         public override bool KeyEntersEditMode(KeyEventArgs e)
         {
-            NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
-            Keys negativeSignKey = Keys.None;
-            string negativeSignStr = numberFormatInfo.NegativeSign;
+            var numberFormatInfo = CultureInfo.CurrentCulture.NumberFormat;
+            var negativeSignKey = Keys.None;
+            var negativeSignStr = numberFormatInfo.NegativeSign;
             if (!string.IsNullOrEmpty(negativeSignStr) && negativeSignStr.Length == 1)
             {
-                negativeSignKey = (Keys)(VkKeyScan(negativeSignStr[0]));
+                negativeSignKey = (Keys)VkKeyScan(negativeSignStr[0]);
             }
 
-            if ((char.IsDigit((char)e.KeyCode) ||
-                 (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9) ||
-                 negativeSignKey == e.KeyCode ||
-                 Keys.Subtract == e.KeyCode) &&
-                !e.Shift && !e.Alt && !e.Control)
+            if ((char.IsDigit((char)e.KeyCode) || e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9 || negativeSignKey == e.KeyCode || Keys.Subtract == e.KeyCode) && !e.Shift && !e.Alt && !e.Control)
             {
                 return true;
             }
+
             return false;
         }
 
@@ -478,12 +473,12 @@ namespace com.outlook_styner07.cs.control.Data
         /// </summary>
         private void OnCommonChange()
         {
-            if (this.DataGridView != null && !this.DataGridView.IsDisposed && !this.DataGridView.Disposing)
+            if (DataGridView != null && !DataGridView.IsDisposed && !DataGridView.Disposing)
             {
-                if (this.RowIndex == -1)
+                if (RowIndex == -1)
                 {
                     // Invalidate and autosize column
-                    this.DataGridView.InvalidateColumn(this.ColumnIndex);
+                    DataGridView.InvalidateColumn(ColumnIndex);
 
                     // TODO: Add code to autosize the cell's column, the rows, the column headers 
                     // and the row headers depending on their autosize settings.
@@ -495,7 +490,7 @@ namespace com.outlook_styner07.cs.control.Data
                     // that invalidates the cell so that it gets repainted and also triggers all
                     // the necessary autosizing: the cell's column and/or row, the column headers
                     // and the row headers are autosized depending on their autosize settings.
-                    this.DataGridView.UpdateCellValue(this.ColumnIndex, this.RowIndex);
+                    DataGridView.UpdateCellValue(ColumnIndex, RowIndex);
                 }
             }
         }
@@ -506,11 +501,12 @@ namespace com.outlook_styner07.cs.control.Data
         /// </summary>
         private bool OwnsEditingNumericUpDown(int rowIndex)
         {
-            if (rowIndex == -1 || this.DataGridView == null)
+            if (rowIndex == -1 || DataGridView == null)
             {
                 return false;
             }
-            DataGridViewNumericUpDownEditingControl numericUpDownEditingControl = (DataGridViewNumericUpDownEditingControl)this.DataGridView.EditingControl;
+
+            var numericUpDownEditingControl = (DataGridViewNumericUpDownEditingControl)DataGridView.EditingControl;
             return numericUpDownEditingControl != null && rowIndex == ((IDataGridViewEditingControl)numericUpDownEditingControl).EditingControlRowIndex;
         }
 
@@ -525,7 +521,7 @@ namespace com.outlook_styner07.cs.control.Data
                                       object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle,
                                       DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
         {
-            if (this.DataGridView == null)
+            if (DataGridView == null)
             {
                 return;
             }
@@ -534,14 +530,13 @@ namespace com.outlook_styner07.cs.control.Data
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, cellState, value, formattedValue, errorText, cellStyle, advancedBorderStyle,
                        paintParts & ~(DataGridViewPaintParts.ErrorIcon | DataGridViewPaintParts.ContentForeground));
 
-            Point ptCurrentCell = this.DataGridView.CurrentCellAddress;
-            bool cellCurrent = ptCurrentCell.X == this.ColumnIndex && ptCurrentCell.Y == rowIndex;
-            bool cellEdited = cellCurrent && this.DataGridView.EditingControl != null;
+            var ptCurrentCell = DataGridView.CurrentCellAddress;
+            var cellCurrent = ptCurrentCell.X == ColumnIndex && ptCurrentCell.Y == rowIndex;
+            var cellEdited = cellCurrent && DataGridView.EditingControl != null;
 
-            //jdj
-            const int ButtonsWidth = 16; // Account for the width of the up/down buttons.
-            //const int ButtonMargin = 8;  // Account for some blank pixels between the text and buttons.
-                                         //~jdj
+            int buttonsWidth = 16; // Account for the width of the up/down buttons.
+                                   //const int ButtonMargin = 8;  // Account for some blank pixels between the text and buttons.
+                                   //~jdj
 
             // If the cell is in editing mode, there is nothing else to paint
             if (!cellEdited)
@@ -550,15 +545,15 @@ namespace com.outlook_styner07.cs.control.Data
                 {
                     // Paint a NumericUpDown control
                     // Take the borders into account
-                    Rectangle borderWidths = BorderWidths(advancedBorderStyle);
-                    Rectangle valBounds = cellBounds;
+                    var borderWidths = BorderWidths(advancedBorderStyle);
+                    var valBounds = cellBounds;
                     valBounds.Offset(borderWidths.X, borderWidths.Y);
                     valBounds.Width -= borderWidths.Right;
                     valBounds.Height -= borderWidths.Bottom;
                     // Also take the padding into account
                     if (cellStyle.Padding != Padding.Empty)
                     {
-                        if (this.DataGridView.RightToLeft == RightToLeft.Yes)
+                        if (DataGridView.RightToLeft == RightToLeft.Yes)
                         {
                             valBounds.Offset(cellStyle.Padding.Right, cellStyle.Padding.Top);
                         }
@@ -566,38 +561,39 @@ namespace com.outlook_styner07.cs.control.Data
                         {
                             valBounds.Offset(cellStyle.Padding.Left, cellStyle.Padding.Top);
                         }
+
                         valBounds.Width -= cellStyle.Padding.Horizontal;
                         valBounds.Height -= cellStyle.Padding.Vertical;
                     }
                     // Determine the NumericUpDown control location
                     valBounds = GetAdjustedEditingControlBounds(valBounds, cellStyle);
 
-                    bool cellSelected = (cellState & DataGridViewElementStates.Selected) != 0;
+                    var cellSelected = (cellState & DataGridViewElementStates.Selected) != 0;
 
-                    if (renderingBitmap.Width < valBounds.Width ||
-                        renderingBitmap.Height < valBounds.Height)
+                    if (_renderingBitmap.Width < valBounds.Width ||
+                        _renderingBitmap.Height < valBounds.Height)
                     {
                         // The static bitmap is too small, a bigger one needs to be allocated.
-                        renderingBitmap.Dispose();
-                        renderingBitmap = new Bitmap(valBounds.Width, valBounds.Height);
+                        _renderingBitmap.Dispose();
+                        _renderingBitmap = new Bitmap(valBounds.Width, valBounds.Height);
                     }
                     // Make sure the NumericUpDown control is parented to a visible control
 
-                    /// ¿Áª˝º∫Ω√ ¿Ã ∫Œ∫–ø°º≠ ObjectDisposedException πﬂª˝ => ¡÷ºÆ√≥∏Æ
+                    /// Ïû¨ÏÉùÏÑ±Ïãú Ïù¥ Î∂ÄÎ∂ÑÏóêÏÑú ObjectDisposedException Î∞úÏÉù => Ï£ºÏÑùÏ≤òÎ¶¨
                     //if (paintingNumericUpDown.Parent == null || !paintingNumericUpDown.Parent.Visible)
                     //{
                     //    paintingNumericUpDown.Parent = this.DataGridView;
                     //}
                     // Set all the relevant properties
-                    paintingNumericUpDown.TextAlign = DataGridViewNumericUpDownCell.TranslateAlignment(cellStyle.Alignment);
-                    paintingNumericUpDown.DecimalPlaces = this.DecimalPlaces;
-                    paintingNumericUpDown.ThousandsSeparator = this.ThousandsSeparator;
-                    paintingNumericUpDown.Font = cellStyle.Font;
-                    paintingNumericUpDown.Width = valBounds.Width;
-                    paintingNumericUpDown.Height = valBounds.Height;
-                    paintingNumericUpDown.RightToLeft = this.DataGridView.RightToLeft;
-                    paintingNumericUpDown.Location = new Point(0, -paintingNumericUpDown.Height - 100);
-                    paintingNumericUpDown.Text = formattedValue as string;
+                    _paintingNumericUpDown.TextAlign = TranslateAlignment(cellStyle.Alignment);
+                    _paintingNumericUpDown.DecimalPlaces = DecimalPlaces;
+                    _paintingNumericUpDown.ThousandsSeparator = ThousandsSeparator;
+                    _paintingNumericUpDown.Font = cellStyle.Font;
+                    _paintingNumericUpDown.Width = valBounds.Width;
+                    _paintingNumericUpDown.Height = valBounds.Height;
+                    _paintingNumericUpDown.RightToLeft = DataGridView.RightToLeft;
+                    _paintingNumericUpDown.Location = new Point(0, -_paintingNumericUpDown.Height - 100);
+                    _paintingNumericUpDown.Text = formattedValue as string;
 
                     Color backColor;
                     if (PartPainted(paintParts, DataGridViewPaintParts.SelectionBackground) && cellSelected)
@@ -608,6 +604,7 @@ namespace com.outlook_styner07.cs.control.Data
                     {
                         backColor = cellStyle.BackColor;
                     }
+
                     if (PartPainted(paintParts, DataGridViewPaintParts.Background))
                     {
                         if (backColor.A < 255)
@@ -615,7 +612,8 @@ namespace com.outlook_styner07.cs.control.Data
                             // The NumericUpDown control does not support transparent back colors
                             backColor = Color.FromArgb(255, backColor);
                         }
-                        paintingNumericUpDown.BackColor = backColor;
+
+                        _paintingNumericUpDown.BackColor = backColor;
                     }
                     //20180829 add foreColor variable
                     Color foreColor;
@@ -633,16 +631,17 @@ namespace com.outlook_styner07.cs.control.Data
                         {
                             foreColor = Color.FromArgb(255, backColor);
                         }
-                        paintingNumericUpDown.ForeColor = foreColor;
+
+                        _paintingNumericUpDown.ForeColor = foreColor;
                     }
 
-                    // Finally paint the NumericUpDown control //jdj_-buttonswidth∑Œ ø°µ∆√ø°º≠∏∏ πˆ∆∞ √‚∑¬
+                    // Finally paint the NumericUpDown control //jdj_-buttonswidthÎ°ú ÏóêÎîîÌåÖÏóêÏÑúÎßå Î≤ÑÌäº Ï∂úÎ†•
                     //OwningColumn.dis
-                    Rectangle srcRect = new Rectangle(0, 0, ((DataGridViewNumericUpDownColumn)OwningColumn).DisplayStyleForCurrentCellOnly ? valBounds.Width - ButtonsWidth : valBounds.Width, valBounds.Height);
+                    var srcRect = new Rectangle(0, 0, ((DataGridViewNumericUpDownColumn)OwningColumn).DisplayStyleForCurrentCellOnly ? valBounds.Width - buttonsWidth : valBounds.Width, valBounds.Height);
                     if (srcRect.Width > 0 && srcRect.Height > 0)
                     {
-                        paintingNumericUpDown.DrawToBitmap(renderingBitmap, srcRect);
-                        graphics.DrawImage(renderingBitmap, new Rectangle(valBounds.Location, valBounds.Size), srcRect, GraphicsUnit.Pixel);
+                        _paintingNumericUpDown.DrawToBitmap(_renderingBitmap, srcRect);
+                        graphics.DrawImage(_renderingBitmap, new Rectangle(valBounds.Location, valBounds.Size), srcRect, GraphicsUnit.Pixel);
                     }
                 }
 
@@ -679,7 +678,7 @@ namespace com.outlook_styner07.cs.control.Data
                                             bool isFirstDisplayedColumn,
                                             bool isFirstDisplayedRow)
         {
-            Rectangle editingControlBounds = PositionEditingPanel(cellBounds,
+            var editingControlBounds = PositionEditingPanel(cellBounds,
                                                         cellClip,
                                                         cellStyle,
                                                         singleVerticalBorderAdded,
@@ -687,8 +686,8 @@ namespace com.outlook_styner07.cs.control.Data
                                                         isFirstDisplayedColumn,
                                                         isFirstDisplayedRow);
             editingControlBounds = GetAdjustedEditingControlBounds(editingControlBounds, cellStyle);
-            this.DataGridView.EditingControl.Location = new Point(editingControlBounds.X, editingControlBounds.Y);
-            this.DataGridView.EditingControl.Size = new Size(editingControlBounds.Width, editingControlBounds.Height);
+            DataGridView.EditingControl.Location = new Point(editingControlBounds.X, editingControlBounds.Y);
+            DataGridView.EditingControl.Size = new Size(editingControlBounds.Width, editingControlBounds.Height);
         }
 
         /// <summary>
@@ -701,23 +700,23 @@ namespace com.outlook_styner07.cs.control.Data
         internal void SetDecimalPlaces(int rowIndex, int value)
         {
             Debug.Assert(value >= 0 && value <= 99);
-            this.decimalPlaces = value;
+            _decimalPlaces = value;
             if (OwnsEditingNumericUpDown(rowIndex))
             {
-                this.EditingNumericUpDown.DecimalPlaces = value;
+                EditingNumericUpDown.DecimalPlaces = value;
             }
         }
 
         /// Utility function that sets a new value for the Increment property of the cell. This function is used by
         /// the cell and column Increment property. A row index needs to be provided as a parameter because
         /// this cell may be shared among multiple rows.
-        internal void SetIncrement(int rowIndex, Decimal value)
+        internal void SetIncrement(int rowIndex, decimal value)
         {
-            Debug.Assert(value >= (Decimal)0.0);
-            this.increment = value;
+            Debug.Assert(value >= (decimal)0.0);
+            _increment = value;
             if (OwnsEditingNumericUpDown(rowIndex))
             {
-                this.EditingNumericUpDown.Increment = value;
+                EditingNumericUpDown.Increment = value;
             }
         }
 
@@ -726,27 +725,29 @@ namespace com.outlook_styner07.cs.control.Data
         /// property for performance reasons. This way the column can invalidate the entire column at once instead of 
         /// invalidating each cell of the column individually. A row index needs to be provided as a parameter because
         /// this cell may be shared among multiple rows.
-        internal void SetMaximum(int rowIndex, Decimal value)
+        internal void SetMaximum(int rowIndex, decimal value)
         {
-            this.maximum = value;
-            if (this.minimum > this.maximum)
+            _maximum = value;
+            if (_minimum > _maximum)
             {
-                this.minimum = this.maximum;
+                _minimum = _maximum;
             }
-            object cellValue = GetValue(rowIndex);
+
+            var cellValue = GetValue(rowIndex);
             if (cellValue != null)
             {
-                Decimal currentValue = System.Convert.ToDecimal(cellValue);
-                Decimal constrainedValue = Constrain(currentValue);
+                var currentValue = Convert.ToDecimal(cellValue);
+                var constrainedValue = Constrain(currentValue);
                 if (constrainedValue != currentValue)
                 {
                     SetValue(rowIndex, constrainedValue);
                 }
             }
-            Debug.Assert(this.maximum == value);
+
+            Debug.Assert(_maximum == value);
             if (OwnsEditingNumericUpDown(rowIndex))
             {
-                this.EditingNumericUpDown.Maximum = value;
+                EditingNumericUpDown.Maximum = value;
             }
         }
 
@@ -755,27 +756,29 @@ namespace com.outlook_styner07.cs.control.Data
         /// property for performance reasons. This way the column can invalidate the entire column at once instead of 
         /// invalidating each cell of the column individually. A row index needs to be provided as a parameter because
         /// this cell may be shared among multiple rows.
-        internal void SetMinimum(int rowIndex, Decimal value)
+        internal void SetMinimum(int rowIndex, decimal value)
         {
-            this.minimum = value;
-            if (this.minimum > this.maximum)
+            _minimum = value;
+            if (_minimum > _maximum)
             {
-                this.maximum = value;
+                _maximum = value;
             }
-            object cellValue = GetValue(rowIndex);
+
+            var cellValue = GetValue(rowIndex);
             if (cellValue != null)
             {
-                Decimal currentValue = System.Convert.ToDecimal(cellValue);
-                Decimal constrainedValue = Constrain(currentValue);
+                var currentValue = Convert.ToDecimal(cellValue);
+                var constrainedValue = Constrain(currentValue);
                 if (constrainedValue != currentValue)
                 {
                     SetValue(rowIndex, constrainedValue);
                 }
             }
-            Debug.Assert(this.minimum == value);
+
+            Debug.Assert(_minimum == value);
             if (OwnsEditingNumericUpDown(rowIndex))
             {
-                this.EditingNumericUpDown.Minimum = value;
+                EditingNumericUpDown.Minimum = value;
             }
         }
 
@@ -786,10 +789,10 @@ namespace com.outlook_styner07.cs.control.Data
         /// this cell may be shared among multiple rows.
         internal void SetThousandsSeparator(int rowIndex, bool value)
         {
-            this.thousandsSeparator = value;
+            _thousandsSeparator = value;
             if (OwnsEditingNumericUpDown(rowIndex))
             {
-                this.EditingNumericUpDown.ThousandsSeparator = value;
+                EditingNumericUpDown.ThousandsSeparator = value;
             }
         }
 
@@ -820,6 +823,6 @@ namespace com.outlook_styner07.cs.control.Data
                 return HorizontalAlignment.Left;
             }
         }
-
+        #endregion
     }
 }

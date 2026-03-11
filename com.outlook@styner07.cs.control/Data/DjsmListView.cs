@@ -2,6 +2,7 @@
 {
     public class DjsmListView : ListView
     {
+        #region Constructors
         public DjsmListView()
         {
             OwnerDraw = true;
@@ -14,9 +15,19 @@
             HeaderStyle = ColumnHeaderStyle.Nonclickable;
             View = View.Details;
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Properties
         public int[] ColumnFillWeight { get; set; }
+        #endregion
 
+        #region Methods
         public void SetColumnFillWeight(int[] weight)
         {
             ColumnFillWeight = weight;
@@ -65,7 +76,11 @@
             Font f = new Font(Font.FontFamily, Font.Size, FontStyle.Bold);
             SizeF s = e.Graphics.MeasureString(e.Header.Text, f);
             PointF p = new PointF(e.Bounds.X + ((e.Bounds.Width - s.Width) / 2), e.Bounds.Y);
-            e.Graphics.DrawString(e.Header.Text, f, new SolidBrush(ForeColor), p.X, p.Y);
+
+            using (var b = new SolidBrush(ForeColor))
+            {
+                e.Graphics.DrawString(e.Header.Text, f, b, p.X, p.Y);
+            }
         }
 
         protected override void OnDrawItem(DrawListViewItemEventArgs e)
@@ -85,28 +100,16 @@
             {
                 Rectangle rect = e.SubItem.Bounds;
                 rect.X += e.Item.IndentCount * 25;
-                g.DrawString(e.SubItem.Text, e.Item.Font, new SolidBrush(e.Item.ForeColor), rect);
+                using (var b = new SolidBrush(e.Item.ForeColor))
+                {
+                    g.DrawString(e.SubItem.Text, e.Item.Font, b, rect);
+                }
             }
             else
             {
                 e.DrawText();
             }
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            
-            this.BackColor = System.Drawing.SystemColors.Info;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Font = new System.Drawing.Font("Arial", 9F);
-            this.FullRowSelect = true;
-            this.GridLines = true;
-            this.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.MultiSelect = false;
-            this.View = System.Windows.Forms.View.Details;
-            this.ResumeLayout(false);
-        }
+        #endregion
     }
 }

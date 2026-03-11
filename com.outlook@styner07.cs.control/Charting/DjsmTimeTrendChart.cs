@@ -4,8 +4,30 @@ namespace com.outlook_styner07.cs.control.Charting
 {
     public class DjsmTimeTrendChart : DjsmChart
     {
-        //public const string USER_DEFINED_MY_STRIPLINE = "myStripLIne";
-        //public const string USER_DEFINED_MY_LEGEND = "myLegend";
+        #region Constructors
+        public DjsmTimeTrendChart()
+        {
+            SetXAxisLabel(X_AXIS_LABEL);
+            SetYAxisLabel(Y_AXIS_LABEL);
+            SetYAxisRange(Y_AXIS_MINIMUM, Y_AXIS_MAXIMUM);
+
+            SetZoomEnabled(true);
+
+            InitializeLegend();
+
+            BackgroundColorChanged += (sender, e) =>
+            {
+                AreaMain.BackColor = e.Color;
+            };
+
+            ContextMenuEnabled = true;
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
         public const string USER_DEFINED_MY_REFERENCE = "myReference";
 
         private const string PROPERTY_NAME_ACTIVE = "ACTIVE";
@@ -24,51 +46,40 @@ namespace com.outlook_styner07.cs.control.Charting
         private const int MAXIMUM_VISIBLE_TIME_RANGE = 600;//100; unit: sec
         private const int MAXIMUM_POINT_COUNT = 30000;//30000;
 
-        public DjsmTimeTrendChart()
-        {
-            SetXAxisLabel(X_AXIS_LABEL);
-            SetYAxisLabel(Y_AXIS_LABEL);
-            //SetXAxisRange(X_AXIS_MINIMUM, MAXIMUM_POINT_COUNT);
-            SetYAxisRange(Y_AXIS_MINIMUM, Y_AXIS_MAXIMUM);
+        private LegendCellColumn _colCheck;
+        private LegendCellColumn _colColor;
+        private LegendCellColumn _colName;
+        private LegendCellColumn _colValue;
+        private Legend _legendEquation;
+        #endregion
 
-            SetZoomEnabled(true);
+        #region Properties
+        #endregion
 
-            InitializeLegend();
-
-            BackgroundColorChanged += (object sender, BackgroundColorChangeEventArgs e) =>
-            {
-                AreaMain.BackColor = e.Color;
-            };
-
-            ContextMenuEnabled = true;
-        }
-
-        private LegendCellColumn colCheck, colColor, colName, colValue;
-        private Legend legendEquation;
-
+        #region Methods
         private void InitializeLegend()
         {
             Font headerFont = new Font("Arial", 9f, FontStyle.Bold);
-            legendEquation = AddLegend("Equation", 0);
+            _legendEquation = AddLegend("Equation", 0);
             /// Main Legend
-            colCheck = new LegendCellColumn
+            _colCheck = new LegendCellColumn
             {
                 ColumnType = LegendCellColumnType.Text,
                 HeaderFont = headerFont,
                 Name = "Active",
                 Text = string.Format("#CUSTOMPROPERTY({0})", PROPERTY_NAME_ACTIVE),
             };
-            legendEquation.CellColumns.Add(colCheck);
+            _legendEquation.CellColumns.Add(_colCheck);
 
-            colColor = new LegendCellColumn
+            _colColor = new LegendCellColumn
             {
                 ColumnType = LegendCellColumnType.SeriesSymbol,
                 HeaderFont = headerFont,
                 Name = "Color"
             };
-            legendEquation.CellColumns.Add(colColor);
+            _legendEquation.CellColumns.Add(_colColor);
 
-            colName = new LegendCellColumn
+            _colName = new LegendCellColumn
             {
                 ColumnType = LegendCellColumnType.Text,
                 HeaderFont = headerFont,
@@ -77,9 +88,9 @@ namespace com.outlook_styner07.cs.control.Charting
                 Text = "#SERIESNAME",
                 Alignment = ContentAlignment.MiddleRight
             };
-            legendEquation.CellColumns.Add(colName);
+            _legendEquation.CellColumns.Add(_colName);
 
-            colValue = new LegendCellColumn
+            _colValue = new LegendCellColumn
             {
                 ColumnType = LegendCellColumnType.Text,
                 HeaderFont = headerFont,
@@ -87,27 +98,27 @@ namespace com.outlook_styner07.cs.control.Charting
                 Name = "Value",
                 Text = "#LAST{N3}"
             };
-            legendEquation.CellColumns.Add(colValue);
+            _legendEquation.CellColumns.Add(_colValue);
 
 
-            legendEquation.LegendStyle = LegendStyle.Table;
-            legendEquation.HeaderSeparator = LegendSeparatorStyle.Line;
-            legendEquation.HeaderSeparatorColor = Color.Gray;
+            _legendEquation.LegendStyle = LegendStyle.Table;
+            _legendEquation.HeaderSeparator = LegendSeparatorStyle.Line;
+            _legendEquation.HeaderSeparatorColor = Color.Gray;
         }
 
         public void HideValueInLegend()
         {
-            if (legendEquation != null && legendEquation.CellColumns.Contains(colValue))
+            if (_legendEquation != null && _legendEquation.CellColumns.Contains(_colValue))
             {
-                legendEquation.CellColumns.Remove(colValue);
+                _legendEquation.CellColumns.Remove(_colValue);
             }
         }
 
         public void HideCheckInLegend()
         {
-            if (legendEquation != null && legendEquation.CellColumns.Contains(colCheck))
+            if (_legendEquation != null && _legendEquation.CellColumns.Contains(_colCheck))
             {
-                legendEquation.CellColumns.Remove(colCheck);
+                _legendEquation.CellColumns.Remove(_colCheck);
             }
         }
 
@@ -119,7 +130,7 @@ namespace com.outlook_styner07.cs.control.Charting
                 if (hitResult.Object is LegendItem)
                 {
                     var item = hitResult.Object as LegendItem;
-                    DjsmCustomStyleSeries relatedSeries = Series[item.Name] as DjsmCustomStyleSeries;
+                    DjsmCustomStyleSeries relatedSeries = (DjsmCustomStyleSeries)Series[item.Name];
 
                     if (e.Button == MouseButtons.Left)
                     {
@@ -148,7 +159,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (Series.FindByName(name) != null)
             {
-                return Series.FindByName(name) as DjsmCustomStyleSeries;
+                return (DjsmCustomStyleSeries)Series.FindByName(name);
             }
 
             DjsmCustomStyleSeries s1 = new DjsmCustomStyleSeries
@@ -169,7 +180,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (Series.FindByName(name) != null)
             {
-                return Series.FindByName(name) as DjsmCustomStyleSeries;
+                return (DjsmCustomStyleSeries)Series.FindByName(name);
             }
 
             DjsmCustomStyleSeries s1 = new DjsmCustomStyleSeries
@@ -210,5 +221,6 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             XAxis.Minimum = 0;
         }
+        #endregion
     }
 }

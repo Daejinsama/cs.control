@@ -4,11 +4,23 @@ namespace com.outlook_styner07.cs.control.Container
 {
     public class DjsmToolStripRenderer : ToolStripProfessionalRenderer
     {
+        #region Constructors
         public DjsmToolStripRenderer() : base(new DjsmProfessionalColorTable())
         {
             RoundedEdges = false;
         }
+        #endregion
 
+        #region Types
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
@@ -143,10 +155,21 @@ namespace com.outlook_styner07.cs.control.Container
         {
             base.OnRenderToolStripStatusLabelBackground(e);
         }
+        #endregion
     }
 
     public class DjsmProfessionalColorTable : ProfessionalColorTable
     {
+        #region Constructors
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Properties
         public override Color ButtonSelectedHighlight => DEFAULT_BACKGROUND_SELECTED_COLOR;
 
         public override Color ButtonSelectedHighlightBorder => DEFAULT_BORDER_COLOR;
@@ -260,7 +283,9 @@ namespace com.outlook_styner07.cs.control.Container
         public override Color OverflowButtonGradientMiddle => DEFAULT_BACKGROUND_COLOR;
 
         public override Color OverflowButtonGradientEnd => DEFAULT_BACKGROUND_COLOR;
+        #endregion
 
+        #region Methods
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
@@ -275,5 +300,6 @@ namespace com.outlook_styner07.cs.control.Container
         {
             return base.ToString();
         }
+        #endregion
     }
 }

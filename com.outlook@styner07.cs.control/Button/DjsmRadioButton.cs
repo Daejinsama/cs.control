@@ -6,6 +6,34 @@ namespace com.outlook_styner07.cs.control.Button
 {
     public class DjsmRadioButton : RadioButton
     {
+        #region Constructors
+        public DjsmRadioButton()
+        {
+            DoubleBuffered = true;
+
+            Font = new Font(Font.FontFamily, Font.Size, FontStyle.Regular);
+            UseVisualStyleBackColor = false;
+
+            _selectedForeColor = _deselectedForeColor = ForeColor;
+
+            AppearanceChanged += djsmRadioButton_AppearanceChanged;
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private const int HORIZONTAL_MARGIN = 3;
+
+        private Color _selectedForeColor = Color.White;
+        private Color _deselectedForeColor = Color.DimGray;
+        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public Color SelectedForeColor
         {
@@ -19,8 +47,6 @@ namespace com.outlook_styner07.cs.control.Button
                 }
             }
         }
-
-        private Color _selectedForeColor = Color.White;
 
         [Browsable(true)]
         public Color DeselectedForeColor
@@ -36,8 +62,6 @@ namespace com.outlook_styner07.cs.control.Button
             }
         }
 
-        private Color _deselectedForeColor = Color.DimGray;
-
         [Browsable(true)]
         public ToolStripStatusLabelBorderSides BorderSides
         {
@@ -52,20 +76,19 @@ namespace com.outlook_styner07.cs.control.Button
             }
         }
 
-        private ToolStripStatusLabelBorderSides _borderSides = ToolStripStatusLabelBorderSides.Bottom;
-
-
         [Browsable(true)]
         public TextRenderingHint RenderingHint
         {
             get { return _textRenderingHint; }
             set
             {
-                _textRenderingHint = value; Invalidate();
+                if (_textRenderingHint != value)
+                {
+                    _textRenderingHint = value;
+                    Invalidate();
+                }
             }
         }
-
-        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
 
         [Browsable(true)]
         public SmoothingMode SmoothMode
@@ -73,54 +96,48 @@ namespace com.outlook_styner07.cs.control.Button
             get { return _smoothMode; }
             set
             {
-                _smoothMode = value; Invalidate();
+                if (_smoothMode != value)
+                {
+                    _smoothMode = value;
+                    Invalidate();
+                }
             }
         }
 
-        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
-
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
+        #endregion
 
-        public DjsmRadioButton()
+        #region Methods
+        private void djsmRadioButton_AppearanceChanged(object? sender, EventArgs e)
         {
-            //SetStyle(ControlStyles.UserPaint, true);
-            DoubleBuffered = true;
-            
-            Font = new Font(Font.FontFamily, Font.Size, FontStyle.Regular);
-            UseVisualStyleBackColor = false;
-
-            _selectedForeColor
-                = _deselectedForeColor
-                = ForeColor;
-
-            AppearanceChanged += delegate
+            if (Appearance == Appearance.Button)
+            {
+                FlatStyle = FlatStyle.Flat;
+                FlatAppearance.BorderSize = 0;
+                FlatAppearance.CheckedBackColor = Color.Transparent;
+                FlatAppearance.MouseDownBackColor = Color.Transparent;
+                FlatAppearance.MouseOverBackColor = Color.Transparent;
+            }
+            else
             {
 
-                if (Appearance == Appearance.Button)
-                {
-                    FlatStyle = FlatStyle.Flat;
-                    FlatAppearance.BorderSize = 0;
-                    FlatAppearance.CheckedBackColor = Color.Transparent;
-                    FlatAppearance.MouseDownBackColor = Color.Transparent;
-                    FlatAppearance.MouseOverBackColor = Color.Transparent;
-                }
-                else
-                {
-
-                }
-            };
+            }
         }
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);
+
             Graphics g = pevent.Graphics;
             g.SmoothingMode = _smoothMode;
             g.TextRenderingHint = _textRenderingHint;
 
-            g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
-            
+            using (var b = new SolidBrush(BackColor))
+            {
+                g.FillRectangle(b, ClientRectangle);
+            }
+
             Rectangle textDrawingRectangle = ClientRectangle;
 
             Font = new Font(Font.FontFamily, Font.Size, Checked ? FontStyle.Bold : FontStyle.Regular);
@@ -139,23 +156,32 @@ namespace com.outlook_styner07.cs.control.Button
             }
             else
             {
-                const int HORIZONTAL_MARGIN = 3;
-
                 int buttonSize = 11;
                 float buttonMargin = ClientRectangle.Height / 2 - buttonSize / 2;
 
                 if (Checked)
                 {
-                    g.FillEllipse(new SolidBrush(_selectedForeColor), new RectangleF(0, buttonMargin, buttonSize, buttonSize));
+                    using (var b = new SolidBrush(_selectedForeColor))
+                    {
+                        g.FillEllipse(b, new RectangleF(0, buttonMargin, buttonSize, buttonSize));
+                    }
                 }
 
-                g.DrawEllipse(new Pen(_deselectedForeColor), new RectangleF(0, buttonMargin, buttonSize, buttonSize));
-
+                using (var p = new Pen(_deselectedForeColor))
+                {
+                    g.DrawEllipse(p, new RectangleF(0, buttonMargin, buttonSize, buttonSize));
+                }
+                
                 int textMargin = buttonSize + HORIZONTAL_MARGIN;
 
                 textDrawingRectangle.X += textMargin;
             }
-            g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
+
+            using (var b = new SolidBrush(ForeColor))
+            {
+                g.DrawString(Text, Font, b, textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
+            }
         }
+        #endregion
     }
 }

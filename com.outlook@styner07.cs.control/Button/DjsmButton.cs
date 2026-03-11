@@ -6,21 +6,47 @@ namespace com.outlook_styner07.cs.control.Button
 {
     public class DjsmButton : ButtonBase
     {
+        #region Constructors
+        public DjsmButton()
+        {
+            _radius = Height / 2;
+            _state = ButtonState.Normal;
+        }
+        #endregion
+
+        #region Types
+        private enum ButtonState
+        {
+            Normal,
+            Pressed,
+            MouseOver
+        }
+        #endregion
+
+        #region Fields
         private Color _pressedBackColor;
         private Color _mouseOverBackColor;
+        private int _radius;
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
+        private ButtonState _state;
 
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public int Radius
         {
             get { return _radius; }
             set
             {
-                _radius = value;
-                Invalidate();
+                if (_radius != value)
+                {
+                    _radius = value;
+                    Invalidate();
+                }
             }
         }
-
-        private int _radius;
 
         [Browsable(true)]
         public TextRenderingHint RenderingHint
@@ -28,11 +54,13 @@ namespace com.outlook_styner07.cs.control.Button
             get { return _textRenderingHint; }
             set
             {
-                _textRenderingHint = value; Invalidate();
+                if (_textRenderingHint != value)
+                {
+                    _textRenderingHint = value;
+                    Invalidate();
+                }
             }
         }
-
-        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
 
         [Browsable(true)]
         public SmoothingMode SmoothMode
@@ -40,22 +68,16 @@ namespace com.outlook_styner07.cs.control.Button
             get { return _smoothMode; }
             set
             {
-                _smoothMode = value; Invalidate();
+                if (_smoothMode != value)
+                {
+                    _smoothMode = value;
+                    Invalidate();
+                }
             }
         }
+        #endregion
 
-        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
-
-        private enum ButtonState { Normal, Pressed, MouseOver }
-
-        private ButtonState _state;
-
-        public DjsmButton()
-        {
-            _radius = Height / 2;
-            _state = ButtonState.Normal;
-        }
-
+        #region Methods
         protected override void OnPaint(PaintEventArgs pevent)
         {
             Graphics g = pevent.Graphics;
@@ -73,7 +95,7 @@ namespace com.outlook_styner07.cs.control.Button
                 ClientRectangle.Width - (Padding.Right * 2),
                 ClientRectangle.Height - (Padding.Bottom * 2));
 
-            GraphicsPath path = DrawingUtil.GetRoundRectPath(drawingArea, g.MeasureString(Text, Font), _radius);
+            using GraphicsPath path = DrawingUtil.GetRoundRectPath(drawingArea, _radius);
 
             Color brushColor = _state switch
             {
@@ -83,12 +105,15 @@ namespace com.outlook_styner07.cs.control.Button
                 _ => BackColor
             };
 
-            using (SolidBrush b = new SolidBrush(brushColor))
+            using (var b = new SolidBrush(brushColor))
             {
                 g.FillPath(b, path);
             }
 
-            g.DrawString(Text, Font, new SolidBrush(ForeColor), drawingArea, DrawingUtil.ConvertStringAlign(TextAlign));
+            using (var b = new SolidBrush(ForeColor))
+            {
+                g.DrawString(Text, Font, b, drawingArea, DrawingUtil.ConvertStringAlign(TextAlign));
+            }
 
             if (Image != null)
             {
@@ -110,18 +135,6 @@ namespace com.outlook_styner07.cs.control.Button
                 _mouseOverBackColor = AdjustBrightness(BackColor, 0.8f);
                 _pressedBackColor = AdjustBrightness(BackColor, 0.6f);
             }
-        }
-
-        private static int Clamp(float value) => Math.Min(255, Math.Max(0, (int)value));
-
-        private static Color AdjustBrightness(Color color, float factor)
-        {
-            return Color.FromArgb(
-                color.A,
-                Clamp(color.R * factor),
-                Clamp(color.G * factor),
-                Clamp(color.B * factor)
-            );
         }
 
         protected override void OnMouseDown(MouseEventArgs mevent)
@@ -148,5 +161,21 @@ namespace com.outlook_styner07.cs.control.Button
             base.OnMouseLeave(eventargs);
             _state = ButtonState.Normal;
         }
+
+        private static int Clamp(float value)
+        {
+            return Math.Min(255, Math.Max(0, (int)value));
+        }
+
+        private static Color AdjustBrightness(Color color, float factor)
+        {
+            return Color.FromArgb(
+                color.A,
+                Clamp(color.R * factor),
+                Clamp(color.G * factor),
+                Clamp(color.B * factor)
+            );
+        }
+        #endregion
     }
 }

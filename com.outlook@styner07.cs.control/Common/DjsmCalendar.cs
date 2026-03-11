@@ -2,49 +2,62 @@
 {
     public class DjsmCalendar : UserControl
     {
-        private DateTime currentMonth;
-        private DateTime selectedDate;
-        private Color backgroundColor;
-        private Color selectedDateColor;
-        private Font dateFont;
-
+        #region Constructors
         public DjsmCalendar()
         {
-            this.DoubleBuffered = true;
-            this.currentMonth = DateTime.Now;
-            this.selectedDate = DateTime.Now;
-            this.backgroundColor = Color.LightBlue;
-            this.selectedDateColor = Color.Red;
-            this.dateFont = new Font("Arial", 10);
-            this.Size = new Size(250, 200);
-        }
+            DoubleBuffered = true;
+            Size = new Size(250, 200);
 
+            _currentMonth = DateTime.Now;
+            _selectedDate = DateTime.Now;
+            _backgroundColor = Color.LightBlue;
+            _selectedDateColor = Color.Red;
+            _dateFont = new Font("Arial", 10);
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private DateTime _currentMonth;
+        private DateTime _selectedDate;
+        private Color _backgroundColor;
+        private Color _selectedDateColor;
+        private Font _dateFont;
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             Graphics g = e.Graphics;
 
             // Draw background
-            using (SolidBrush brush = new SolidBrush(this.backgroundColor))
+            using (SolidBrush brush = new SolidBrush(_backgroundColor))
             {
-                g.FillRectangle(brush, this.ClientRectangle);
+                g.FillRectangle(brush, ClientRectangle);
             }
 
             // Draw the month and year
-            string monthYear = currentMonth.ToString("MMMM yyyy");
-            SizeF monthYearSize = g.MeasureString(monthYear, this.dateFont);
-            g.DrawString(monthYear, this.dateFont, Brushes.Black, (this.Width - monthYearSize.Width) / 2, 10);
+            string monthYear = _currentMonth.ToString("MMMM yyyy");
+            SizeF monthYearSize = g.MeasureString(monthYear, _dateFont);
+            g.DrawString(monthYear, _dateFont, Brushes.Black, (Width - monthYearSize.Width) / 2, 10);
 
             // Draw the days of the week
             string[] daysOfWeek = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
             for (int i = 0; i < daysOfWeek.Length; i++)
             {
-                g.DrawString(daysOfWeek[i], this.dateFont, Brushes.Black, i * (this.Width / 7), 40);
+                g.DrawString(daysOfWeek[i], _dateFont, Brushes.Black, i * (Width / 7), 40);
             }
 
             // Draw the days of the month
-            int daysInMonth = DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month);
-            DateTime firstDay = new DateTime(currentMonth.Year, currentMonth.Month, 1);
+            int daysInMonth = DateTime.DaysInMonth(_currentMonth.Year, _currentMonth.Month);
+            DateTime firstDay = new DateTime(_currentMonth.Year, _currentMonth.Month, 1);
             int startDay = (int)firstDay.DayOfWeek;
 
             for (int day = 1; day <= daysInMonth; day++)
@@ -52,17 +65,17 @@
                 int row = (startDay + day - 1) / 7;
                 int col = (startDay + day - 1) % 7;
 
-                Rectangle dayRect = new Rectangle(col * (this.Width / 7), 60 + row * 30, this.Width / 7, 30);
+                Rectangle dayRect = new Rectangle(col * (Width / 7), 60 + row * 30, Width / 7, 30);
 
-                if (new DateTime(currentMonth.Year, currentMonth.Month, day) == selectedDate)
+                if (new DateTime(_currentMonth.Year, _currentMonth.Month, day) == _selectedDate)
                 {
-                    using (SolidBrush brush = new SolidBrush(this.selectedDateColor))
+                    using (SolidBrush brush = new SolidBrush(_selectedDateColor))
                     {
                         g.FillRectangle(brush, dayRect);
                     }
                 }
 
-                g.DrawString(day.ToString(), this.dateFont, Brushes.Black, dayRect);
+                g.DrawString(day.ToString(), _dateFont, Brushes.Black, dayRect);
             }
         }
 
@@ -70,16 +83,17 @@
         {
             base.OnMouseClick(e);
 
-            int x = e.X / (this.Width / 7);
+            int x = e.X / (Width / 7);
             int y = (e.Y - 60) / 30;
 
-            int day = y * 7 + x - (int)new DateTime(currentMonth.Year, currentMonth.Month, 1).DayOfWeek + 1;
+            int day = y * 7 + x - (int)new DateTime(_currentMonth.Year, _currentMonth.Month, 1).DayOfWeek + 1;
 
-            if (day > 0 && day <= DateTime.DaysInMonth(currentMonth.Year, currentMonth.Month))
+            if (day > 0 && day <= DateTime.DaysInMonth(_currentMonth.Year, _currentMonth.Month))
             {
-                selectedDate = new DateTime(currentMonth.Year, currentMonth.Month, day);
-                this.Invalidate();
+                _selectedDate = new DateTime(_currentMonth.Year, _currentMonth.Month, day);
+                Invalidate();
             }
         }
+        #endregion
     }
 }

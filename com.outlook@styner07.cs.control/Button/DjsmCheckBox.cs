@@ -6,6 +6,29 @@ namespace com.outlook_styner07.cs.control.Button
 {
     public class DjsmCheckBox : CheckBox
     {
+        #region Constructors
+        public DjsmCheckBox()
+        {
+            DoubleBuffered = true;
+
+            UseVisualStyleBackColor = false;
+            _checkedForeColor = _uncheckedForeColor = ForeColor;
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private const int HORIZONTAL_MARGIN = 3;
+
+        private Color _checkedForeColor;
+        private Color _uncheckedForeColor;
+        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
+        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
+        #endregion
+
+        #region Properties
         [Browsable(true)]
         public Color CheckedForeColor
         {
@@ -22,8 +45,6 @@ namespace com.outlook_styner07.cs.control.Button
                 }
             }
         }
-
-        private Color _checkedForeColor;
 
         [Browsable(true)]
         public Color UncheckedForeColor
@@ -42,19 +63,19 @@ namespace com.outlook_styner07.cs.control.Button
             }
         }
 
-        private Color _uncheckedForeColor;
-
         [Browsable(true)]
         public TextRenderingHint RenderingHint
         {
             get { return _textRenderingHint; }
             set
             {
-                _textRenderingHint = value; Invalidate();
+                if (_textRenderingHint != value)
+                {
+                    _textRenderingHint = value;
+                    Invalidate();
+                }
             }
         }
-
-        private TextRenderingHint _textRenderingHint = TextRenderingHint.AntiAlias;
 
         [Browsable(true)]
         public SmoothingMode SmoothMode
@@ -62,28 +83,19 @@ namespace com.outlook_styner07.cs.control.Button
             get { return _smoothMode; }
             set
             {
-                _smoothMode = value; Invalidate();
+                if (_smoothMode != value)
+                {
+                    _smoothMode = value;
+                    Invalidate();
+                }
             }
         }
 
-        private SmoothingMode _smoothMode = SmoothingMode.AntiAlias;
-
         [Browsable(false)]
         public new Color ForeColor { get; set; } = Color.Black;
+        #endregion
 
-        //[Browsable(false)]
-        //public new bool AutoSize { get; set; } = true;
-
-        public DjsmCheckBox()
-        {
-            DoubleBuffered = true;
-
-            UseVisualStyleBackColor = false;
-            _checkedForeColor
-                = _uncheckedForeColor
-                = ForeColor;
-        }
-
+        #region Methods
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);
@@ -95,17 +107,23 @@ namespace com.outlook_styner07.cs.control.Button
 
             g.FillRectangle(new SolidBrush(BackColor), ClientRectangle);
 
-            const int HORIZONTAL_MARGIN = 3;
+            
             int buttonSize = 11;
             float buttonMargin = ClientRectangle.Height / 2 - buttonSize / 2;
 
             if (Checked)
             {
-                g.FillRectangle(new SolidBrush(_checkedForeColor), new RectangleF(0, buttonMargin, buttonSize, buttonSize));
+                using (var b = new SolidBrush(_checkedForeColor))
+                {
+                    g.FillRectangle(b, new RectangleF(0, buttonMargin, buttonSize, buttonSize));
+                }
             }
 
-            g.DrawRectangle(new Pen(_uncheckedForeColor), new RectangleF(0, buttonMargin, buttonSize, buttonSize));
-
+            using (var p = new Pen(_uncheckedForeColor))
+            {
+                g.DrawRectangle(p, new RectangleF(0, buttonMargin, buttonSize, buttonSize));
+            }
+            
             Font = new Font(Font.FontFamily, Font.Size, Checked ? FontStyle.Bold : FontStyle.Regular);
             ForeColor = Checked ? _checkedForeColor : _uncheckedForeColor;
 
@@ -115,7 +133,11 @@ namespace com.outlook_styner07.cs.control.Button
 
             textDrawingRectangle.X += textMargin;
 
-            g.DrawString(Text, Font, new SolidBrush(ForeColor), textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
+            using (var b = new SolidBrush(ForeColor))
+            {
+                g.DrawString(Text, Font, b, textDrawingRectangle, DrawingUtil.ConvertStringAlign(TextAlign));
+            }
         }
+        #endregion
     }
 }

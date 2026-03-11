@@ -32,6 +32,36 @@ namespace com.outlook_styner07.cs.control
         //        _dragCursor = null;
         //    }
         //}
+        #region Constructors
+        #endregion
+
+        #region Types
+        [StructLayout(LayoutKind.Sequential)]
+        private struct IconInfo
+        {
+            public bool fIcon;
+            public int xHotspot;
+            public int yHotspot;
+            public IntPtr hbmMask;
+            public IntPtr hbmColor;
+        }
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
+        [DllImport("user32.dll")]
+        private static extern IntPtr CreateIconIndirect(ref IconInfo iconInfo);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
         public static Cursor? CreateCursor(Bitmap bmp, Point hotSpot)
         {
@@ -48,46 +78,27 @@ namespace com.outlook_styner07.cs.control
             {
                 return null;
             }
+
             return new Cursor(iconPtr);
         }
 
         public static Bitmap SetBitmapOpacity(Image original, float opacity)
         {
             Bitmap bmp = new Bitmap(original.Width, original.Height);
+
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 ColorMatrix matrix = new ColorMatrix();
                 matrix.Matrix33 = opacity;
 
-                ImageAttributes attributes = new ImageAttributes();
+                using ImageAttributes attributes = new ImageAttributes();
                 attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
 
-                g.DrawImage(original,
-                    new Rectangle(0, 0, bmp.Width, bmp.Height),
-                    0, 0, original.Width, original.Height,
-                    GraphicsUnit.Pixel,
-                    attributes);
+                g.DrawImage(original, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
             }
+
             return bmp;
         }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct IconInfo
-        {
-            public bool fIcon;
-            public int xHotspot;
-            public int yHotspot;
-            public IntPtr hbmMask;
-            public IntPtr hbmColor;
-        }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr CreateIconIndirect(ref IconInfo iconInfo);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr GetDC(IntPtr hWnd);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+        #endregion
     }
 }

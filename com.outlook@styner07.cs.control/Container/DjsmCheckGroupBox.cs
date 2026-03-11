@@ -40,8 +40,11 @@ namespace com.outlook_styner07.cs.control.Container
             }
             set
             {
-                chkButton.Checked = value;
-                SetEnabled(value);
+                if (chkButton.Checked != value)
+                {
+                    chkButton.Checked = value;
+                    SetEnabled(value);
+                }
             }
         }
         #endregion

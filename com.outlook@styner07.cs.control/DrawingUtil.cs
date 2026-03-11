@@ -1,35 +1,37 @@
-﻿using System.Drawing;
-using System.Drawing.Drawing2D;
+﻿using System.Drawing.Drawing2D;
 
 namespace com.outlook_styner07.cs.control
 {
     public class DrawingUtil
     {
+        #region Constructors
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
         public static TextFormatFlags GetTextFormatFlag(ContentAlignment alignment)
         {
-            switch (alignment)
+            return alignment switch
             {
-                case ContentAlignment.TopLeft:
-                    return TextFormatFlags.Top | TextFormatFlags.Left;
-                case ContentAlignment.TopCenter:
-                    return TextFormatFlags.Top | TextFormatFlags.HorizontalCenter;
-                case ContentAlignment.TopRight:
-                    return TextFormatFlags.Top | TextFormatFlags.Right;
-                case ContentAlignment.MiddleLeft:
-                    return TextFormatFlags.VerticalCenter | TextFormatFlags.Left;
-                case ContentAlignment.MiddleCenter:
-                    return TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter;
-                case ContentAlignment.MiddleRight:
-                    return TextFormatFlags.VerticalCenter | TextFormatFlags.Right;
-                case ContentAlignment.BottomLeft:
-                    return TextFormatFlags.Bottom | TextFormatFlags.Left;
-                case ContentAlignment.BottomCenter:
-                    return TextFormatFlags.Bottom | TextFormatFlags.HorizontalCenter;
-                case ContentAlignment.BottomRight:
-                    return TextFormatFlags.Bottom & TextFormatFlags.Right;
-                default:
-                    return TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter;
-            }
+                ContentAlignment.TopLeft => TextFormatFlags.Top | TextFormatFlags.Left,
+                ContentAlignment.TopCenter => TextFormatFlags.Top | TextFormatFlags.HorizontalCenter,
+                ContentAlignment.TopRight => TextFormatFlags.Top | TextFormatFlags.Right,
+                ContentAlignment.MiddleLeft => TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
+                ContentAlignment.MiddleCenter => TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
+                ContentAlignment.MiddleRight => TextFormatFlags.VerticalCenter | TextFormatFlags.Right,
+                ContentAlignment.BottomLeft => TextFormatFlags.Bottom | TextFormatFlags.Left,
+                ContentAlignment.BottomCenter => TextFormatFlags.Bottom | TextFormatFlags.HorizontalCenter,
+                ContentAlignment.BottomRight => TextFormatFlags.Bottom & TextFormatFlags.Right,
+                _ => TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter
+            };
         }
 
         public static StringFormat ConvertStringAlign(ContentAlignment textAlign)
@@ -133,7 +135,7 @@ namespace com.outlook_styner07.cs.control
             return ret;
         }
 
-        public static GraphicsPath GetRoundRectPath(Rectangle rect, SizeF textSize, int radius)
+        public static GraphicsPath GetRoundRectPath(Rectangle rect, int radius)
         {
             PointF pointLeftTop = new PointF(rect.X, rect.Y);
 
@@ -151,5 +153,6 @@ namespace com.outlook_styner07.cs.control
             ret.CloseAllFigures();
             return ret;
         }
+        #endregion
     }
 }

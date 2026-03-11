@@ -2,31 +2,48 @@
 {
     public class DataGridViewLifeTimeCell : DataGridViewTextBoxCell
     {
-        private Font LABEL_FONT = new Font("Arial", 7.5f, FontStyle.Bold);
+        #region Constructors
+        public DataGridViewLifeTimeCell()
+        {
+            Value = 25;
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private readonly Font LABEL_FONT = new Font("Arial", 7.5f, FontStyle.Bold);
         private const int MINIMUM = 0;
         private const int MAXIMUM = 100;
 
         private const int V_MARGIN = 3;
         private const int H_MARGIN = 5;
 
+        private const float LINE_WIDTH = 2f;
+
+        private int _value = 0;
+        #endregion
+
+        #region Properties
         public new int Value
         {
             get { return _value; }
             set
             {
-                _value = value;
-                if (DataGridView != null)
+                if (_value != value)
                 {
-                    DataGridView.InvalidateCell(this);
+                    _value = value;
+                    if (DataGridView != null)
+                    {
+                        DataGridView.InvalidateCell(this);
+                    }
                 }
             }
         }
-        public int _value = 0;
-        public DataGridViewLifeTimeCell()
-        {
-            Value = 25;
-        }
+        #endregion
 
+        #region Methods
         protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates elementState, object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
         {
             base.Paint(graphics, clipBounds, cellBounds, rowIndex, elementState, value, formattedValue, errorText, cellStyle, advancedBorderStyle, paintParts);
@@ -37,9 +54,6 @@
 
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-
-            const float LINE_WIDTH = 2f;
-            Pen linePen = new Pen(Brushes.DimGray, LINE_WIDTH);
 
             int rulerWidth = cellBounds.Width - (H_MARGIN * 2);
             int rulerHeight = cellBounds.Height / 3 * 2;
@@ -76,11 +90,22 @@
             }
 
             Rectangle gaugeRect = new Rectangle((int)(rulerLeft - 1), (int)(rulerTop + V_MARGIN), gaugeWidth, (int)(rulerHeight - LINE_WIDTH * 2));
-            g.FillRectangle(new SolidBrush(gaugeColor), gaugeRect);
-            g.DrawRectangle(new Pen(Brushes.DimGray), gaugeRect);
-
+            using (var b = new SolidBrush(gaugeColor))
+            {
+                g.FillRectangle(b, gaugeRect);
+            }
+            
+            using (var p = new Pen(Brushes.DimGray))
+            {
+                g.DrawRectangle(p, gaugeRect);
+            }
+            
             /// draw ruler
+            
+            using Pen linePen = new Pen(Brushes.DimGray, LINE_WIDTH);
+
             g.DrawLine(linePen, new Point(rulerLeft - 1, rulerBottom), new Point(rulerRight - 2, rulerBottom)); /// baseline
+            
             int blockLeft;
             for (int i = 0; i < 5; i++)
             {
@@ -98,9 +123,11 @@
             {
                 textLocation = new Point((int)(gaugeRect.Left + gaugeRect.Width - textSize.Width), (int)(rulerBottom - textSize.Height + LINE_WIDTH));
             }
+
             g.DrawString(Value.ToString(), LABEL_FONT, Brushes.White, textLocation);
             graphics.ReleaseHdc(hdc);
             g.Dispose();
         }
+        #endregion
     }
 }

@@ -97,7 +97,7 @@
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(23, 22);
             btnCancel.Text = "Cancel";
-            btnCancel.Click += BtnCancel_Click;
+            btnCancel.Click += btnCancel_Click;
             // 
             // toolStripSeparator1
             // 
@@ -115,7 +115,7 @@
             btnApply.Name = "btnApply";
             btnApply.Size = new Size(23, 22);
             btnApply.Text = "Apply";
-            btnApply.Click += BtnApply_Click;
+            btnApply.Click += btnApply_Click;
             // 
             // gbxLineStyle
             // 

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -7,101 +6,7 @@ namespace com.outlook_styner07.cs.control.Charting
 {
     public class DjsmChart : Chart
     {
-        public const string EXT_CHART_IMAGE = "jpg";
-
-        public static readonly Font DEFAULT_TITLE_FONT = new Font("Arial", 9f, FontStyle.Bold);
-        public static readonly Font DEFAULT_LABEL_FONT = new Font("Arial", 7f, FontStyle.Bold);
-        public static readonly Font LARGE_LABEL_FONT = new Font("Arial", 11f, FontStyle.Bold);
-
-        public static readonly Font BOUNDARY_TEXT_FONT = new Font("Arial", 8f, FontStyle.Bold);
-
-        public event EventHandler<XYCursorEventArgs> XYCursorPositionChanged;
-
-        public class XYCursorEventArgs : EventArgs
-        {
-            public int XValueIndex { get; set; }
-            public double X { get; set; }
-            public double Y { get; set; }
-        }
-
-        public static event EventHandler<BackgroundColorChangeEventArgs> BackgroundColorChanged;
-
-        public class BackgroundColorChangeEventArgs : EventArgs
-        {
-            public Color Color { get; set; }
-        }
-
-        private bool _contextMenuEnabeld = false;
-        public bool ContextMenuEnabled
-        {
-            get
-            {
-                return _contextMenuEnabeld;
-            }
-            set
-            {
-                _contextMenuEnabeld = value;
-                if (value && ctxMnuChart == null)
-                {
-                    InitializeContextMenu();
-                }
-            }
-        }
-
-        private PointF moveInitPosition = new PointF();
-        private PointF moveCurrentPosition = new PointF();
-
-
-        protected double fixedXAxisMinimum;
-        protected double fixedXAxisMaximum;
-
-        protected double fixedXAxis2Minimum;
-        protected double fixedXAxis2Maximum;
-
-        protected double fixedYAxisMinimum;
-        protected double fixedYAxisMaximum;
-
-        protected double fixedYAxis2Minimum;
-        protected double fixedYAxis2Maximum;
-
-        private int cursorXValueIndex;
-
-        private bool panProcessed = false;
-
-        private Series cursorTargetSeries = null;
-        private double[] cursorTargetSeriesXValues = null;
-
-        private bool isAutoScaled = false;
-
-        private bool zoomAllXAxis = false;
-        private bool zoomAllYAxis = false;
-
-        public bool IsZoomEnabled { get; private set; } = false;
-
-        public string CursorXValueDateTimeFormat { get; set; } = null;
-
-        public int XAxisScrollResolution { get; set; }
-        public int YAxisScrollResolution { get; set; }
-
-        public ChartArea AreaMain
-        {
-            get
-            {
-                if (ChartAreas.Count == 0)
-                {
-                    ChartAreas.Add(new ChartArea());
-                }
-
-                return ChartAreas[0];
-            }
-        }
-        public Axis XAxis { get; set; }
-        public Axis XAxis2 { get; set; }
-        public Axis YAxis { get; set; }
-        public Axis YAxis2 { get; set; }
-
-        public ContextMenuStrip ctxMnuChart;
-
+        #region Constructors
         public DjsmChart()
         {
             SetStyle(ControlStyles.UserPaint, true);
@@ -127,7 +32,7 @@ namespace com.outlook_styner07.cs.control.Charting
 
             AxisViewChanged += (sender, e) =>
             {
-                if (zoomAllXAxis && e.Axis == XAxis)
+                if (_zoomAllXAxis && e.Axis == XAxis)
                 {
                     if (e.Axis.ScaleView.IsZoomed)
                     {
@@ -140,7 +45,7 @@ namespace com.outlook_styner07.cs.control.Charting
                     }
                 }
 
-                if (zoomAllYAxis && e.Axis == YAxis)
+                if (_zoomAllYAxis && e.Axis == YAxis)
                 {
                     if (e.Axis.ScaleView.IsZoomed)
                     {
@@ -148,13 +53,153 @@ namespace com.outlook_styner07.cs.control.Charting
 
                         double pos = YAxis2.Minimum + YAxis.ScaleView.ViewMinimum * scaleRatio;
                         double size = YAxis2.Minimum + YAxis.ScaleView.ViewMaximum * scaleRatio;
-                        
+
                         YAxis2.ScaleView.Zoom(pos, size, YAxis2.IntervalType, true);
                     }
                 }
             };
         }
+        #endregion
 
+        #region Types
+        public enum CurveType
+        {
+            LINEAR_0,
+            LINEAR,
+            QUADRATIC,
+            CUBIC
+        }
+        #endregion
+
+        #region Fields
+        public const string EXT_CHART_IMAGE = "jpg";
+        public const string DUMMY_SERIES_NAME = "dummy";
+
+        private const string MENU_BACKGROUND = "ctxMnuChart_BackgroundColor";
+
+        private const string MENU_SAVE_PATH = "ctxMnuChart_SavePath";
+        private const string MENU_SAVE = "ctxMnuChart_Save";
+
+        private const string MENU_COPY_TO_CLIPBOARD = "ctxMnuChart_CopyToClipboard";
+
+        private const string MENU_ZOOM_ENABLED = "ctxMnuChart_ZoomEnabled";
+        private const string MENU_RESET_ZOOM = "ctxMnuChart_ResetZoom";
+        private const string MENU_AUTO_SCALE = "ctxMnuChart_AutoScale";
+
+        public static readonly Font DEFAULT_TITLE_FONT = new Font("Arial", 9f, FontStyle.Bold);
+        public static readonly Font DEFAULT_LABEL_FONT = new Font("Arial", 7f, FontStyle.Bold);
+        public static readonly Font LARGE_LABEL_FONT = new Font("Arial", 11f, FontStyle.Bold);
+
+        public static readonly Font BOUNDARY_TEXT_FONT = new Font("Arial", 8f, FontStyle.Bold);
+
+        public event EventHandler<XYCursorEventArgs> XYCursorPositionChanged;
+
+        public static event EventHandler<BackgroundColorChangeEventArgs>? BackgroundColorChanged;
+
+        private bool _contextMenuEnabeld = false;
+
+        private PointF _moveInitPosition = new PointF();
+        private PointF _moveCurrentPosition = new PointF();
+
+        protected double fixedXAxisMinimum;
+        protected double fixedXAxisMaximum;
+
+        protected double fixedXAxis2Minimum;
+        protected double fixedXAxis2Maximum;
+
+        protected double fixedYAxisMinimum;
+        protected double fixedYAxisMaximum;
+
+        protected double fixedYAxis2Minimum;
+        protected double fixedYAxis2Maximum;
+
+        private int _cursorXValueIndex;
+
+        private bool _panProcessed = false;
+
+        private Series? _cursorTargetSeries;
+        private double[]? _cursorTargetSeriesXValues;
+
+        private bool _isAutoScaled = false;
+
+        private bool _zoomAllXAxis = false;
+        private bool _zoomAllYAxis = false;
+
+        public ContextMenuStrip ctxMnuChart;
+
+        private List<LineObject> _horizontalLines = new List<LineObject>();
+        private List<LineObject> _verticalLines = new List<LineObject>();
+
+        private List<BoundaryTextObject> _boundaryTexts = new List<BoundaryTextObject>();
+        private List<Box> _boxes = new List<Box>();
+        private CalloutAnnotation _annotTrendTooltip;
+        #endregion
+
+        #region Properties
+        public bool ContextMenuEnabled
+        {
+            get
+            {
+                return _contextMenuEnabeld;
+            }
+            set
+            {
+                if (_contextMenuEnabeld != value)
+                {
+                    _contextMenuEnabeld = value;
+                    if (value && ctxMnuChart == null)
+                    {
+                        InitializeContextMenu();
+                    }
+                }
+            }
+        }
+
+        public bool IsZoomEnabled { get; private set; } = false;
+
+        public string CursorXValueDateTimeFormat { get; set; } = string.Empty;
+
+        public int XAxisScrollResolution { get; set; }
+
+        public int YAxisScrollResolution { get; set; }
+
+        public ChartArea AreaMain
+        {
+            get
+            {
+                if (ChartAreas.Count == 0)
+                {
+                    ChartAreas.Add(new ChartArea());
+                }
+
+                return ChartAreas[0];
+            }
+        }
+
+        public Axis XAxis { get; set; }
+
+        public Axis XAxis2 { get; set; }
+
+        public Axis YAxis { get; set; }
+
+        public Axis YAxis2 { get; set; }
+
+        public bool ContextMenuEnabledBackground { get; set; } = true;
+
+        public bool ContextMenuEnabledSave { get; set; } = true;
+
+        public bool ContextMenuEnabledClipboard { get; set; } = true;
+
+        public bool ContextMenuEnabledLegend { get; set; } = true;
+
+        public bool ContextMenuEnabledZoom { get; set; } = true;
+
+        public bool ContextMenuEnabledAutoScale { get; set; } = true;
+
+        public List<VerticalTextAnnotation> VerticalTextAnnotations { get; set; } = new List<VerticalTextAnnotation>();
+        #endregion
+
+        #region Methods
         private void InitializeArea()
         {
             AreaMain.Position.X = 0;
@@ -185,6 +230,7 @@ namespace com.outlook_styner07.cs.control.Charting
             XAxis.Title = "wavelength";
             XAxis.Enabled = AxisEnabled.True;
             XAxis.IntervalAutoMode = IntervalAutoMode.VariableCount;  /// error in 64bit debugging
+
             XAxis.MajorGrid.Enabled = false;
             XAxis.MajorTickMark.Enabled = false;
             XAxis.LabelStyle.Font = Properties.Settings.Default.LargeFont ? LARGE_LABEL_FONT : DEFAULT_LABEL_FONT;
@@ -204,6 +250,7 @@ namespace com.outlook_styner07.cs.control.Charting
             XAxis2.Title = "wavelength";
             XAxis2.Enabled = AxisEnabled.False;
             XAxis2.IntervalAutoMode = IntervalAutoMode.VariableCount;  /// error in 64bit debugging
+
             XAxis2.MajorGrid.Enabled = false;
             XAxis2.MajorTickMark.Enabled = false;
             XAxis2.LabelStyle.Font = Properties.Settings.Default.LargeFont ? LARGE_LABEL_FONT : DEFAULT_LABEL_FONT;
@@ -245,29 +292,11 @@ namespace com.outlook_styner07.cs.control.Charting
             YAxis2.ScrollBar.Enabled = false;
         }
 
-        public bool ContextMenuEnabledBackground { get; set; } = true;
-        public bool ContextMenuEnabledSave { get; set; } = true;
-        public bool ContextMenuEnabledClipboard { get; set; } = true;
-        public bool ContextMenuEnabledLegend { get; set; } = true;
-        public bool ContextMenuEnabledZoom { get; set; } = true;
-        public bool ContextMenuEnabledAutoScale { get; set; } = true;
-
         private void InitializeContextMenu()
         {
-            const string MENU_BACKGROUND = "ctxMnuChart_BackgroundColor";
-
-            const string MENU_SAVE_PATH = "ctxMnuChart_SavePath";
-            const string MENU_SAVE = "ctxMnuChart_Save";
-
-            const string MENU_COPY_TO_CLIPBOARD = "ctxMnuChart_CopyToClipboard";
-
-            const string MENU_ZOOM_ENABLED = "ctxMnuChart_ZoomEnabled";
-            const string MENU_RESET_ZOOM = "ctxMnuChart_ResetZoom";
-            const string MENU_AUTO_SCALE = "ctxMnuChart_AutoScale";
-
             ctxMnuChart = new ContextMenuStrip { AutoSize = true, Font = new Font("Arial", 9f, FontStyle.Regular), BackColor = SystemColors.Control, ShowItemToolTips = true };
 
-            ctxMnuChart.Opening += (object sender, CancelEventArgs e) =>
+            ctxMnuChart.Opening += (sender, e) =>
             {
                 ctxMnuChart.Items.Clear();
 
@@ -294,16 +323,16 @@ namespace com.outlook_styner07.cs.control.Charting
 
                 if (ContextMenuEnabledLegend && Legends.Count > 0)
                 {
-                    string[] MENU_LEGENDS = new string[Legends.Count];
+                    string[] menuLegends = new string[Legends.Count];
 
                     for (int len = Legends.Count, i = 0; i < len; i++)
                     {
-                        MENU_LEGENDS[i] = string.Format("ctxMnuChart_Legend_{0}", Legends[i].Name);
-                        if (!ctxMnuChart.Items.ContainsKey(MENU_LEGENDS[i]))
+                        menuLegends[i] = string.Format("ctxMnuChart_Legend_{0}", Legends[i].Name);
+                        if (!ctxMnuChart.Items.ContainsKey(menuLegends[i]))
                         {
                             ctxMnuChart.Items.Add(new ToolStripMenuItem
                             {
-                                Name = MENU_LEGENDS[i],
+                                Name = menuLegends[i],
                                 Text = string.Format("Legned \"{0}\"", Legends[i].Name),
                                 AutoSize = true,
                                 CheckOnClick = true,
@@ -312,6 +341,7 @@ namespace com.outlook_styner07.cs.control.Charting
                             });
                         }
                     }
+
                     ctxMnuChart.Items.Add(new ToolStripSeparator());
                 }
 
@@ -336,12 +366,12 @@ namespace com.outlook_styner07.cs.control.Charting
                         Text = "Auto Scale",
                         AutoSize = true,
                         CheckOnClick = true,
-                        Checked = isAutoScaled
+                        Checked = _isAutoScaled
                     });
                 }
             };
 
-            ctxMnuChart.ItemClicked += (object sender, ToolStripItemClickedEventArgs e) =>
+            ctxMnuChart.ItemClicked += (sender, e) =>
             {
                 ctxMnuChart.Hide();
 
@@ -359,6 +389,7 @@ namespace com.outlook_styner07.cs.control.Charting
                                 Color = dlgColor.Color
                             });
                         }
+
                         break;
 
                     case MENU_SAVE_PATH:
@@ -371,6 +402,7 @@ namespace com.outlook_styner07.cs.control.Charting
                                 Properties.Settings.Default.Save();
                             }
                         }
+
                         break;
 
                     case MENU_SAVE:
@@ -384,7 +416,7 @@ namespace com.outlook_styner07.cs.control.Charting
                         break;
 
                     case MENU_ZOOM_ENABLED:
-                        SetZoomEnabled(!(e.ClickedItem as ToolStripMenuItem).Checked);
+                        SetZoomEnabled(!((ToolStripMenuItem)e.ClickedItem).Checked);
                         break;
 
                     case MENU_RESET_ZOOM:
@@ -392,15 +424,16 @@ namespace com.outlook_styner07.cs.control.Charting
                         break;
 
                     case MENU_AUTO_SCALE:
-                        SetAutoScale(!(e.ClickedItem as ToolStripMenuItem).Checked);
+                        SetAutoScale(!((ToolStripMenuItem)e.ClickedItem).Checked);
                         break;
 
                     default:
                         /// Legend menu
                         if (e.ClickedItem.Tag != null)
                         {
-                            SetLegendVisible(!(e.ClickedItem as ToolStripMenuItem).Checked, e.ClickedItem.Tag.ToString());
+                            SetLegendVisible(!((ToolStripMenuItem)e.ClickedItem).Checked, e.ClickedItem.Tag.ToString());
                         }
+
                         break;
                 }
             };
@@ -417,10 +450,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetAutoScale(enabled);
-                });
+                Invoke(() => SetAutoScale(enabled));
             }
             else
             {
@@ -455,6 +485,7 @@ namespace com.outlook_styner07.cs.control.Charting
                                         {
                                             yMin = value;
                                         }
+
                                         if (value > yMax)
                                         {
                                             yMax = value;
@@ -498,42 +529,15 @@ namespace com.outlook_styner07.cs.control.Charting
                     }
                 }
 
-                isAutoScaled = enabled;
+                _isAutoScaled = enabled;
             }
         }
-
-        //public void SetAutoScale(bool enabled)
-        //{
-        //    if (InvokeRequired)
-        //    {
-        //        Invoke((MethodInvoker)delegate
-        //        {
-        //            SetAutoScale(enabled);
-        //        });
-        //    }
-        //    else
-        //    {
-        //        YAxis.Minimum = enabled ? double.NaN : fixedYAxisMinimum;
-        //        YAxis.Maximum = enabled ? double.NaN : fixedYAxisMaximum;
-
-        //        if (YAxis2.Enabled == AxisEnabled.True)
-        //        {
-        //            YAxis2.Minimum = enabled ? double.NaN : fixedYAxis2Minimum;
-        //            YAxis2.Maximum = enabled ? double.NaN : fixedYAxis2Maximum;
-        //        }
-
-        //        isAutoScaled = enabled;
-        //    }
-        //}
 
         public void ClearPoints(Series series)
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    ClearPoints(series);
-                });
+                Invoke(() => ClearPoints(series));
             }
             else
             {
@@ -544,6 +548,7 @@ namespace com.outlook_styner07.cs.control.Charting
                     {
                         series.Points.RemoveAt(series.Points.Count - 1);
                     }
+
                     series.Points.ResumeUpdates();
                 }
             }
@@ -553,10 +558,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    ClearSeries();
-                });
+                Invoke(ClearSeries);
             }
             else
             {
@@ -568,12 +570,10 @@ namespace com.outlook_styner07.cs.control.Charting
                         Series.RemoveAt(i);
                     }
                 }
+
                 ResumeLayout();
             }
         }
-
-        #region /// Events
-        //private ToolTip toolTip = new ToolTip();
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
@@ -583,54 +583,54 @@ namespace com.outlook_styner07.cs.control.Charting
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    moveCurrentPosition.X = e.X;
-                    moveCurrentPosition.Y = e.Y;
+                    _moveCurrentPosition.X = e.X;
+                    _moveCurrentPosition.Y = e.Y;
 
                     // 스킵과 분기로 스크롤이 조금 더 부드러워짐.
-                    if (Math.Abs(moveInitPosition.X - moveCurrentPosition.X) > 3)
+                    if (Math.Abs(_moveInitPosition.X - _moveCurrentPosition.X) > 3)
                     {
-                        if (zoomAllXAxis)
+                        if (_zoomAllXAxis)
                         {
-                            XAxis.ScaleView.Scroll(moveInitPosition.X < moveCurrentPosition.X ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
-                            XAxis2.ScaleView.Scroll(moveInitPosition.X < moveCurrentPosition.X ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
+                            XAxis.ScaleView.Scroll(_moveInitPosition.X < _moveCurrentPosition.X ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
+                            XAxis2.ScaleView.Scroll(_moveInitPosition.X < _moveCurrentPosition.X ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
                         }
                         else
                         {
                             if (AreaMain.CursorX.AxisType == AxisType.Primary)
                             {
-                                XAxis.ScaleView.Scroll(moveInitPosition.X < moveCurrentPosition.X ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
+                                XAxis.ScaleView.Scroll(_moveInitPosition.X < _moveCurrentPosition.X ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
                             }
                             else
                             {
-                                XAxis2.ScaleView.Scroll(moveInitPosition.X < moveCurrentPosition.X ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
+                                XAxis2.ScaleView.Scroll(_moveInitPosition.X < _moveCurrentPosition.X ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
                             }
                         }
 
-                        panProcessed = true;
+                        _panProcessed = true;
                     }
-                    else if (Math.Abs(moveInitPosition.Y - moveCurrentPosition.Y) > 3)
+                    else if (Math.Abs(_moveInitPosition.Y - _moveCurrentPosition.Y) > 3)
                     {
-                        if (zoomAllYAxis)
+                        if (_zoomAllYAxis)
                         {
-                            YAxis.ScaleView.Scroll(moveInitPosition.Y > moveCurrentPosition.Y ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
-                            YAxis2.ScaleView.Scroll(moveInitPosition.Y > moveCurrentPosition.Y ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
+                            YAxis.ScaleView.Scroll(_moveInitPosition.Y > _moveCurrentPosition.Y ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
+                            YAxis2.ScaleView.Scroll(_moveInitPosition.Y > _moveCurrentPosition.Y ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
                         }
                         else
                         {
                             if (AreaMain.CursorY.AxisType == AxisType.Primary)
                             {
-                                YAxis.ScaleView.Scroll(moveInitPosition.Y > moveCurrentPosition.Y ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
+                                YAxis.ScaleView.Scroll(_moveInitPosition.Y > _moveCurrentPosition.Y ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
                             }
                             else
                             {
-                                YAxis2.ScaleView.Scroll(moveInitPosition.Y > moveCurrentPosition.Y ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
+                                YAxis2.ScaleView.Scroll(_moveInitPosition.Y > _moveCurrentPosition.Y ? ScrollType.SmallDecrement : ScrollType.SmallIncrement);
                             }
                         }
 
-                        panProcessed = true;
+                        _panProcessed = true;
                     }
 
-                    moveInitPosition = moveCurrentPosition;
+                    _moveInitPosition = _moveCurrentPosition;
                 }
             }
             else
@@ -649,7 +649,7 @@ namespace com.outlook_styner07.cs.control.Charting
             {
                 if (IsZoomEnabled)
                 {
-                    if (moveInitPosition.X > e.X && moveInitPosition.Y > e.Y)
+                    if (_moveInitPosition.X > e.X && _moveInitPosition.Y > e.Y)
                     {
                         UndoZoom();
                         // ↓ 선택 영역 클리어.
@@ -660,12 +660,13 @@ namespace com.outlook_styner07.cs.control.Charting
             }
             else if (e.Button == MouseButtons.Right)
             {
-                if (panProcessed)
+                if (_panProcessed)
                 {
                     ContextMenuStrip?.Hide();
                 }
             }
-            panProcessed = false;
+
+            _panProcessed = false;
 
             //base 이벤트가 선행될 경우 셀렉션 이벤트로 인해 줌 이벤트가 상쇄되어 버림.
             base.OnMouseUp(e);
@@ -675,14 +676,14 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             base.OnMouseDown(e);
 
-            moveInitPosition.X = e.X;
-            moveInitPosition.Y = e.Y;
+            _moveInitPosition.X = e.X;
+            _moveInitPosition.Y = e.Y;
 
             if (e.Button == MouseButtons.Right)
             {
                 // 스케일이 변해도 줌 스크롤 속도의 항상성을 위해 매번 계산
 
-                if (zoomAllXAxis)
+                if (_zoomAllXAxis)
                 {
                     XAxis.ScaleView.SmallScrollSize = XAxis.ScaleView.Size / XAxisScrollResolution;
                     XAxis2.ScaleView.SmallScrollSize = XAxis2.ScaleView.Size / XAxisScrollResolution;
@@ -699,7 +700,7 @@ namespace com.outlook_styner07.cs.control.Charting
                     }
                 }
 
-                if (zoomAllYAxis)
+                if (_zoomAllYAxis)
                 {
                     YAxis.ScaleView.SmallScrollSize = YAxis.ScaleView.Size / YAxisScrollResolution;
                     YAxis2.ScaleView.SmallScrollSize = YAxis2.ScaleView.Size / YAxisScrollResolution;
@@ -733,20 +734,20 @@ namespace com.outlook_styner07.cs.control.Charting
 
         public void SetCursorPositionByIndex(int index)
         {
-            if (cursorTargetSeries == null)
+            if (_cursorTargetSeries == null)
             {
                 return;
             }
 
-            if (cursorTargetSeries.Points.Count > index && index >= 0)
+            if (_cursorTargetSeries.Points.Count > index && index >= 0)
             {
-                SetCursorPosition(cursorTargetSeries.Points[index], index);
+                SetCursorPosition(_cursorTargetSeries.Points[index], index);
             }
         }
 
         public void SetCursorPositionByValue(double xValue)
         {
-            if (cursorTargetSeries == null || double.IsNaN(xValue))
+            if (_cursorTargetSeries == null || double.IsNaN(xValue))
             {
                 return;
             }
@@ -755,9 +756,9 @@ namespace com.outlook_styner07.cs.control.Charting
             {
                 double cmp = double.MaxValue;
                 int index = 0;
-                for (int len = cursorTargetSeries.Points.Count - 1, i = 0; i < len; i++)
+                for (int len = _cursorTargetSeries.Points.Count - 1, i = 0; i < len; i++)
                 {
-                    double diff = Math.Abs(cursorTargetSeries.Points[i].XValue - xValue);
+                    double diff = Math.Abs(_cursorTargetSeries.Points[i].XValue - xValue);
                     if (cmp > diff)
                     {
                         cmp = diff;
@@ -765,7 +766,7 @@ namespace com.outlook_styner07.cs.control.Charting
                     }
                 }
 
-                SetCursorPosition(cursorTargetSeries.Points[index]);
+                SetCursorPosition(_cursorTargetSeries.Points[index]);
             }
             catch (ArgumentOutOfRangeException) { }
         }
@@ -774,10 +775,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetCursorPosition(dp, index);
-                });
+                Invoke(() => SetCursorPosition(dp, index));
             }
             else
             {
@@ -790,9 +788,9 @@ namespace com.outlook_styner07.cs.control.Charting
                 int posX = (int)XAxis.ValueToPixelPosition(xValue);
                 int posY = (int)YAxis.ValueToPixelPosition(Math.Max(YAxis.ScaleView.ViewMinimum, Math.Min(YAxis.ScaleView.ViewMaximum, yValue)));
 
-                cursorXValueIndex = index == -1 ? cursorTargetSeries.Points.IndexOf(dp) : index;
+                _cursorXValueIndex = index == -1 ? _cursorTargetSeries.Points.IndexOf(dp) : index;
 
-                XYCursorPositionChanged?.Invoke(this, new XYCursorEventArgs { XValueIndex = cursorXValueIndex, X = xValue, Y = yValue });
+                XYCursorPositionChanged?.Invoke(this, new XYCursorEventArgs { XValueIndex = _cursorXValueIndex, X = xValue, Y = yValue });
             }
         }
 
@@ -808,83 +806,84 @@ namespace com.outlook_styner07.cs.control.Charting
                         {
                             for (int len = VerticalTextAnnotations.Count, i = 0; i < len; i++)
                             {
-                                //Debug.WriteLine($"vertical text annotation index: {i}");
                                 string text = VerticalTextAnnotations[i].Text;
                                 Font f = new Font("Arial", 9, FontStyle.Bold);
                                 SizeF txtSize = g.MeasureString(text, f);
 
                                 double xPos = XAxis.ValueToPixelPosition(VerticalTextAnnotations[i].Position.XValue);
                                 double yPos = YAxis.ValueToPixelPosition(VerticalTextAnnotations[i].Position.YValues[0]);
-                                //double yHeight = YAxis.ValueToPixelPosition(YAxis.ScaleView.ViewMaximum);
 
-                                //RectangleF rect = new RectangleF((float)(yPos / yHeight), (float)xPos - txtSize.Height, txtSize.Width, txtSize.Height);
                                 RectangleF rect = new RectangleF((float)(yPos - txtSize.Width), (float)xPos - txtSize.Height, txtSize.Width, txtSize.Height);
 
                                 g.TranslateTransform(0, (float)yPos);
                                 g.RotateTransform(270);
 
-                                g.DrawString(text, f, new SolidBrush(VerticalTextAnnotations[i].TextColor), rect);
+                                using (var b = new SolidBrush(VerticalTextAnnotations[i].TextColor))
+                                {
+                                    g.DrawString(text, f, b, rect);
+                                }
+
                                 g.ResetTransform();
                             }
                         }
 
-                        if (horizontalLines.Count > 0)
+                        if (_horizontalLines.Count > 0)
                         {
                             float xMinValue = (float)XAxis.ValueToPixelPosition(XAxis.ScaleView.ViewMinimum);
                             float xMaxValue = (float)XAxis.ValueToPixelPosition(XAxis.ScaleView.ViewMaximum);
 
-                            for (int len = horizontalLines.Count, i = 0; i < len; i++)
+                            for (int len = _horizontalLines.Count, i = 0; i < len; i++)
                             {
-                                using (Pen p = new Pen(horizontalLines[i].Color) { Width = 0.5f, })
+                                using (Pen p = new Pen(_horizontalLines[i].Color, 0.5f))
                                 {
-                                    if (horizontalLines[i].Value >= YAxis.ScaleView.ViewMinimum && horizontalLines[i].Value <= YAxis.ScaleView.ViewMaximum)
+                                    if (_horizontalLines[i].Value >= YAxis.ScaleView.ViewMinimum && _horizontalLines[i].Value <= YAxis.ScaleView.ViewMaximum)
                                     {
-                                        float yValue = (float)YAxis.ValueToPixelPosition(horizontalLines[i].Value);
+                                        float yValue = (float)YAxis.ValueToPixelPosition(_horizontalLines[i].Value);
                                         g.DrawLine(p, new PointF(xMinValue, yValue), new PointF(xMaxValue, yValue));
                                     }
                                 }
                             }
                         }
 
-                        if (verticalLines.Count > 0)
+                        if (_verticalLines.Count > 0)
                         {
                             float yMinValue = (float)YAxis.ValueToPixelPosition(YAxis.ScaleView.ViewMinimum);
                             float yMaxValue = (float)YAxis.ValueToPixelPosition(YAxis.ScaleView.ViewMaximum);
 
-                            for (int len = verticalLines.Count, i = 0; i < len; i++)
+                            for (int len = _verticalLines.Count, i = 0; i < len; i++)
                             {
-                                using (Pen p = new Pen(new SolidBrush(verticalLines[i].Color)) { Width = 0.5f, })
+                                using (Pen p = new Pen(new SolidBrush(_verticalLines[i].Color), 0.5f))
                                 {
-                                    if (verticalLines[i].Value >= XAxis.ScaleView.ViewMinimum && verticalLines[i].Value <= XAxis.ScaleView.ViewMaximum)
+                                    if (_verticalLines[i].Value >= XAxis.ScaleView.ViewMinimum && _verticalLines[i].Value <= XAxis.ScaleView.ViewMaximum)
                                     {
-                                        float xValue = (float)XAxis.ValueToPixelPosition(verticalLines[i].Value);
+                                        float xValue = (float)XAxis.ValueToPixelPosition(_verticalLines[i].Value);
                                         g.DrawLine(p, new PointF(xValue, yMinValue), new PointF(xValue, yMaxValue));
                                     }
                                 }
                             }
                         }
 
-                        if (boxes.Count > 0)
+                        if (_boxes.Count > 0)
                         {
                             AxisScaleView xAxisScaleView = XAxis.ScaleView;
                             AxisScaleView yAxisscaleView = YAxis.ScaleView;
 
-                            using (Pen p = new Pen(Brushes.Orange) { Width = 1f })
+                            using (Pen p = new Pen(Brushes.Orange, 1))
                             {
-                                for (int len = boxes.Count, i = 0; i < len; i++)
+                                for (int len = _boxes.Count, i = 0; i < len; i++)
                                 {
-                                    if (boxes[i].Left >= xAxisScaleView.ViewMaximum
-                                        || boxes[i].Top <= yAxisscaleView.ViewMinimum
-                                        || boxes[i].Right <= xAxisScaleView.ViewMinimum
-                                        || boxes[i].Bottom >= yAxisscaleView.ViewMaximum)
+                                    if (_boxes[i].Left >= xAxisScaleView.ViewMaximum
+                                        || _boxes[i].Top <= yAxisscaleView.ViewMinimum
+                                        || _boxes[i].Right <= xAxisScaleView.ViewMinimum
+                                        || _boxes[i].Bottom >= yAxisscaleView.ViewMaximum)
                                     {
                                         continue;
                                     }
 
-                                    float left = (float)XAxis.ValueToPixelPosition(Math.Max(boxes[i].Left, xAxisScaleView.ViewMinimum));
-                                    float top = (float)YAxis.ValueToPixelPosition(Math.Min(boxes[i].Top, yAxisscaleView.ViewMaximum));
-                                    float right = (float)XAxis.ValueToPixelPosition(Math.Min(boxes[i].Right, xAxisScaleView.ViewMaximum));
-                                    float bottom = (float)YAxis.ValueToPixelPosition(Math.Max(boxes[i].Bottom, yAxisscaleView.ViewMinimum));
+                                    float left = (float)XAxis.ValueToPixelPosition(Math.Max(_boxes[i].Left, xAxisScaleView.ViewMinimum));
+                                    float top = (float)YAxis.ValueToPixelPosition(Math.Min(_boxes[i].Top, yAxisscaleView.ViewMaximum));
+                                    float right = (float)XAxis.ValueToPixelPosition(Math.Min(_boxes[i].Right, xAxisScaleView.ViewMaximum));
+                                    float bottom = (float)YAxis.ValueToPixelPosition(Math.Max(_boxes[i].Bottom, yAxisscaleView.ViewMinimum));
 
                                     g.DrawLine(p, new PointF(left, top), new PointF(right, top));
                                     g.DrawLine(p, new PointF(right, top), new PointF(right, bottom));
@@ -892,18 +891,20 @@ namespace com.outlook_styner07.cs.control.Charting
                                     g.DrawLine(p, new PointF(left, bottom), new PointF(left, top));
                                 }
                             }
+
                             g.ResetClip();
                         }
 
-                        if (boundaryTexts.Count > 0)
+                        if (_boundaryTexts.Count > 0)
                         {
-                            for (int il = boundaryTexts.Count, i = 0; i < il; i++)
+                            for (int il = _boundaryTexts.Count, i = 0; i < il; i++)
                             {
-                                SizeF size = g.MeasureString(boundaryTexts[i].Text, boundaryTexts[i].Font);
+                                SizeF size = g.MeasureString(_boundaryTexts[i].Text, _boundaryTexts[i].Font);
 
-                                g.DrawString(boundaryTexts[i].Text, boundaryTexts[i].Font, new SolidBrush(boundaryTexts[i].FontColor),
-                                    new PointF((int)XAxis.ValueToPixelPosition(XAxis.ScaleView.ViewMinimum),
-                                    (int)(YAxis.ValueToPixelPosition(boundaryTexts[i].Y) - size.Height)));
+                                using (var b = new SolidBrush(_boundaryTexts[i].FontColor))
+                                {
+                                    g.DrawString(_boundaryTexts[i].Text, _boundaryTexts[i].Font, b, new PointF((int)XAxis.ValueToPixelPosition(XAxis.ScaleView.ViewMinimum), (int)(YAxis.ValueToPixelPosition(_boundaryTexts[i].Y) - size.Height)));
+                                }
                             }
                         }
                     }
@@ -916,7 +917,6 @@ namespace com.outlook_styner07.cs.control.Charting
 
             base.OnPostPaint(e);
         }
-        #endregion
 
         protected Legend AddLegend(string name, int index)
         {
@@ -942,23 +942,21 @@ namespace com.outlook_styner07.cs.control.Charting
         }
 
         #region /// Horizontal lines
-        private List<LineObject> horizontalLines = new List<LineObject>();
-
         public void AddHorizontalLine(double yValue, Color? color)
         {
-            horizontalLines.Add(new LineObject { Value = yValue, Color = color ?? Color.Red });
+            _horizontalLines.Add(new LineObject { Value = yValue, Color = color ?? Color.Red });
         }
 
         public void ClearHorizontalLine()
         {
-            horizontalLines.Clear();
+            _horizontalLines.Clear();
         }
 
         public HorizontalLineAnnotation AddHorizontalLineAnnotation(Color color)
         {
             if (InvokeRequired)
             {
-                return (HorizontalLineAnnotation)Invoke((Func<HorizontalLineAnnotation>)delegate
+                return Invoke(() =>
                 {
                     return AddHorizontalLineAnnotation(color);
                 });
@@ -986,10 +984,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetHorizontalLineAnnotationValue(annot, value);
-                });
+                Invoke(() => SetHorizontalLineAnnotationValue(annot, value));
             }
             else
             {
@@ -1001,10 +996,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    ClearHorizontalLineAnnotation();
-                });
+                Invoke(ClearHorizontalLineAnnotation);
             }
             else
             {
@@ -1016,14 +1008,13 @@ namespace com.outlook_styner07.cs.control.Charting
                         Annotations.RemoveAt(i);
                     }
                 }
+
                 Annotations.ResumeUpdates();
             }
         }
         #endregion
 
         #region /// Vertical line
-        private List<LineObject> verticalLines = new List<LineObject>();
-
         /// <summary>
         /// 
         /// </summary>
@@ -1033,13 +1024,13 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                return (int)Invoke(new Func<int>(() => { return AddVerticalLine(value, color); }));
+                return Invoke(() => { return AddVerticalLine(value, color); });
             }
             else
             {
-                verticalLines.Add(new LineObject { Value = value, Color = color });
+                _verticalLines.Add(new LineObject { Value = value, Color = color });
                 Invalidate();
-                return verticalLines.Count - 1;
+                return _verticalLines.Count - 1;
             }
         }
 
@@ -1047,10 +1038,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    AddVerticalLines(values, color);
-                });
+                Invoke(() => AddVerticalLines(values, color));
             }
             else
             {
@@ -1060,20 +1048,21 @@ namespace com.outlook_styner07.cs.control.Charting
                 {
                     lines.Add(new LineObject { Value = values[i], Color = color });
                 }
-                verticalLines.AddRange(lines);
+
+                _verticalLines.AddRange(lines);
                 Invalidate();
             }
         }
 
         public void MoveVerticalLine(int index, double value, Color? color)
         {
-            verticalLines[index] = new LineObject { Value = value, Color = color ?? Color.Red };
+            _verticalLines[index] = new LineObject { Value = value, Color = color ?? Color.Red };
             Invalidate();
         }
 
         public void RemoveVerticalLine(int index)
         {
-            verticalLines.RemoveAt(index);
+            _verticalLines.RemoveAt(index);
             Invalidate();
         }
 
@@ -1081,28 +1070,23 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    ClearVerticalLine();
-                });
+                Invoke(ClearVerticalLine);
             }
             else
             {
-                verticalLines.Clear();
+                _verticalLines.Clear();
                 Invalidate();
             }
         }
 
         public double GetVerticalLineValue(int index)
         {
-            return verticalLines[index].Value;
+            return _verticalLines[index].Value;
         }
 
         #endregion
 
         #region /// Vertical annotation
-        public List<VerticalTextAnnotation> VerticalTextAnnotations { get; set; } = new List<VerticalTextAnnotation>();
-
         public void AddVerticalTextAnnotation(VerticalTextAnnotation annot)
         {
             VerticalTextAnnotations.Add(annot);
@@ -1133,56 +1117,34 @@ namespace com.outlook_styner07.cs.control.Charting
                     return YAxis.ScaleView.ViewMaximum / 2;
             }
         }
-
-        public class VerticalTextAnnotation
-        {
-            public DataPoint Position { get; }
-            public string Text { get; }
-
-            public Color TextColor { get; }
-
-            public VerticalTextAnnotation(DataPoint position, string text)
-            {
-                Position = position;
-                Text = text;
-                TextColor = Color.White;
-            }
-
-            public VerticalTextAnnotation(DataPoint position, string text, Color textColor)
-            {
-                Position = position;
-                Text = text;
-                TextColor = textColor;
-            }
-        }
         #endregion
 
         #region /// Calculate coefficient
-        public enum CurveType { LINEAR_0, LINEAR, QUADRATIC, CUBIC }
         public double[] GetCoefficient(CurveType curveType, Series series)
         {
             DataPointCollection pts = series.Points;
+
             int i;
             int pointCount = pts.Count;
             double delta;
             double[] sumX = new double[7];
             double[] sumY = new double[4];
             double[] temp = new double[10];
-            double[] coefficient = new double[] { 0, 1, 0, 0 };
+            double[] coefficient = { 0, 1, 0, 0 };
+
             switch (curveType)
             {
                 case CurveType.LINEAR:
                     for (i = 0; i < pointCount; i++)
                     {
-
                         sumX[0] = sumX[0] + 1;
                         sumX[1] = sumX[1] + pts[i].XValue;
                         sumX[2] = sumX[2] + Math.Pow(pts[i].XValue, 2);
 
-
                         sumY[0] = sumY[0] + pts[i].YValues[0];
                         sumY[1] = sumY[1] + pts[i].YValues[0] * pts[i].XValue;
                     }
+
                     delta = sumX[0] * sumX[2] - Math.Pow(sumX[1], 2);
 
                     if (delta != 0)
@@ -1194,11 +1156,11 @@ namespace com.outlook_styner07.cs.control.Charting
                         coefficient[0] = temp[0] * sumY[0] + temp[1] * sumY[1];
                         coefficient[1] = temp[1] * sumY[0] + temp[2] * sumY[1];
                     }
+
                     break;
                 case CurveType.QUADRATIC:
                     for (i = 0; i < pointCount; i++)
                     {
-
                         sumX[0] = sumX[0] + 1;
                         sumX[1] = sumX[1] + pts[i].XValue;
                         sumX[2] = sumX[2] + Math.Pow(pts[i].XValue, 2);
@@ -1209,6 +1171,7 @@ namespace com.outlook_styner07.cs.control.Charting
                         sumY[1] = sumY[1] + pts[i].YValues[0] * pts[i].XValue;
                         sumY[2] = sumY[2] + pts[i].YValues[0] * Math.Pow(pts[i].XValue, 2);
                     }
+
                     delta = sumX[0] * sumX[2] * sumX[4] + 2
                             * sumX[1] * sumX[2] * sumX[3] - Math.Pow(sumX[2], 3) - sumX[4]
                             * Math.Pow(sumX[1], 2) - sumX[0]
@@ -1227,11 +1190,11 @@ namespace com.outlook_styner07.cs.control.Charting
                         coefficient[1] = temp[1] * sumY[0] + temp[3] * sumY[1] + temp[4] * sumY[2];
                         coefficient[2] = temp[2] * sumY[0] + temp[4] * sumY[1] + temp[5] * sumY[2];
                     }
+
                     break;
                 case CurveType.CUBIC:
                     for (i = 0; i < pointCount; i++)
                     {
-
                         sumX[0] = sumX[0] + 1;
                         sumX[1] = sumX[1] + pts[i].XValue;
                         sumX[2] = sumX[2] + Math.Pow(pts[i].XValue, 2);
@@ -1245,6 +1208,7 @@ namespace com.outlook_styner07.cs.control.Charting
                         sumY[2] = sumY[2] + pts[i].YValues[0] * Math.Pow(pts[i].XValue, 2);
                         sumY[3] = sumY[3] + pts[i].YValues[0] * Math.Pow(pts[i].XValue, 3);
                     }
+
                     delta = sumX[0] * sumX[2] * sumX[4] * sumX[6]
                             - sumX[4] * sumX[6] * Math.Pow(sumX[1], 2)
                             - sumX[2] * sumX[6] * Math.Pow(sumX[2], 2)
@@ -1300,6 +1264,7 @@ namespace com.outlook_styner07.cs.control.Charting
                         coefficient[2] = temp[2] * sumY[0] + temp[5] * sumY[1] + temp[7] * sumY[2] + temp[8] * sumY[3];
                         coefficient[3] = temp[3] * sumY[0] + temp[6] * sumY[1] + temp[8] * sumY[2] + temp[9] * sumY[3];
                     }
+
                     break;
                 default:
                     for (i = 0; i < pointCount; i++)
@@ -1307,13 +1272,16 @@ namespace com.outlook_styner07.cs.control.Charting
                         sumX[0] = sumX[0] + Math.Pow(pts[i].XValue, 2);
                         sumY[0] = sumY[0] + pts[i].YValues[0] * pts[i].XValue;
                     }
+
                     if (sumX[0] != 0)
                     {
                         coefficient[1] = sumY[0] / sumX[0];
                     }
+
                     break;
 
             }
+
             return coefficient;
         }
         #endregion
@@ -1330,6 +1298,7 @@ namespace com.outlook_styner07.cs.control.Charting
                 ssr += Math.Pow(trend.Points[i].YValues[0] - mean, 2);
                 sse += Math.Pow(origin.Points[i].YValues[0] - trend.Points[i].YValues[0], 2);
             }
+
             Debug.WriteLine("sst: {0}, sse + ssr = {1}", sst, ssr + sse);
             return 1 - (sse / sst); // or ssr/sst
         }
@@ -1359,15 +1328,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate ()
-                {
-                    RemovePointAtFirst(series);
-                });
+                Invoke(() => RemovePointAtFirst(series));
             }
             else
             {
                 series.Points.RemoveAt(0);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1375,15 +1341,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate ()
-                {
-                    AddPoint(series, point);
-                });
+                Invoke(() => AddPoint(series, point));
             }
             else
             {
                 series.Points.Add(point);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1391,15 +1354,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate ()
-                {
-                    AddPoint(series, x, y);
-                });
+                Invoke(() => AddPoint(series, x, y));
             }
             else
             {
                 series.Points.AddXY(x, y);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1407,10 +1367,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    AddPointRange(series, x, y);
-                });
+                Invoke(() => AddPointRange(series, x, y));
             }
             else
             {
@@ -1422,7 +1379,8 @@ namespace com.outlook_styner07.cs.control.Charting
                 {
                     series.Points.AddXY(x[i], y[i]);
                 }
-                SetAutoScale(isAutoScaled);
+
+                SetAutoScale(_isAutoScaled);
                 ResumeLayout();
             }
         }
@@ -1431,15 +1389,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    DataBindXY(xValues, yValues, series);
-                });
+                Invoke(() => DataBindXY(xValues, yValues, series));
             }
             else
             {
                 series.Points.DataBindXY(xValues, yValues);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1447,15 +1402,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    DataBindXY(xValues, yValues, series);
-                });
+                Invoke(() => DataBindXY(xValues, yValues, series));
             }
             else
             {
                 series.Points.DataBindXY(xValues, yValues);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1463,15 +1415,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    DataBindXY(xValues, yValues, series);
-                });
+                Invoke(() => DataBindXY(xValues, yValues, series));
             }
             else
             {
                 series.Points.DataBindXY(xValues, yValues);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1479,15 +1428,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    DataBindY(yValues, series);
-                });
+                Invoke(() => DataBindY(yValues, series));
             }
             else
             {
                 series.Points.DataBindY(yValues);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1495,15 +1441,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    DataBindY(yValues, series);
-                });
+                Invoke(() => DataBindY(yValues, series));
             }
             else
             {
                 series.Points.DataBindY(yValues);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1511,15 +1454,12 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    DataBindY(yValues, series);
-                });
+                Invoke(() => DataBindY(yValues, series));
             }
             else
             {
                 series.Points.DataBindY(yValues);
-                SetAutoScale(isAutoScaled);
+                SetAutoScale(_isAutoScaled);
             }
         }
 
@@ -1534,8 +1474,6 @@ namespace com.outlook_styner07.cs.control.Charting
             return series;
         }
 
-        public const string DUMMY_SERIES_NAME = "dummy";
-
         public void AddDummySeriesForVisualization()
         {
             Series dummySeries = AddLineSeries(DUMMY_SERIES_NAME);
@@ -1543,42 +1481,28 @@ namespace com.outlook_styner07.cs.control.Charting
             dummySeries.IsVisibleInLegend = false;
         }
 
-        private List<BoundaryTextObject> boundaryTexts = new List<BoundaryTextObject>();
-
         public BoundaryTextObject AddBoundaryText(float x, float y, string text, Font font, Color fontColor)
         {
             BoundaryTextObject obj = new BoundaryTextObject { X = x, Y = y, Text = text, Font = font, FontColor = fontColor };
-            boundaryTexts.Add(obj);
+            _boundaryTexts.Add(obj);
             return obj;
         }
 
         public void ClearBoundaryText()
         {
-            boundaryTexts.Clear();
+            _boundaryTexts.Clear();
         }
 
         #region /// Box
-        private List<Box> boxes = new List<Box>();
-
         public void AddBox(double left, double top, double right, double bottom)
         {
-            boxes.Add(new Box { Left = left, Top = top, Right = right, Bottom = bottom });
-            //Debug.WriteLine(string.Format("name:{0}, boxcount:{1}, {2}, {3}, {4}, {5}", Name, boxes.Count, left, top, right, bottom));
+            _boxes.Add(new Box { Left = left, Top = top, Right = right, Bottom = bottom });
         }
 
         public void ClearBoxes()
         {
-            boxes.Clear();
+            _boxes.Clear();
         }
-
-        private class Box
-        {
-            public double Left { get; set; }
-            public double Top { get; set; }
-            public double Right { get; set; }
-            public double Bottom { get; set; }
-        }
-        #endregion
 
         public void AddAnnotation(double x, double y, string text, Color backColor)
         {
@@ -1641,10 +1565,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    ClearAnnotation();
-                });
+                Invoke(ClearAnnotation);
             }
             else
             {
@@ -1671,12 +1592,16 @@ namespace com.outlook_styner07.cs.control.Charting
 
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate { XAxis.StripLines.Add(line); });
+                Invoke(() =>
+                {
+                    XAxis.StripLines.Add(line);
+                });
             }
             else
             {
                 XAxis.StripLines.Add(line);
             }
+
             return line;
         }
 
@@ -1699,12 +1624,16 @@ namespace com.outlook_styner07.cs.control.Charting
 
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate { XAxis.StripLines.Add(line); });
+                Invoke(() =>
+                {
+                    XAxis.StripLines.Add(line);
+                });
             }
             else
             {
                 XAxis.StripLines.Add(line);
             }
+
             return line;
         }
 
@@ -1725,12 +1654,16 @@ namespace com.outlook_styner07.cs.control.Charting
 
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate { XAxis.StripLines.Add(line); });
+                Invoke(() =>
+                {
+                    XAxis.StripLines.Add(line);
+                });
             }
             else
             {
                 XAxis.StripLines.Add(line);
             }
+
             return line;
         }
 
@@ -1738,10 +1671,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    ClearStripLine();
-                });
+                Invoke(ClearStripLine);
             }
             else
             {
@@ -1750,15 +1680,13 @@ namespace com.outlook_styner07.cs.control.Charting
             }
         }
 
-        private CalloutAnnotation annotTrendTooltip;
-
         public void InitializeXYCursor(string targetSeriesName)
         {
-            annotTrendTooltip = AddAnnotation();
-            annotTrendTooltip.ForeColor = Color.White.ToArgb() > Color.FromArgb(128, 128, 128).ToArgb() ? Color.Black : Color.White;
-            annotTrendTooltip.BackColor = Color.White;
-            annotTrendTooltip.AllowMoving = false;
-            annotTrendTooltip.AllowSelecting = false;
+            _annotTrendTooltip = AddAnnotation();
+            _annotTrendTooltip.ForeColor = Color.White.ToArgb() > Color.FromArgb(128, 128, 128).ToArgb() ? Color.Black : Color.White;
+            _annotTrendTooltip.BackColor = Color.White;
+            _annotTrendTooltip.AllowMoving = false;
+            _annotTrendTooltip.AllowSelecting = false;
 
             MouseClick += (sender, e) =>
             {
@@ -1770,45 +1698,17 @@ namespace com.outlook_styner07.cs.control.Charting
 
             XYCursorPositionChanged += (sender, e) =>
             {
-                annotTrendTooltip.AnchorX = e.X;
-                annotTrendTooltip.AnchorY = e.Y;
-                annotTrendTooltip.Text = $"({e.X:0.0###}, {e.Y:0.0###})";
+                _annotTrendTooltip.AnchorX = e.X;
+                _annotTrendTooltip.AnchorY = e.Y;
+                _annotTrendTooltip.Text = $"({e.X:0.0###}, {e.Y:0.0###})";
             };
         }
-
-        //public void SetCursorEnabled(bool enabled)
-        //{
-        //    if (InvokeRequired)
-        //    {
-        //        Invoke((MethodInvoker)delegate
-        //        {
-        //            SetCursorEnabled(enabled);
-        //        });
-        //    }
-        //    else
-        //    {
-        //        SetXAxisZoomEnabled(!enabled);
-        //        SetYAxisZoomEnabled(!enabled);
-
-        //        AreaMain.CursorX.IsUserEnabled = enabled;
-        //        AreaMain.CursorX.IsUserSelectionEnabled = false;
-        //        AreaMain.CursorX.AxisType = AxisType.Primary;
-
-        //        AreaMain.CursorX.LineWidth = 2;
-
-        //        AreaMain.CursorY.IsUserEnabled = false;
-        //        AreaMain.CursorY.IsUserSelectionEnabled = false;
-        //    }
-        //}
 
         private void SetXAxisZoomEnabled(bool enabled, AxisType type = AxisType.Primary)
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetXAxisZoomEnabled(enabled);
-                });
+                Invoke(() => SetXAxisZoomEnabled(enabled));
             }
             else
             {
@@ -1823,10 +1723,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetYAxisZoomEnabled(enabled);
-                });
+                Invoke(() => SetYAxisZoomEnabled(enabled));
             }
             else
             {
@@ -1844,27 +1741,16 @@ namespace com.outlook_styner07.cs.control.Charting
 
         public void SetZoomEnabled(bool enabled, AxisType type = AxisType.Primary)
         {
-            //AreaMain.CursorX.IsUserEnabled = !enabled;
-            //AreaMain.CursorX.IsUserSelectionEnabled = false;
-            //AreaMain.CursorX.AxisType = type;
-
-            //AreaMain.CursorX.LineWidth = 2;
-
-            //AreaMain.CursorY.IsUserEnabled = false;
-            //AreaMain.CursorY.IsUserSelectionEnabled = false;
-
             SetXAxisZoomEnabled(enabled, type);
             SetYAxisZoomEnabled(enabled, type);
 
-            /// 줌 스케일 제한
-            //AreaMain.CursorX.Interval = 2;
             IsZoomEnabled = enabled;
         }
 
         public void SetZoomEnabled(bool enabled, bool zoomAllXAxis, bool zoomAllYAxis)
         {
-            this.zoomAllXAxis = zoomAllXAxis;
-            this.zoomAllYAxis = zoomAllYAxis;
+            _zoomAllXAxis = zoomAllXAxis;
+            _zoomAllYAxis = zoomAllYAxis;
 
             XAxis.ScaleView.Zoomable = enabled;
 
@@ -1893,11 +1779,11 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate { UndoZoom(); });
+                Invoke(UndoZoom);
             }
             else
             {
-                if (zoomAllXAxis)
+                if (_zoomAllXAxis)
                 {
                     XAxis.ScaleView.ZoomReset();
                     XAxis2.ScaleView.ZoomReset();
@@ -1915,7 +1801,7 @@ namespace com.outlook_styner07.cs.control.Charting
                     }
                 }
 
-                if (zoomAllYAxis)
+                if (_zoomAllYAxis)
                 {
                     YAxis.ScaleView.ZoomReset();
                     YAxis2.ScaleView.ZoomReset();
@@ -1939,11 +1825,11 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate { ResetZoom(); });
+                Invoke(ResetZoom);
             }
             else
             {
-                if (zoomAllXAxis)
+                if (_zoomAllXAxis)
                 {
                     XAxis.ScaleView.ZoomReset(0);
                     XAxis2.ScaleView.ZoomReset(0);
@@ -1961,7 +1847,7 @@ namespace com.outlook_styner07.cs.control.Charting
                     }
                 }
 
-                if (zoomAllYAxis)
+                if (_zoomAllYAxis)
                 {
                     YAxis.ScaleView.ZoomReset(0);
                     YAxis2.ScaleView.ZoomReset(0);
@@ -2003,7 +1889,7 @@ namespace com.outlook_styner07.cs.control.Charting
 
         public Series GetCursorTarget()
         {
-            return cursorTargetSeries;
+            return _cursorTargetSeries;
         }
 
         private void SetCursorTarget()
@@ -2055,22 +1941,22 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (!IsNullSeries(seriesName))
             {
-                cursorTargetSeries = Series[seriesName];
+                _cursorTargetSeries = Series[seriesName];
 
-                int count = cursorTargetSeries.Points.Count;
-                cursorTargetSeriesXValues = new double[count];
+                int count = _cursorTargetSeries.Points.Count;
+                _cursorTargetSeriesXValues = new double[count];
 
                 for (int i = 0; i < count; i++)
                 {
-                    cursorTargetSeriesXValues[i] = cursorTargetSeries.Points[i].XValue;
+                    _cursorTargetSeriesXValues[i] = _cursorTargetSeries.Points[i].XValue;
                 }
 
                 SetCursorPositionByValue(AreaMain.CursorX.Position);
             }
             else
             {
-                cursorTargetSeries = null;
-                cursorTargetSeriesXValues = null;
+                _cursorTargetSeries = null;
+                _cursorTargetSeriesXValues = null;
             }
         }
 
@@ -2083,10 +1969,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetXAxisRange(min, max);
-                });
+                Invoke(() => SetXAxisRange(min, max));
             }
             else
             {
@@ -2107,10 +1990,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetXAxis2Range(min, max);
-                });
+                Invoke(() => SetXAxis2Range(min, max));
             }
             else
             {
@@ -2126,10 +2006,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetYAxisLabel(label);
-                });
+                Invoke(() => SetYAxisLabel(label));
             }
             else
             {
@@ -2141,10 +2018,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetYAxisRange(min, max);
-                });
+                Invoke(() => SetYAxisRange(min, max));
             }
             else
             {
@@ -2165,10 +2039,7 @@ namespace com.outlook_styner07.cs.control.Charting
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate
-                {
-                    SetYAxis2Range(min, max);
-                });
+                Invoke(() => SetYAxis2Range(min, max));
             }
             else
             {
@@ -2229,6 +2100,7 @@ namespace com.outlook_styner07.cs.control.Charting
                     {
                         series.Points[x].IsEmpty = true;
                     }
+
                     prevValue = currentValue;
                     prevInterval = interval;
                 }
@@ -2251,21 +2123,23 @@ namespace com.outlook_styner07.cs.control.Charting
             Clipboard.SetDataObject(bmp);
         }
 
-        public List<DataPoint> GetPeakPoints(int seriesIndex, double slope)
+        public List<DataPoint>? GetPeakPoints(int seriesIndex, double slope)
         {
             if (Series.Count > seriesIndex)
             {
                 return GetPeakPoints(Series[seriesIndex], slope);
             }
+
             return null;
         }
 
-        public List<DataPoint> GetPeakPoints(string seriesName, double slope)
+        public List<DataPoint>? GetPeakPoints(string seriesName, double slope)
         {
             if (Series.FindByName(seriesName) != null)
             {
                 return GetPeakPoints(Series[seriesName], slope);
             }
+
             return null;
         }
 
@@ -2278,8 +2152,7 @@ namespace com.outlook_styner07.cs.control.Charting
 
             for (int plen = series.Points.Count - 1, p = 0; p < plen; p++)
             {
-                double y = Math.Atan2(series.Points[p + 1].XValue / series.Points[p].XValue,
-                    series.Points[p + 1].YValues[0] / series.Points[p].YValues[0]);
+                double y = Math.Atan2(series.Points[p + 1].XValue / series.Points[p].XValue, series.Points[p + 1].YValues[0] / series.Points[p].YValues[0]);
 
                 diffs.Add(new DiffPoint
                 {
@@ -2342,9 +2215,11 @@ namespace com.outlook_styner07.cs.control.Charting
                             {
                                 continue;
                             }
+
                             tempLine[columnIndex] = $"{chart.Series[i].Name}";
                             columnIndex++;
                         }
+
                         finished = false;
                     }
                     else
@@ -2357,6 +2232,7 @@ namespace com.outlook_styner07.cs.control.Charting
                             {
                                 continue;
                             }
+
                             if (chart.Series[i].Points.Count > rowIndex)
                             {
                                 if (tempLine[0] == "")
@@ -2371,6 +2247,7 @@ namespace com.outlook_styner07.cs.control.Charting
                             {
                                 tempLine[columnIndex] = "";
                             }
+
                             columnIndex++;
                         }
                     }
@@ -2422,15 +2299,61 @@ namespace com.outlook_styner07.cs.control.Charting
                     return index;
                 }
             }
+
             return -1;
         }
 
         private void InitializeComponent()
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            this.SuspendLayout();
+            SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
-            this.ResumeLayout(false);
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        public class XYCursorEventArgs : EventArgs
+        {
+            public int XValueIndex { get; set; }
+            public double X { get; set; }
+            public double Y { get; set; }
+        }
+
+        public class BackgroundColorChangeEventArgs : EventArgs
+        {
+            public Color Color { get; set; }
+        }
+
+        private class Box
+        {
+            public double Left { get; set; }
+            public double Top { get; set; }
+            public double Right { get; set; }
+            public double Bottom { get; set; }
+        }
+        #endregion
+        public class VerticalTextAnnotation
+        {
+            public DataPoint Position { get; }
+            
+            public string Text { get; }
+
+            public Color TextColor { get; }
+
+            public VerticalTextAnnotation(DataPoint position, string text)
+            {
+                Position = position;
+                Text = text;
+                TextColor = Color.White;
+            }
+
+            public VerticalTextAnnotation(DataPoint position, string text, Color textColor)
+            {
+                Position = position;
+                Text = text;
+                TextColor = textColor;
+            }
         }
 
         internal class DiffPoint
@@ -2448,25 +2371,26 @@ namespace com.outlook_styner07.cs.control.Charting
         public class ValueComparer : Comparer<DataPoint>
         {
             public enum SortBase { X, Y }
-            private readonly SortOrder order;
-            private readonly SortBase sortBase;
+            private readonly SortOrder _order;
+            private readonly SortBase _sortBase;
 
             public ValueComparer(SortOrder order, SortBase sortBase) : base()
             {
-                this.order = order;
-                this.sortBase = sortBase;
+                _order = order;
+                _sortBase = sortBase;
             }
 
             public override int Compare(DataPoint dp1, DataPoint dp2)
             {
-                double v1 = sortBase == SortBase.X ? dp1.XValue : dp1.YValues[0];
-                double v2 = sortBase == SortBase.X ? dp2.XValue : dp2.YValues[0];
+                double v1 = _sortBase == SortBase.X ? dp1.XValue : dp1.YValues[0];
+                double v2 = _sortBase == SortBase.X ? dp2.XValue : dp2.YValues[0];
 
                 int result = v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
-                if (order == SortOrder.Descending)
+                if (_order == SortOrder.Descending)
                 {
                     result *= -1;
                 }
+                
                 return result;
             }
         }

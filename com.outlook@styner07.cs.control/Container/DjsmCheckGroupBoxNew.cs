@@ -21,18 +21,39 @@ namespace com.outlook_styner07.cs.control.Container
         #region Fields
         private const int PADDING = 5;
         private RectangleF _titleArea;
+        private bool _checked = false;
         private string _title = string.Empty;
+
+        public event Action<bool> CheckedChanged;
         #endregion
 
         #region Properties
-        public bool Checked { get; set; } = false;
+        public bool Checked
+        {
+            get
+            {
+                return _checked;
+            }
+            set
+            {
+                if (_checked != value)
+                {
+                    _checked = value;
+                    Invalidate();
+                }
+            }
+        }
+
         public string Title
         {
             get { return _title; }
             set
             {
-                _title = value;
-                Invalidate();
+                if (_title != value)
+                {
+                    _title = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -62,9 +83,12 @@ namespace com.outlook_styner07.cs.control.Container
 
             _titleArea = new RectangleF(PADDING, -3, textSize.Width + PADDING + checkBoxSize.Width, textSize.Height + 3);
 
-            g.FillRectangle(new SolidBrush(BackColor), _titleArea);
-            g.DrawString(_title, Font, new SolidBrush(ForeColor), textLocation);
-
+            using (SolidBrush backBrush = new SolidBrush(BackColor), foreBrush = new SolidBrush(ForeColor))
+            {
+                g.FillRectangle(backBrush, _titleArea);
+                g.DrawString(_title, Font, foreBrush, textLocation);
+            }
+            
             CheckBoxRenderer.DrawCheckBox(g, new Point(PADDING + 3, 0), Checked ? System.Windows.Forms.VisualStyles.CheckBoxState.CheckedNormal : System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
         }
 
@@ -75,6 +99,7 @@ namespace com.outlook_styner07.cs.control.Container
             if (_titleArea.Contains(e.Location))
             {
                 Checked = !Checked;
+                CheckedChanged?.Invoke(Checked);
                 Invalidate();
             }
         }

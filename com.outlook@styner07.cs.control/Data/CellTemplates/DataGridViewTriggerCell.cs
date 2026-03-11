@@ -1,23 +1,36 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
+﻿using System.Drawing.Drawing2D;
 
 namespace com.outlook_styner07.cs.control.Data.CellTemplates
 {
     public class DataGridViewTriggerCell : DataGridViewTextBoxCell
     {
-        public enum Trigger { RUN, STOP, NA }
-        private Color indicatorColor = DjsmColorTable.IndicatorDisabled;
-
+        #region Constructors
         public DataGridViewTriggerCell()
         {
             SetStatus(Trigger.NA);
         }
+        #endregion
 
+        #region Types
+        public enum Trigger
+        {
+            RUN,
+            STOP,
+            NA
+        }
+        #endregion
+
+        #region Fields
+        private Color _indicatorColor = DjsmColorTable.IndicatorDisabled;
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Methods
         public void SetStatus(Trigger status)
         {
-            indicatorColor = status == Trigger.RUN ? DjsmColorTable.IndicatorGreen : status == Trigger.STOP ? DjsmColorTable.IndicatorRed : DjsmColorTable.IndicatorDisabled;
+            _indicatorColor = status == Trigger.RUN ? DjsmColorTable.IndicatorGreen : status == Trigger.STOP ? DjsmColorTable.IndicatorRed : DjsmColorTable.IndicatorDisabled;
 
             if (DataGridView != null)
             {
@@ -45,18 +58,22 @@ namespace com.outlook_styner07.cs.control.Data.CellTemplates
                         cellBounds.Y + ((cellBounds.Height - diameter) / 2),
                         diameter, diameter);
 
-                LinearGradientBrush brush = new LinearGradientBrush(
+                using LinearGradientBrush brush = new LinearGradientBrush(
                     rect,
-                    Color.FromArgb(64, indicatorColor),
-                    indicatorColor,
+                    Color.FromArgb(64, _indicatorColor),
+                    _indicatorColor,
                     LinearGradientMode.ForwardDiagonal)
                 { GammaCorrection = true };
 
-                //g.FillEllipse(new SolidBrush(indicatorColor), rect);
                 g.FillEllipse(brush, rect);
-                g.DrawEllipse(new Pen(Brushes.DimGray), rect);
+                using (var p = new Pen(Brushes.DimGray))
+                {
+                    g.DrawEllipse(p, rect);
+                }
             }
+
             graphics.ReleaseHdc(hdc);
         }
+        #endregion
     }
 }

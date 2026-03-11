@@ -56,8 +56,11 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _font; }
             set
             {
-                _font = value;
-                Invalidate();
+                if (_font != value)
+                {
+                    _font = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -70,8 +73,11 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _text; }
             set
             {
-                _text = value;
-                Invalidate();
+                if (_text != value)
+                {
+                    _text = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -83,8 +89,11 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _fontColor; }
             set
             {
-                _fontColor = value;
-                Invalidate();
+                if (_fontColor != value)
+                {
+                    _fontColor = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -93,8 +102,11 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _align; }
             set
             {
-                _align = value;
-                Invalidate();
+                if (_align != value)
+                {
+                    _align = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -104,8 +116,11 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _titleBarBackColor; }
             set
             {
-                _titleBarBackColor = value;
-                Invalidate();
+                if (_titleBarBackColor != value)
+                {
+                    _titleBarBackColor = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -115,8 +130,11 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _titleBarForeColor; }
             set
             {
-                _titleBarForeColor = value;
-                Invalidate();
+                if (_titleBarForeColor != value)
+                {
+                    _titleBarForeColor = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -126,8 +144,11 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _drawBorder; }
             set
             {
-                _drawBorder = value;
-                Invalidate();
+                if (_drawBorder != value)
+                {
+                    _drawBorder = value;
+                    Invalidate();
+                }
             }
         }
 
@@ -137,8 +158,11 @@ namespace com.outlook_styner07.cs.control.Container
             get { return _borderColor; }
             set
             {
-                _borderColor = value;
-                Invalidate();
+                if (_borderColor != value)
+                {
+                    _borderColor = value;
+                    Invalidate();
+                }
             }
         }
         #endregion
@@ -155,8 +179,6 @@ namespace com.outlook_styner07.cs.control.Container
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-
-            using SolidBrush backBrush = new SolidBrush(_titleBarBackColor);
 
             SizeF textSize = e.Graphics.MeasureString(Text, Font);
             PointF textLocation = new PointF(0, 0);
@@ -208,12 +230,18 @@ namespace com.outlook_styner07.cs.control.Container
 
             RectangleF rectTitle = new RectangleF(ClientRectangle.X, textLocation.Y - 3, ClientRectangle.Width, textSize.Height + 3);
 
-            e.Graphics.FillRectangle(backBrush, rectTitle);
-            e.Graphics.DrawString(Text, Font, new SolidBrush(_titleBarForeColor), textLocation);
+            using (SolidBrush backBrush = new SolidBrush(_titleBarBackColor), foreBrush = new SolidBrush(_titleBarForeColor))
+            {
+                e.Graphics.FillRectangle(backBrush, rectTitle);
+                e.Graphics.DrawString(Text, Font, foreBrush, textLocation);
+            }
 
             if (_drawBorder)
             {
-                e.Graphics.DrawRectangle(new Pen(_borderColor), new Rectangle(new Point(ClientRectangle.X, ClientRectangle.Y), new Size(ClientRectangle.Width - 1, ClientRectangle.Height - 1)));
+                using (var p = new Pen(_borderColor))
+                {
+                    e.Graphics.DrawRectangle(p, new Rectangle(new Point(ClientRectangle.X, ClientRectangle.Y), new Size(ClientRectangle.Width - 1, ClientRectangle.Height - 1)));
+                }
             }
         }
         #endregion

@@ -4,76 +4,124 @@ namespace com.outlook_styner07.cs.control
 {
     public class DjsmTextBox : UserControl
     {
-        private TextBox txtbox;
-
-        [Browsable(true)]
-        public override string Text { get { return txtbox.Text; } set { txtbox.Text = value; } }
-
-        [Browsable(true)]
-        public HorizontalAlignment TextAlign { get { return txtbox.TextAlign; } set { txtbox.TextAlign = value; } }
-
-        [Browsable(true)]
-        public char PasswordChar { get { return txtbox.PasswordChar; } set { txtbox.PasswordChar = value; } }
-
-        [Browsable(true)]
-        public bool UseSystemPasswordChar { get { return txtbox.UseSystemPasswordChar; } set { txtbox.UseSystemPasswordChar = value; } }
-
-        [Browsable(true)]
-        public int MaxLength { get { return txtbox.MaxLength; } set { txtbox.MaxLength = value; } }
-
-        [Browsable(true)]
-        public bool ReadOnly { get { return txtbox.ReadOnly; } set { txtbox.ReadOnly = value; } }
-
-        //[Browsable(true)]
-        //public string Description { get { return _description; } set { _description = value; Invalidate(); } }
-        //private string _description = string.Empty;
-
-        public int TextLength { get { return txtbox.TextLength; } }
-
-        public new EventHandler<KeyEventArgs> KeyUp;
-        public new EventHandler<KeyEventArgs> KeyDown;
-        public new EventHandler<KeyPressEventArgs> KeyPress;
-
+        #region Constructors
         public DjsmTextBox()
         {
-            Controls.Add(txtbox = new TextBox { AutoSize = true, BorderStyle = BorderStyle.None, Dock = DockStyle.Fill });
+            Controls.Add(_txtBox = new TextBox { AutoSize = true, BorderStyle = BorderStyle.None, Dock = DockStyle.Fill });
             Padding = new Padding(3);
             BackColor = Color.White;
             ForeColor = DjsmColorTable.SecondaryDark;
             Text = string.Empty;
 
-            txtbox.GotFocus += delegate { Invalidate(); };
-            txtbox.LostFocus += delegate { Invalidate(); };
+            _txtBox.GotFocus += delegate { Invalidate(); };
+            _txtBox.LostFocus += delegate { Invalidate(); };
 
-            txtbox.KeyUp += (obj, e) => { KeyUp?.Invoke(obj, e); };
-            txtbox.KeyDown += (obj, e) => { KeyDown?.Invoke(obj, e); };
-            txtbox.KeyPress += (obj, e) => { KeyPress?.Invoke(obj, e); };
+            _txtBox.KeyUp += (obj, e) => { KeyUp?.Invoke(obj, e); };
+            _txtBox.KeyDown += (obj, e) => { KeyDown?.Invoke(obj, e); };
+            _txtBox.KeyPress += (obj, e) => { KeyPress?.Invoke(obj, e); };
+        }
+        #endregion
+
+        #region Types
+        #endregion
+
+        #region Fields
+        private TextBox _txtBox;
+
+        public new EventHandler<KeyEventArgs> KeyUp;
+        public new EventHandler<KeyEventArgs> KeyDown;
+        public new EventHandler<KeyPressEventArgs> KeyPress;
+        #endregion
+
+        #region Properties
+        [Browsable(true)]
+        public override string Text
+        {
+            get { return _txtBox.Text; }
+            set
+            {
+                _txtBox.Text = value;
+            }
         }
 
+        [Browsable(true)]
+        public HorizontalAlignment TextAlign
+        {
+            get { return _txtBox.TextAlign; }
+            set
+            {
+                _txtBox.TextAlign = value;
+            }
+        }
+
+        [Browsable(true)]
+        public char PasswordChar
+        {
+            get { return _txtBox.PasswordChar; }
+            set
+            {
+                _txtBox.PasswordChar = value;
+            }
+        }
+
+        [Browsable(true)]
+        public bool UseSystemPasswordChar
+        {
+            get { return _txtBox.UseSystemPasswordChar; }
+            set
+            {
+                _txtBox.UseSystemPasswordChar = value;
+            }
+        }
+
+        [Browsable(true)]
+        public int MaxLength
+        {
+            get { return _txtBox.MaxLength; }
+            set
+            {
+                _txtBox.MaxLength = value;
+            }
+        }
+
+        [Browsable(true)]
+        public bool ReadOnly
+        {
+            get { return _txtBox.ReadOnly; }
+            set
+            {
+                _txtBox.ReadOnly = value;
+            }
+        }
+
+        public int TextLength { get { return _txtBox.TextLength; } }
+        #endregion
+
+        #region Methods
         protected override void OnBackColorChanged(EventArgs e)
         {
             base.OnBackColorChanged(e);
 
-            txtbox.BackColor = BackColor;
+            _txtBox.BackColor = BackColor;
         }
 
         protected override void OnForeColorChanged(EventArgs e)
         {
             base.OnForeColorChanged(e);
 
-            txtbox.ForeColor = ForeColor;
+            _txtBox.ForeColor = ForeColor;
         }
 
         protected override void InitLayout()
         {
             base.InitLayout();
-            Size = new Size(Size.Width, txtbox.Height + 1 + Padding.Top + Padding.Bottom);
+            Size = new Size(Size.Width, _txtBox.Height + 1 + Padding.Top + Padding.Bottom);
         }
 
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            Size = new Size(Size.Width, txtbox.Height + 1 + Padding.Top + Padding.Bottom);
+            Size = new Size(Size.Width, _txtBox.Height + 1 + Padding.Top + Padding.Bottom);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -82,7 +130,7 @@ namespace com.outlook_styner07.cs.control
 
             using (Graphics g = e.Graphics)
             {
-                Color borderColor = !txtbox.ReadOnly && txtbox.Focused ? DjsmColorTable.Primary : DjsmColorTable.Secondary;
+                Color borderColor = !_txtBox.ReadOnly && _txtBox.Focused ? DjsmColorTable.Primary : DjsmColorTable.Secondary;
                 ControlPaint.DrawBorder(g, this.ClientRectangle,
                 borderColor, 0, ButtonBorderStyle.None,
                 borderColor, 0, ButtonBorderStyle.None,
@@ -108,7 +156,7 @@ namespace com.outlook_styner07.cs.control
             this.SuspendLayout();
             this.Size = new System.Drawing.Size(390, 150);
             this.ResumeLayout(false);
-
         }
+        #endregion
     }
 }
